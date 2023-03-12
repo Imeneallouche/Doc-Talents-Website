@@ -6,6 +6,7 @@ const bcrypt = require("../../DB/db_config");
 const register = async (req, res) => {
   console.log(req.body);
   const { name, email, password, passwordConfirm } = req.body;
+
   db.query(
     "SELECT email from users WHERE email = ?",
     [email],

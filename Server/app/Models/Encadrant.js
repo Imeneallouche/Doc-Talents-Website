@@ -1,33 +1,38 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+const sequelize = require("../../DB/db_config");
 
 const Encadrant = sequelize.define(
-  "encadrant",
+  "Encadrant",
   {
     Id_Encadreur: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      allowNull: false,
+      //autoIncrement: true,
     },
+
     nom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     prenom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Grade_de_l_encadreur_a_l_inscription_doctorant: {
+
+    Grade_encadreur: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+
     Etablissement: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   {
-    tableName: "encadrant",
+    tableName: "Encadrant",
     timestamps: false,
   }
 );

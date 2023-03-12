@@ -1,26 +1,30 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+const sequelize = require("../../DB/db_config");
 
+//module.exports = (sequelize) => {
 const Inscription = sequelize.define(
-  "inscription",
+  "Inscription",
   {
     Id_Doctorant: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: "doctorants",
+        model: "Doctorant",
         key: "Id_Doctorant",
       },
     },
-    Id_PV_annee: {
+
+    Id_PV: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: "pvs",
-        key: "Id_PV_annee",
+        model: "PVs",
+        key: "Id_PV",
       },
     },
   },
   {
-    tableName: "inscription",
+    tableName: "Inscription",
     timestamps: false,
   }
 );

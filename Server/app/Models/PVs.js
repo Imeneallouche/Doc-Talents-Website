@@ -1,21 +1,23 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database");
 
+//module.exports = (sequelize) => {
 const PVs = sequelize.define(
-  "pvs",
+  "PVs",
   {
-    Id_PV_annee: {
+    Id_PV: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      allowNull: false,
+      //autoIncrement: true,
     },
-    Link_vers_PV: {
+    Link_PV: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
   },
   {
-    tableName: "pvs",
+    tableName: "PVs",
     timestamps: false,
   }
 );

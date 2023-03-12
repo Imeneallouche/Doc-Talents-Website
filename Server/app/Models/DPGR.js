@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database");
 
+//module.exports = (sequelize) => {
 const DPGR = sequelize.define(
   "DPGR",
   {
@@ -8,30 +9,38 @@ const DPGR = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     nom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     prenom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Date_de_naissance: {
-      type: DataTypes.DATEONLY,
+
+    "Date de naissance": {
+      type: DataTypes.DATE,
       allowNull: false,
     },
+
     telephone: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
     sexe: {
-      type: DataTypes.CHAR(1),
+      type: DataTypes.CHAR,
       allowNull: false,
     },
+
     mail: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
+
     password: {
       type: DataTypes.STRING,
       allowNull: false,
