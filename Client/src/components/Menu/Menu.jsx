@@ -16,12 +16,7 @@ const Menu = () => {
     return (
         <div className='Menu'>
 
-            <div className='Menu-logo'>
-                <img src={Logo} alt="logo-png" />
-
-            </div>
-
-
+            <img src={Logo} alt="logo-png" className='Menu-logo'/>
 
             <div className='Menu-functionalities'>
 

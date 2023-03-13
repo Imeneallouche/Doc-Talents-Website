@@ -1,0 +1,44 @@
+:root {
+  --dark-purple: #481177;
+  --purple: #6d4192;
+  --light-purple: #ae68ef;
+  --rose: #eadffb;
+  --orange: #e78f69;
+  --grey: #494974;
+  --white: #ffffff;
+}
+
+.Connexion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Connexion-form {
+  display: flex;
+  flex-direction: column;
+  color: var(--grey);
+}
+
+.Connexion-form * {
+  margin: 5px;
+}
+
+input {
+  padding: 10px;
+  width: 20rem;
+  border-radius: 5%;
+  border-color: #494974;
+}
+
+.Connexion-title,
+.Connexion-subtitle {
+  margin: 0;
+  color: var(--dark-purple);
+}
+
+.Connexion-authentifications {
+  display: flex;
+  justify-content: space-between;
+}

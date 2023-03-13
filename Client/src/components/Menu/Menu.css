@@ -8,10 +8,19 @@
   --white: #ffffff;
 }
 
+html {
+  user-select: none;
+  box-sizing: border-box;
+  font-size: calc(11px + 0.3vw);
+  scroll-behavior: smooth;
+  color: #ffffff;
+}
+
 .Menu {
   background-color: var(--purple);
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-around;
   height: 100vh;
   width: max-content;
@@ -19,6 +28,9 @@
   color: var(--white);
 }
 
+.Menu-logo {
+  width: 60%;
+}
 .Menu-functionalities {
   display: flex;
   flex-direction: column;
@@ -41,13 +53,15 @@
 
 .Menu-functionality {
   width: 100%;
+  display: flex;
+}
+
+.Menu-functionality * {
+  margin: 10px;
 }
 
 .Menu-logout {
   background-color: var(--dark-purple);
-}
-.Menu-functionality * {
-  margin: 10px;
 }
 
 button:hover {

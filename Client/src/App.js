@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 
-import Menu from "./components/Menu/Menu";
+import Connexion from "./components/Connexion/Connexion";
 
 function App() {
   /*
@@ -43,7 +43,7 @@ function App() {
   );
   */
 
-  return <Menu />;
+  return <Connexion />;
 }
 
 export default App;
