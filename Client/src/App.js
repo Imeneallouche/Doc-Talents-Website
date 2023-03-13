@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./App.css";
 
 import Connexion from "./components/Connexion/Connexion";
+import HomePage from "./pages/Home";
 
-function App() {
+export default function App() {
   /*
   const [UsernameReg, setUsernameReg] = useState("");
   const [PaswwordReg, setPasswordReg] = useState("");
@@ -43,7 +44,14 @@ function App() {
   );
   */
 
-  return <Connexion />;
+  return(
+        <div className="app">
+          <Connexion/>
+          <HomePage></HomePage>
+        </div>
+          
+  )
+  ;
 }
 
-export default App;
+
