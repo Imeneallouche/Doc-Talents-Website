@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
 
+import Menu from "./components/Menu/Menu";
+
 function App() {
+  /*
   const [UsernameReg, setUsernameReg] = useState("");
   const [PaswwordReg, setPasswordReg] = useState("");
 
@@ -38,6 +41,9 @@ function App() {
       </div>
     </div>
   );
+  */
+
+  return <Menu />;
 }
 
 export default App;

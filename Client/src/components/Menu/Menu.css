@@ -1,0 +1,56 @@
+:root {
+  --dark-purple: #481177;
+  --purple: #6d4192;
+  --light-purple: #ae68ef;
+  --rose: #eadffb;
+  --orange: #e78f69;
+  --grey: #494974;
+  --white: #ffffff;
+}
+
+.Menu {
+  background-color: var(--purple);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100vh;
+  width: max-content;
+  padding: 10px;
+  color: var(--white);
+}
+
+.Menu-functionalities {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Menu-functionality,
+.Menu-logout {
+  display: flex; /*flex direction : row by default*/
+  align-items: center;
+  justify-content: flex-start;
+  background-color: transparent;
+  border-radius: 10%;
+  border-color: transparent;
+  color: var(--white);
+  margin: 3px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.Menu-functionality {
+  width: 100%;
+}
+
+.Menu-logout {
+  background-color: var(--dark-purple);
+}
+.Menu-functionality * {
+  margin: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+  border-color: var(--white);
+}
