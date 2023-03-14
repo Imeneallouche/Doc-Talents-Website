@@ -107,11 +107,6 @@ const Doctorant = sequelize.define("Doctorant", {
     allowNull: false,
   },
 
-  situation: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-
   soutenu: {
     type: DataTypes.INTEGER,
     allowNull: true,

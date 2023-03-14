@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
   user-select: none;
   box-sizing: border-box;
@@ -17,16 +21,15 @@ body {
   margin: 0%;
 }
 
-.Home .logo{
-  width: 100px;
+.Home .logo {
+  width:100px;
 }
 
-.Home .headimg{
-  width: 490px;
-
+.Home .headimg {
+  width: 600px;
 }
 
-.Home .cnxbtn{
+.Home .cnxbtn {
   width: 200px;
   background-color: #481177;
 }

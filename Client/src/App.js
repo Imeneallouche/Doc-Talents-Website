@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 import Connexion from "./components/Connexion/Connexion";
+import Menu from "./components/Menu/Menu";
 import HomePage from "./pages/Home";
 
 export default function App() {
@@ -44,14 +45,9 @@ export default function App() {
   );
   */
 
-  return(
-        <div className="app">
-          <Connexion/>
-          <HomePage></HomePage>
-        </div>
-          
-  )
-  ;
+  return (
+    <div className="app">
+      <Menu />
+    </div>
+  );
 }
-
-
