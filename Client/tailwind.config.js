@@ -3,7 +3,13 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      'blue': '#2D3648',
+      "dark-purple": "#481177",
+      purple: "#6d4192",
+      "light-purple": "#ae68ef",
+      rose: "#eadffb",
+      orange: "#e78f69",
+      grey: "#494974",
+      white: "#ffffff",
     },
     extend: {},
   },
