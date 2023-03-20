@@ -3,7 +3,7 @@ const cookie = require("cookie-parser");
 const app = express();
 const db = require("./DB/db_config");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3307;
 
 app.use(cookie());
 app.use(express.json());
@@ -13,7 +13,7 @@ db.connect((err) => {
   console.log("Databse Connected");
 });
 
-app.use("/", require("./app/Routes/pagesRoutes"));
-app.use("/api", require("./app/Controllers/authorController"));
+//app.use("/", require("./app/Routes/pagesRoutes"));
+//app.use("/api", require("./app/Controllers/authorController"));
 
 app.listen(PORT);
