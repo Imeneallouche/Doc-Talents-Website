@@ -1,15 +1,36 @@
 import "./Inscription01.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Inscription01() {
   const [Nom, setNom] = useState("");
   const [Prenom, setPrenom] = useState("");
   const [Id_Doctorant, setIdDoctorant] = useState("");
   const [Id_PV, setIdPV] = useState("");
+  const [Numero_tel, setNumeroTel] = useState("");
+  const [days, setDays] = useState([]);
+  const [months, setMonths] = useState([]);
+  const [years, setYears] = useState([]);
+
+  useEffect(() => {
+    const daysInMonth = new Date(years[0], months[0], 0).getDate();
+    const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+    setDays(daysArray);
+  }, [months, years]);
+
+  useEffect(() => {
+    const monthsArray = Array.from({ length: 12 }, (_, i) => i + 1);
+    setMonths(monthsArray);
+  }, []);
+
+  useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    const yearsArray = Array.from({ length: 120 }, (_, i) => currentYear - i);
+    setYears(yearsArray);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
+    //console.log(`Email: ${email}, Password: ${password}`);
   };
 
   return (
@@ -62,8 +83,51 @@ function Inscription01() {
         />
       </div>
 
-      <div></div>
-      <div></div>
+      <div>
+        <label htmlFor="day">Day:</label>
+        <select id="day">
+          {days.map((day) => (
+            <option key={day} value={day}>
+              {day}
+            </option>
+          ))}
+        </select>
+        <br />
+
+        <label htmlFor="month">Month:</label>
+        <select id="month">
+          {months.map((month) => (
+            <option key={month} value={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+        <br />
+
+        <label htmlFor="year">Year:</label>
+        <select id="year">
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="Id_Doctorant">ID Doctorant:</label>
+
+        <label htmlFor="Numero_telephone">Numero du telephone</label>
+        <input
+          type="text"
+          id="Numero_telephone"
+          name="Numero_telephone"
+          placeholder="0699240858"
+          value={Numero_tel}
+          onChange={(event) => setNumeroTel(event.target.value)}
+          required
+        />
+      </div>
 
       <button type="submit" className="submit-form suivant">
         Suivant
@@ -72,4 +136,4 @@ function Inscription01() {
   );
 }
 
-export default LoginForm;
+export default Inscription01;

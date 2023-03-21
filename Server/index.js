@@ -1,14 +1,14 @@
 const express = require("express");
 const cookie = require("cookie-parser");
 const app = express();
-const db = require("./DB/db_config");
+const connection = require("./DB/db_config");
 
-const PORT = process.env.PORT || 3307;
+const PORT = process.env.PORT || 3306;
 
 app.use(cookie());
 app.use(express.json());
 
-db.connect((err) => {
+connection.connect((err) => {
   if (err) throw err;
   console.log("Databse Connected");
 });

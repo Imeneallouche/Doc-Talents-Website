@@ -14,48 +14,76 @@ import logout from "../../assets/logout.svg";
 
 const Menu = () => {
   return (
-    <div className="Menu">
+    <div className="Menu flex flex-col items-center justify-between h-screen">
       <img src={Logo} alt="logo-png" className="Menu-logo" />
 
       <div className="Menu-functionalities">
         <button className="Menu-functionality Menu-functionalities-Accueil">
-          <img src={Accueil} alt="Acueil-icon" />
+          <img
+            src={Accueil}
+            alt="Acueil-icon"
+            className="Menu-functionality-icon"
+          />
           <span>Acueil</span>
         </button>
 
         <button className="Menu-functionality Menu-functionalities-Doctorant">
-          <img src={Doctorant} alt="Doctorant-icon" />
+          <img
+            src={Doctorant}
+            alt="Doctorant-icon"
+            className="Menu-functionality-icon"
+          />
           <span>Doctorant</span>
         </button>
 
         <button className="Menu-functionality Menu-functionalities-MiseaJour">
-          <img src={MiseaJour} alt="MiseaJour-icon" />
+          <img
+            src={MiseaJour}
+            alt="MiseaJour-icon"
+            className="Menu-functionality-icon"
+          />
           <span>Mise à jour</span>
         </button>
 
         <button className="Menu-functionality Menu-functionalities-Statistiques">
-          <img src={Statistics} alt="statistics-icon" />
+          <img
+            src={Statistics}
+            alt="statistics-icon"
+            className="Menu-functionality-icon"
+          />
           <span>Statistiques</span>
         </button>
 
         <button className="Menu-functionality Menu-functionalities-Inscription">
-          <img src={Inscription} alt="inscription-icon" />
+          <img
+            src={Inscription}
+            alt="inscription-icon"
+            className="Menu-functionality-icon"
+          />
           <span>Inscription</span>
         </button>
 
         <button className="Menu-functionality Menu-functionalities-PVs">
-          <img src={PV} alt="PV-icon" />
+          <img src={PV} alt="PV-icon" className="Menu-functionality-icon" />
           <span>PVs</span>
         </button>
 
         <button className="Menu-functionality Menu-functionalities-Utilisateurs">
-          <img src={Utilisateurs} alt="Utilisateurs-icon" />
+          <img
+            src={Utilisateurs}
+            alt="Utilisateurs-icon"
+            className="Menu-functionality-icon"
+          />
           <span>Utilisateurs</span>
         </button>
       </div>
 
       <button className="Menu-logout">
-        <img src={logout} alt="logout-icon" />
+        <img
+          src={logout}
+          alt="logout-icon"
+          className="Menu-functionality-icon"
+        />
         <span>Déconnecter</span>
       </button>
     </div>

@@ -1,5 +1,5 @@
 const db = require("../../DB/db_config");
-const bcrypt = require("../../DB/db_config");
+const bcrypt = require("bcryptjs");
 
 //exports.register = (req, res) => {
 

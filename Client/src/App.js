@@ -4,6 +4,7 @@ import "./App.css";
 import Connexion from "./components/Connexion/Connexion";
 import Menu from "./components/Menu/Menu";
 import HomePage from "./pages/Home";
+import Inscription01 from "./components/Inscription01/Inscription01";
 
 export default function App() {
   /*

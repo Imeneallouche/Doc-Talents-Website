@@ -5,7 +5,7 @@
 html {
   user-select: none;
   box-sizing: border-box;
-  font-size: calc(11px + 0.3vw);
+  font-size: calc(10px + 0.33vw);
   scroll-behavior: smooth;
   color: #ffffff;
 }
@@ -22,7 +22,7 @@ body {
 }
 
 .Home .logo {
-  width:100px;
+  width: 100px;
 }
 
 .Home .headimg {
