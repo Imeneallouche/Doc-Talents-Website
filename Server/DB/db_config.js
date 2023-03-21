@@ -9,7 +9,7 @@ const Connect = async () => {
     user: "sql12607428",
     password: "KhpIlGsAwV",
     database: "sql12607428",
-    port: "3306",
+    port: 3306,
   });
 
   try {
