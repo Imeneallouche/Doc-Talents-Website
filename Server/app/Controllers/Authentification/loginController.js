@@ -1,4 +1,4 @@
-const db = require("../../DB/db_config");
+const db = require("../../../DB/db_config");
 const bcrypt = require("bcryptjs");
 
 //export async function login(req, res) {

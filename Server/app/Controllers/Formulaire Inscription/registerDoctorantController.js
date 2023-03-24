@@ -1,4 +1,4 @@
-const dbconnected = require('../../DB/db_config')
+const dbconnected = require('../../../DB/db_config')
 
 
     //Champs inserted successfully
