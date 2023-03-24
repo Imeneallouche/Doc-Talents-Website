@@ -1,23 +1,27 @@
 const express = require("express");
-const mysql = require("mysql2/promise");
-require("dotenv").config();
+const mysql = require("mysql2");
+const env = require("dotenv").config();
 const cookie = require("cookie-parser");
 
-const Connect = async () => {
-  const connection = await mysql.createConnection({
-    host: "sql12.freesqldatabase.com",
-    user: "sql12607428",
-    password: "KhpIlGsAwV",
-    database: "sql12607428",
-    port: 3306,
-  });
+const connection = mysql.createConnection({
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  port: process.env.DATABASE_PORT,
+});
 
-  try {
-    await connection.connect();
-    console.log("Connected successfully");
-  } catch (error) {
-    console.log(error);
-  }
-};
+/*
+  host: "sql12.freesqldatabase.com",
+  user: "sql12607428",
+  password: "KhpIlGsAwV",
+  database: "sql12607428",
+  port: 3306,
+  */
 
-Connect();
+connection.connect((error) => {
+  if (error) throw error;
+  console.log("Database connected successfully");
+});
+
+module.exports = connection;
