@@ -5,6 +5,7 @@ import Connexion from "./components/Connexion/Connexion";
 import Menu from "./components/Menu/Menu";
 import HomePage from "./pages/Home";
 import Inscription01 from "./components/Inscription01/Inscription01";
+import DoctorantSearch from "./components/DoctorantSearch/DoctorantSearch";
 
 export default function App() {
   /*
@@ -48,7 +49,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Menu />
+      <DoctorantSearch />
     </div>
   );
 }

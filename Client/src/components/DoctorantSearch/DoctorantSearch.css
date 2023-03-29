@@ -1,0 +1,18 @@
+.SearchBar-Filters-Doctorant {
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.Filter-Doctorant {
+  margin: 10px;
+  flex: 1;
+}
+
+.Filter-Doctorant.Search {
+  flex: 2;
+}
+
+select{
+    color: black;
+}
