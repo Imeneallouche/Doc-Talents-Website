@@ -1,138 +1,97 @@
-import { Sequelize } from "sequelize";
-import db from "../../DB/db_config";
-
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../DB/db_config");
+const sequelize = require("../config/db_config");
+const Encadrant = require("./Encadrant");
 
 const Doctorant = sequelize.define("Doctorant", {
   Id_Doctorant: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.STRING,
     primaryKey: true,
-    //autoIncrement: true,
   },
-
   nom: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
   prenom: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
-  Date_de_naissance: {
+  Date_naissance: {
     type: DataTypes.DATEONLY,
-    allowNull: false,
   },
-
-  Etablissement_origine_Master: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-
-  telephone: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-
   sexe: {
-    type: DataTypes.CHAR,
-    allowNull: false,
+    type: DataTypes.CHAR(1),
   },
-
-  option: {
+  mail: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
-
-  Premiere_inscription: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
+  telephone: {
+    type: DataTypes.STRING,
   },
-
-  Nombre_d_inscriptions: {
-    type: DataTypes.SMALLINT,
-    allowNull: false,
+  TypeDoctorat: {
+    type: DataTypes.STRING,
   },
-
+  Etablissement_origine_Master: {
+    type: DataTypes.TEXT,
+  },
+  Etablissement_origine_ingeniorat: {
+    type: DataTypes.TEXT,
+  },
+  Etablissement_origine_Magistere: {
+    type: DataTypes.TEXT,
+  },
+  Specialite: {
+    type: DataTypes.STRING,
+  },
   intitule_sujet: {
     type: DataTypes.TEXT,
-    allowNull: false,
   },
-
   intitule_sujet_bis: {
     type: DataTypes.TEXT,
-    allowNull: true,
   },
-
-  pv_changement_these: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
+  PV_changement_these: {
+    type: DataTypes.STRING,
   },
-
-  Id_Encadreur: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-
-  Grade_encadreur: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-
-  Id_CoEncadreur: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-
-  Grade_coEncadreur: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-
-  Date_enregistrement_fichier_central_des_theses: {
+  Premiere_inscription: {
     type: DataTypes.DATEONLY,
-    allowNull: false,
   },
-
+  Nombre_inscriptions: {
+    type: DataTypes.SMALLINT,
+  },
+  Date_fichier_central: {
+    type: DataTypes.DATEONLY,
+  },
   laboratoire: {
     type: DataTypes.TEXT,
-    allowNull: false,
   },
-
-  Type_Doc: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-
   soutenu: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
+    type: DataTypes.STRING,
   },
-
-  date_de_soutenance: {
+  date_soutenance: {
     type: DataTypes.DATEONLY,
-    allowNull: true,
   },
-
   radie: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
+    type: DataTypes.STRING,
   },
-
+  differe: {
+    type: DataTypes.STRING,
+  },
   abandon: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
+    type: DataTypes.STRING,
   },
 });
 
-Doctorant.belongsTo(Encadreur, { foreignKey: "Id_Encadreur" });
-Doctorant.belongsTo(Encadreur, { foreignKey: "Id_CoEncadreur" });
+Doctorant.belongsTo(Encadrant, { foreignKey: "Id_Encadreur", as: "Encadrant" });
+Doctorant.belongsTo(Encadrant, {
+  foreignKey: "Id_CoEncadreur",
+  as: "CoEncadrant",
+});
+
+module.exports = Doctorant;
+/*
 Doctorant.belongsToMany(PV, {
   through: "Inscription",
   foreignKey: "Id_Doctorant",
 });
-
-module.exports = Doctorant;
+*/

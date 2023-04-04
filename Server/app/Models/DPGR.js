@@ -1,53 +1,39 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+import { Sequelize, DataTypes } from "sequelize";
+import { define } from "../../DB/db_config";
 
-//module.exports = (sequelize) => {
-const DPGR = sequelize.define(
-  "DPGR",
-  {
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    nom: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    prenom: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    "Date de naissance": {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-
-    telephone: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-
-    sexe: {
-      type: DataTypes.CHAR,
-      allowNull: false,
-    },
-
-    mail: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+const DPGR = define("DPGR", {
+  Role: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  {
-    tableName: "DPGR",
-    timestamps: false,
-  }
-);
+  nom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  prenom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  Date_naissance: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  telephone: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sexe: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  mail: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+export default { DPGR };

@@ -1,38 +1,56 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../DB/db_config");
+// Import Sequelize and the database connection
+import { Sequelize, DataTypes } from "sequelize";
+import { define } from "../config/db_config";
 
-const Encadrant = sequelize.define(
-  "Encadrant",
-  {
-    Id_Encadreur: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      //autoIncrement: true,
-    },
-
-    nom: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    prenom: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    Grade_encadreur: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-
-    Etablissement: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
+// Define the Encadrant model
+const Encadrant = define("Encadrant", {
+  Id_Encadreur: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  {
-    tableName: "Encadrant",
-    timestamps: false,
-  }
-);
+  nom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  prenom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  grade: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  Etablissement: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  specialite: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  diplome: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  mail: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  telephone: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  laboratoire: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  Sujets_interet: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+});
+
+// Export the Encadrant model and the Sequelize instance
+export default {Encadrant };
