@@ -1,8 +1,11 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../DB/db_config");
+import connection from "../../DB/db_config";
+
+import PVs from "./PVs";
+import Doctorant from "./Doctorant";
 
 //module.exports = (sequelize) => {
-const Inscription = sequelize.define(
+const Inscription = connection.define(
   "Inscription",
   {
     Id_Doctorant: {
@@ -25,6 +28,21 @@ const Inscription = sequelize.define(
   },
   {
     tableName: "Inscription",
-    timestamps: false,
+    timestamps: true,
   }
 );
+
+// Define association between Inscription and PV
+Inscription.belongsTo(PVs, { foreignKey: "Id_PV", targetKey: "Id_PV" });
+
+// Define association between Inscription and Doctorant
+Inscription.belongsTo(Doctorant, {
+  foreignKey: "Id_Doctorant",
+  targetKey: "Id_Doctorant",
+});
+
+export default Inscription;
+
+(async () => {
+  await connection.sync();
+})();

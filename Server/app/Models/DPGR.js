@@ -1,7 +1,8 @@
-import { Sequelize, DataTypes } from "sequelize";
-import { define } from "../../DB/db_config";
+import { DataTypes } from "sequelize";
+import connection from "../../DB/db_config";
+const bcrypt = require("bcryptjs");
 
-const DPGR = define("DPGR", {
+const DPGR = connection.define("DPGR", {
   Role: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -34,6 +35,17 @@ const DPGR = define("DPGR", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+
+  pic: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    default:
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+  },
 });
 
-export default { DPGR };
+export default DPGR;
+
+(async () => {
+  await connection.sync();
+})();
