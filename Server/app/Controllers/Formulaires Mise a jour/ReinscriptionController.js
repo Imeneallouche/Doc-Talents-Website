@@ -1,4 +1,6 @@
-const connected = require("../../../DB/db_config");
+import connection from "../../../DB/db_config";
+import { Op } from "sequelize";
+import Doctorant from "../../Models/Doctorant";
 
 const Reinscription = async (req, res) => {
   console.log(req.body);
@@ -24,7 +26,7 @@ const Reinscription = async (req, res) => {
     non_abandon,
   ];
 
-  connected.query(
+  connection.query(
     SearchDoctorantQuery,
     SearchDoctorantValues,
     async (SearchDoctorantErr, SearchDoctorantResults) => {
@@ -49,7 +51,7 @@ const Reinscription = async (req, res) => {
 
       const IncrementInscriptionYearsValues = [NombreInscriptionAncien + 1];
 
-      connected.query(
+      connection.query(
         IncrementInscriptionYearsQuery,
         IncrementInscriptionYearsValues,
         (IncrementInscriptionYearsErr, IncrementInscriptionYearsResult) => {
