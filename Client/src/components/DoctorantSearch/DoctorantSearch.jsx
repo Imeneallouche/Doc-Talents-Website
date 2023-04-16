@@ -30,7 +30,10 @@ const DoctorantSearch = () => {
 
   useEffect(() => {
     const fetchDoctorants = async () => {
-      const response = await axios.get("localhost");
+      const response = await axios.get(
+        //`http://localhost:5000/users?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:3000/Doctorants?search_query=${searchText}`
+      );
       setDoctorants(response.data);
     };
 

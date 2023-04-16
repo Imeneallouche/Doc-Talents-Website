@@ -4,7 +4,8 @@
   "description": "the repository we have worked on in our 2CP project website (backend part)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",
