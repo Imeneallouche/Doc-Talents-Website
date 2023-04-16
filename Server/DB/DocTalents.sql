@@ -20,10 +20,11 @@ CREATE TABLE `Doctorant` (
   `Id_Encadreur` int,
   `Id_CoEncadreur` int,
   `laboratoire` TEXT,
+  `statut` varchar(255),
+  `date_derniere_reinscription` date,
   `soutenu` varchar(255),
   `date_soutenance` date,
   `radie` varchar(255),
-  `differe` varchar(255),
   `abandon` varchar(255)
 );
 
@@ -35,7 +36,8 @@ CREATE TABLE `DPGR` (
   `telephone` varchar(255),
   `sexe` char,
   `mail` varchar(255),
-  `password` varchar(255)
+  `password` varchar(255),
+  `pic` varchar(255)
 );
 
 CREATE TABLE `Encadrant` (

@@ -1,9 +1,9 @@
 // Import Sequelize and the database connection
-import { Sequelize, DataTypes } from "sequelize";
-import { define } from "../config/db_config";
+import { DataTypes } from "sequelize";
+import connection from "../../DB/db_config";
 
 // Define the Encadrant model
-const Encadrant = define("Encadrant", {
+const Encadrant = connection.define("Encadrant", {
   Id_Encadreur: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -48,9 +48,13 @@ const Encadrant = define("Encadrant", {
   },
   Sujets_interet: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
 });
 
 // Export the Encadrant model and the Sequelize instance
-export default {Encadrant };
+export default Encadrant;
+
+(async () => {
+  await connection.sync();
+})();

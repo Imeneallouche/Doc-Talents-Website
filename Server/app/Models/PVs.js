@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+import connection from "../../DB/db_config";
 
 //module.exports = (sequelize) => {
-const PVs = sequelize.define(
+const PVs = connection.define(
   "PVs",
   {
     Id_PV: {
@@ -21,3 +21,9 @@ const PVs = sequelize.define(
     timestamps: false,
   }
 );
+
+export default PVs;
+
+(async () => {
+  await connection.sync();
+})();
