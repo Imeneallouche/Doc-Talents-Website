@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import "bulma/css/bulma.css";
 
 import Connexion from "./components/Connexion/Connexion";
 import Menu from "./components/Menu/Menu";
@@ -51,7 +52,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <SideBar />
+      <DoctorantSearch />
     </div>
   );
 }
