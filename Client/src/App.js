@@ -6,6 +6,8 @@ import HomePage from "./pages/Home";
 import Connexion from "./pages/Connexion";
 import Doctorant from "./pages/Doctorant";
 import Inscription from "./pages/Inscription";
+import DoctorantSearch from "./components/DoctorantSearch/DoctorantSearch";
+
 
 export default function App() {
   return (
@@ -41,11 +43,11 @@ export default function App() {
       </div>
     </div>
   );
-  */
+
 
   return (
     <div className="app">
-      <SideBar />
+      <DoctorantSearch />
     </div>
   );
 }

@@ -285,6 +285,8 @@ const DoctorantSearch = () => {
      </div>
    </div>
      </div>
+     </div>
+
      
   );
 };
