@@ -190,7 +190,10 @@ const DoctorantSearch = () => {
       </div>
       <ul className="Search-Results">
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
-          <li key={Doctorant.Id_Doctorant} className="bg-white rounded-lg p-4 m-2">
+          <li
+            key={Doctorant.Id_Doctorant}
+            className="bg-white rounded-lg p-4 m-2 flex"
+          >
             <img
               className="w-12"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${

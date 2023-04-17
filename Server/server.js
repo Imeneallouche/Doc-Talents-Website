@@ -3,14 +3,6 @@ const cors = require("cors");
 const connection = require("./DB/db_config");
 require("dotenv").config();
 
-/*
-const userRoutes = require("./routes/userRoutes");
-const chatRoutes = require("./routes/chatRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
-const path = require("path");
-*/
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -21,15 +13,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/Update", (req, res) => {
-  //const searchQuery = req.query.q;
-  const sql = `SELECT * FROM Doctorant`;
-  //WHERE nom + ' ' + prenom LIKE '%${searchQuery}%' OR mail LIKE '%${searchQuery}%'
-
+  const sql = `SELECT * FROM Doctorant ORDER BY nom, prenom ASC`;
   connection.query(sql, (error, results) => {
     if (error) {
       throw error;
     }
-
     res.send(results);
   });
 });
