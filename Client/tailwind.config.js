@@ -3,12 +3,12 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      "dark-purple": "#481177",
-      purple: "#6d4192",
-      "light-purple": "#ae68ef",
-      rose: "#eadffb",
-      orange: "#e78f69",
-      grey: "#494974",
+      "dark-purple": "#19202E",
+      purple: "#1E2959",
+      "light-purple": "#35468E",
+      "white-bluish": "#E3EDEF",
+      orange: "#D96B7F",
+      green: "#D96B7F",
       white: "#ffffff",
     },
     extend: {},

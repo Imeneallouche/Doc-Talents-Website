@@ -1,20 +1,13 @@
-import React, { useState } from "react";
+import { Route } from "react-router-dom";
 import "./App.css";
 import "bulma/css/bulma.css";
 
-import Connexion from "./components/Connexion/Connexion";
-import Menu from "./components/Menu/Menu";
 import HomePage from "./pages/Home";
-import Inscription01 from "./components/Inscription01/Inscription01";
-import DoctorantSearch from "./components/DoctorantSearch/DoctorantSearch";
-import Inscription from "./pages/Inscription/Inscription";
-import SideBar from "./components/Menu/SideBar";
+import Connexion from "./pages/Connexion";
+import Doctorant from "./pages/Doctorant";
+import Inscription from "./pages/Inscription";
 
 export default function App() {
-  /*
-  const [UsernameReg, setUsernameReg] = useState("");
-  const [PaswwordReg, setPasswordReg] = useState("");
-
   return (
     <div className="App">
       <div className="registration">
@@ -52,7 +45,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <DoctorantSearch />
+      <SideBar />
     </div>
   );
 }

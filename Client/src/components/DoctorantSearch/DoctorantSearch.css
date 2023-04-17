@@ -1,3 +1,15 @@
+.Search-Results {
+  margin: 2rem;
+}
+
+.Search-Results * {
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+* {
+  color: gray;
+}
 .SearchBar-Filters-Doctorant {
   color: gray;
   display: flex;

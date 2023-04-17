@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><Form></Form></title>
+</head>
+  <body>
+    <div style="width:50%;margin: auto"></div>
+    <h1>Formulaire de saisie des informations des doctorants</h1>
+    <form action="/doctorant" method="post"> 
+      <form>
+        <label for="id_doctorant">Identifiant du doctorant:</label>
+        <input type="text" id="id_doctorant" name="id_doctorant"><br>
+      
+        <label for="nom">Nom:</label>
+        <input type="text" id="nom" name="nom"><br>
+      
+        <label for="prenom">Prénom:</label>
+        <input type="text" id="prenom" name="prenom"><br>
+      
+        <label for="num_pv">Numéro du PV:</label>
+        <input type="text" id="num_pv" name="num_pv"><br>
+
+        <label for="email">email:</label>
+        <input type="text" id="email" name="email"><br>
+
+        <label for="numéro_de_téléphone">Numéro de téléphone:</label>
+        <input type="text" id="numéro_de_téléphone" name="numéro_de_téléphone"><br>
+
+        <label for="Date_naissance">Date de naissance:</label>
+        <input type="date" id="Date_naissance" name="Date_naissance"><br>
+      
+        <label for="etablissement_origine_Master">Etablissement d'origine du Master:</label>
+        <input type="text" id="etablissement_origine_Master" name="etablissement_origine_Master"><br>
+
+        <label for="etablissement_origine_ingeniorat">Etablissement d'origine de l'ingeniorat:</label>
+        <input type="text" id="etablissement_origine_ingeniorat" name="etablissement_origine_ingeniorat"><br>
+
+        <label for="etablissement_origine_Magister">Etablissement d'origine du Magister:</label>
+        <input type="text" id="etablissement_origine_Magister" name="etablissement_origine_Magister"><br>
+      
+        <label for="telephone">Téléphone:</label>
+        <input type="text" id="telephone" name="telephone"><br>
+      
+        <label for="sexe">Sexe:</label>
+        <select id="sexe" name="sexe">
+          <option value="h">H</option>
+          <option value="f">Femme</option>
+        </select><br>
+      
+        <label for="spécialité">Spécialité:</label>
+        <input type="spécialité" id="spécialité" name="spécialité"><br>
+      
+        <label for="premiere_inscription">Première année d'inscription:</label>
+        <input type="number" id="premiere_inscription" name="premiere_inscription"><br>
+      
+        <label for="intitule_sujet">Intitulé du sujet:</label>
+        <input type="text" id="intitule_sujet" name="intitule_sujet"><br>
+      
+        <label for="Date_fichier_central">Date d'enregistrement:</label>
+        <input type="date" id="Date_fichier_central" name="Date_fichier_central"><br>
+      
+        <label for="encadreur_id">Identifiant de l'encadreur :</label>
+        <input type="text" id="encadreur_id" name="encadreur_id"><br>
+      
+        <label for="co_encadreur_id">Identifiant du co-encadreur :</label>
+        <input type="text" id="co_encadreur_id" name="co_encadreur_id"><br>
+      
+
+      <label for="laboratoire">Laboratoire :</label>
+      <input type="text" id="laboratoire" name="laboratoire"><br>
+
+      <label for="type_doctorat">Type de doctorat :</label>
+      <select id="type_doctorat" name="type_doctorat">
+        <option value="LMD Classique">LMD Classique</option>
+        <option value="DOCTORAT">DOCTORAT</option>
+      </select><br> 
+      <input type="submit" value="Ajouter">
+    </form>
+  </body>
+</html>
