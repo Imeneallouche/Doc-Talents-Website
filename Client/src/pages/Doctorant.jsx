@@ -4,7 +4,7 @@ import DoctorantSearch from "../components/DoctorantSearch/DoctorantSearch";
 
 function Doctorant() {
   return (
-    <div>
+    <div className={`bg-white-bluish flex`}>
       <SideBar />
       <DoctorantSearch />
     </div>

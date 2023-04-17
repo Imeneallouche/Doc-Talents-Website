@@ -8,13 +8,8 @@ import Inscription from "./pages/Inscription";
 
 export default function App() {
   return (
-    <div className="app">
-      <div className="App">
-        <Route path="/" component={HomePage} exact />
-        <Route path="/Connexion" component={Connexion} />
-        <Route path="/Doctorant" component={Doctorant} />
-        <Route path="/Inscription" component={Inscription} />
-      </div>
+    <div className={`App flex h-screen`}>
+        <Doctorant/>
     </div>
   );
 }

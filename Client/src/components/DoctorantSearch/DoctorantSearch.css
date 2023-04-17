@@ -1,15 +1,15 @@
-.Search-Results{
-margin: 2rem;
+.Search-Results {
+  margin: 2rem;
 }
 
-.Search-Results *{
+.Search-Results * {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
-  align-content: flex-start;
+  align-items: center;
+  align-content: center;
 }
-*{
+* {
   color: gray;
 }
 .SearchBar-Filters-Doctorant {

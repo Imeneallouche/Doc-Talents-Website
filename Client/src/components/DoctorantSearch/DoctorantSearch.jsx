@@ -130,7 +130,7 @@ const DoctorantSearch = () => {
   }
 
   return (
-    <div className="Search-Doctorant">
+    <div className={`Search-Doctorant flex flex-col flex-1`}>
       <div className="SearchBar-Filters-Doctorant">
         <div className="Filter-Doctorant">
           <label htmlFor="Sexe">Sexe </label>
@@ -190,11 +190,11 @@ const DoctorantSearch = () => {
       </div>
       <ul className="Search-Results">
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
-          <li key={Doctorant.Id_Doctorant}>
+          <li key={Doctorant.Id_Doctorant} className="bg-white rounded-lg p-4 m-2">
             <img
               className="w-12"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
-                index % 3
+                index % 5
               }.png`)}
               alt="profile"
             />
@@ -204,7 +204,7 @@ const DoctorantSearch = () => {
             <span>{Doctorant.mail}</span>
             <span>{Doctorant.Specialite}</span>
             <span>{Doctorant.intitule_sujet}</span>
-            <span>{ Doctorant.statut}</span>
+            <span>{Doctorant.statut}</span>
             <button>Details</button>
           </li>
         ))}
