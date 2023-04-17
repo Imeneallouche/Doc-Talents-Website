@@ -1,3 +1,17 @@
+.Search-Results{
+margin: 2rem;
+}
+
+.Search-Results *{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+*{
+  color: gray;
+}
 .SearchBar-Filters-Doctorant {
   color: gray;
   display: flex;

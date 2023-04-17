@@ -17,22 +17,11 @@ const DoctorantSearch = () => {
   const currentYear = new Date().getFullYear();
   const FirstYearEver = 2012;
 
-  /*  useEffect(() => {
-    // Make a request to the backend to get the list of Doctorants
-    fetch("/api/Doctorant")
-      .then((response) => response.json())
-      .then((data) => {
-        setDoctorants(data);
-        setFilteredDoctorants(data);
-      })
-      .catch((error) => console.log(error));
-  }, []);*/
-
   useEffect(() => {
     const fetchDoctorants = async () => {
       const response = await axios.get(
-        //`http://localhost:5000/users?search_query=${keyword}&page=${page}&limit=${limit}`
-        `http://localhost:3000/Doctorants?search_query=${searchText}`
+        //`http://localhost:5000/users?search_query=${searchText}&page=${page}&limit=${limit}`
+        `http://localhost:3000/Update`
       );
       setDoctorants(response.data);
     };
@@ -109,38 +98,6 @@ const DoctorantSearch = () => {
       event.target.value
     );
   };
-  /*
-  const filterDoctorants = (gender, statues, minyear, maxyear, searchText) => {
-    let filtered = Doctorants;
-
-    if (gender)
-      filtered = filtered.filter((user) => user.gender === gender.value);
-
-    if (statues)
-      filtered = filtered.filter((user) => user.statues === statues.value);
-
-
-    if (minyear) {
-      filtered = filtered.filter(
-        (user) => user.anneeinscription >= minyear.value
-      );
-    }
-
-    if (maxyear) {
-      filtered = filtered.filter(
-        (user) => user.anneeinscription <= minyear.value
-      );
-    }
-
-    if (searchText) {
-      filtered = filtered.filter((user) =>
-        user.name.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
-
-    setFilteredDoctorants(filtered);
-  };
-*/
 
   const filterDoctorants = (doctorant) => {
     if (
@@ -155,12 +112,12 @@ const DoctorantSearch = () => {
   };
 
   const genderOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
+    { value: "M", label: "Male" },
+    { value: "F", label: "Female" },
   ];
 
   const statuesOptions = [
-    { value: "inscrit", label: "inscrit" },
+    { value: "reinscrit", label: "inscrit" },
     { value: "radie", label: "radié" },
     { value: "soutenu", label: "soutenu" },
     { value: "abandon", label: "abandon" },
@@ -173,68 +130,82 @@ const DoctorantSearch = () => {
   }
 
   return (
-    <div className="SearchBar-Filters-Doctorant">
-      <div className="Filter-Doctorant">
-        <label htmlFor="Sexe">Sexe </label>
-        <Select
-          placeholder="Male"
-          id="Sexe"
-          options={genderOptions}
-          value={selectedGender}
-          onChange={handleGenderChange}
-          isClearable
-        />
-      </div>
-      <div className="Filter-Doctorant">
-        <label htmlFor="Statue">Statue </label>
-        <Select
-          placeholder="Inscrit"
-          id="Statue"
-          options={statuesOptions}
-          value={selectedStatues}
-          onChange={handleStatuesChange}
-          isClearable
-        />
-      </div>
-      <div className="Filter-Doctorant">
-        <label htmlFor="minYear">Min Year </label>
-        <Select
-          placeholder={FirstYearEver}
-          id="minYear"
-          value={selectedMinYear}
-          onChange={handleMinYearChange}
-          isClearable
-          options={yearsOption}
-        ></Select>
-      </div>
+    <div className="Search-Doctorant">
+      <div className="SearchBar-Filters-Doctorant">
+        <div className="Filter-Doctorant">
+          <label htmlFor="Sexe">Sexe </label>
+          <Select
+            placeholder="Male"
+            id="Sexe"
+            options={genderOptions}
+            value={selectedGender}
+            onChange={handleGenderChange}
+            isClearable
+          />
+        </div>
+        <div className="Filter-Doctorant">
+          <label htmlFor="Statue">Statue </label>
+          <Select
+            placeholder="Inscrit"
+            id="Statue"
+            options={statuesOptions}
+            value={selectedStatues}
+            onChange={handleStatuesChange}
+            isClearable
+          />
+        </div>
+        <div className="Filter-Doctorant">
+          <label htmlFor="minYear">Min Year </label>
+          <Select
+            placeholder={FirstYearEver}
+            id="minYear"
+            value={selectedMinYear}
+            onChange={handleMinYearChange}
+            isClearable
+            options={yearsOption}
+          ></Select>
+        </div>
 
-      <div className="Filter-Doctorant">
-        <label htmlFor="maxYear">Max Year </label>
-        <Select
-          placeholder={currentYear}
-          id="maxYear"
-          value={selectedMaxYear}
-          onChange={handleMaxYearChange}
-          options={yearsOption}
-          isClearable
-        ></Select>
-      </div>
+        <div className="Filter-Doctorant">
+          <label htmlFor="maxYear">Max Year </label>
+          <Select
+            placeholder={currentYear}
+            id="maxYear"
+            value={selectedMaxYear}
+            onChange={handleMaxYearChange}
+            options={yearsOption}
+            isClearable
+          ></Select>
+        </div>
 
-      <div className="Filter-Doctorant Search">
-        <label htmlFor="searchBar">Search: </label>
-        <input
-          id="searchBar"
-          type="text"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
+        <div className="Filter-Doctorant Search">
+          <label htmlFor="searchBar">Search: </label>
+          <input
+            id="searchBar"
+            type="text"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+        </div>
       </div>
-
-      <ul>
-        {searchResults.filter(filterDoctorants).map((Doctorant) => (
-          <li key={Doctorant.id}>
-            {Doctorant.nom} {Doctorant.prenom}
-            {Doctorant.id} -{Doctorant.telephone}
+      <ul className="Search-Results">
+        {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
+          <li key={Doctorant.Id_Doctorant}>
+            <img
+              className="w-12"
+              src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
+                index % 3
+              }.png`)}
+              alt="profile"
+            />
+            <span>
+              {Doctorant.nom} {Doctorant.prenom}
+            </span>
+            <span>{Doctorant.mail}</span>
+            <span>{Doctorant.Specialite}</span>
+            <span>{Doctorant.intitule_sujet}</span>
+            <span>{ Doctorant.statut}</span>
+            <button>Details</button>
           </li>
         ))}
       </ul>

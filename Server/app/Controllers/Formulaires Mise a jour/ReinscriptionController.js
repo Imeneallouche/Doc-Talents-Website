@@ -2,11 +2,25 @@ import connection from "../../../DB/db_config";
 import { Op } from "sequelize";
 import Doctorant from "../../Models/Doctorant";
 
+const non_soutenu = null;
+const non_radie = null;
+const non_abandon = null;
+/*
+const fetchDoctorant = async (email) => {
+  const query = {
+    text: "SELECT * FROM Doctorant WHERE soutenu = ? AND radie = ? AND abondan = ?",
+    values: [non_soutenu, non_radie, non_abandon],
+  };
+  const result = await connection.query(query);
+  console.log(result);
+  return result;
+};
+*/
 const Reinscription = async (req, res) => {
   console.log(req.body);
   const { Id_Doctorant, email, password, passwordConfirm } = req.body;
 
-  const non_soutenu = 0;
+  const non_soutenu = null;
   const non_radie = null;
   const non_abandon = null;
 
