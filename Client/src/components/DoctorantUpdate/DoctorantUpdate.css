@@ -14,10 +14,10 @@
 }
 
 .Search-Results * {
-  justify-content: space-between;
   align-items: center;
   align-content: center;
 }
+
 * {
   color: gray;
 }
@@ -26,18 +26,15 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  /*
-  padding-right: 35px;
-  padding-left: 35px;
-  padding-top: 35px;
-  */
 }
-.Filter-Doctorant {
+.Update-Doctorant-Button {
   margin: 10px;
-  flex: 1;
+  padding: 8.18039px 10.2255px;
+  background: #19202e;
+  border-radius: 6.80217px;
 }
 
-.Filter-Doctorant.Search {
+.Update-Doctorant-Button.Search {
   flex: 2;
 }
 

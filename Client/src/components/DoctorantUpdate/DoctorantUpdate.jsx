@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
-import "./DoctorantSearch.css";
+import "./DoctorantUpdate.css";
 import axios from "axios";
 
-const DoctorantSearch = () => {
+const DoctorantUpdate = () => {
   const [Doctorants, setDoctorants] = useState([]);
 
   const [selectedGender, setSelectedGender] = useState("all"); //Gender filter : dropdow list (Male/Female)
@@ -131,12 +130,28 @@ const DoctorantSearch = () => {
     yearsOption.push(obj);
   }
 
+  const handleAbondan = () => {
+    console.log("abondan");
+  };
+
+  const handleRadiation = () => {
+    console.log("raide");
+  };
+
+  const handleReinscription = () => {
+    console.log("reinscrit");
+  };
+
+  const handleSoutenane = () => {
+    console.log("soutenu");
+  };
+
   return (
     <div className={`Search-Doctorant flex flex-col flex-1`}>
-      <div className="Filter-Doctorant Search p-8 ">
+      <div className="Search p-8 ">
         <label htmlFor="searchBar"></label>
         <input
-          className="h-25 rounded p-3 absolute right-10"
+          className="h-25 rounded p-3 "
           id="searchBar"
           type="text"
           placeholder="Rechercher"
@@ -146,69 +161,48 @@ const DoctorantSearch = () => {
       </div>
 
       <div className="SearchBar-Filters-Doctorant">
-        <div className="Filter-Doctorant">
-          <label htmlFor="Sexe" className="font-black text-dark-purple">
-            Sexe{" "}
-          </label>
-          <Select
-            className="mt-2 w-48"
-            placeholder="Male"
-            id="Sexe"
-            options={genderOptions}
-            value={selectedGender}
-            onChange={handleGenderChange}
-            isClearable
+        <div>
+          <input
+            type="checkbox"
+            id="selectionner-tout"
+            name="selectionner-tout"
+            value="selectionner-tout"
           />
-        </div>
-        <div className="Filter-Doctorant ">
-          <label htmlFor="Statue" className="font-black text-dark-purple">
-            Statut{" "}
-          </label>
-          <Select
-            className="mt-2 w-48"
-            placeholder="Inscrit"
-            id="Statue"
-            options={statuesOptions}
-            value={selectedStatues}
-            onChange={handleStatuesChange}
-            isClearable
-          />
-        </div>
-        <div className="Filter-Doctorant">
-          <label htmlFor="minYear" className="font-black text-dark-purple">
-            Min Year{" "}
-          </label>
-          <Select
-            className="mt-2 w-48"
-            placeholder={FirstYearEver}
-            id="minYear"
-            value={selectedMinYear}
-            onChange={handleMinYearChange}
-            isClearable
-            options={yearsOption}
-          ></Select>
+          <label for="selectionner-tout"> Selectionner tout</label>
         </div>
 
-        <div className="Filter-Doctorant">
-          <label htmlFor="maxYear" className="font-black text-dark-purple">
-            Max Year{" "}
-          </label>
-          <Select
-            placeholder={currentYear}
-            id="maxYear"
-            value={selectedMaxYear}
-            onChange={handleMaxYearChange}
-            options={yearsOption}
-            isClearable
-          ></Select>
-        </div>
+        <button
+          className="Update-Doctorant-Button text-white"
+          onClick={handleReinscription}
+        >
+          Reinscription
+        </button>
+
+        <button
+          className="Update-Doctorant-Button text-white"
+          onClick={handleSoutenane}
+        >
+          Soutenance
+        </button>
+
+        <button
+          className="Update-Doctorant-Button text-white"
+          onClick={handleRadiation}
+        >
+          Radiation
+        </button>
+
+        <button className="Update-Doctorant-Button text-white" onClick={handleAbondan}>
+          Abandon
+        </button>
       </div>
       <ul className="Search-Results">
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className="bg-white rounded-lg p-4 m-2 flex"
+            className={`bg-white rounded-lg p-4 m-2 flex`}
           >
+            <input type="checkbox" />
             <img
               className="w-12"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
@@ -216,13 +210,13 @@ const DoctorantSearch = () => {
               }.png`)}
               alt="profile"
             />
-            <span>
+            <span className="f">
               {Doctorant.nom} {Doctorant.prenom}
             </span>
-            <span>{Doctorant.mail}</span>
-            <span>{Doctorant.Specialite}</span>
-            <span>{Doctorant.intitule_sujet}</span>
-            <span>{Doctorant.statut}</span>
+            <span className="">{Doctorant.mail}</span>
+            <span className="">{Doctorant.Specialite}</span>
+            <span className="">{Doctorant.intitule_sujet}</span>
+            <span className="">{Doctorant.statut}</span>
             <button>Details</button>
           </li>
         ))}
@@ -230,4 +224,4 @@ const DoctorantSearch = () => {
     </div>
   );
 };
-export default DoctorantSearch;
+export default DoctorantUpdate;

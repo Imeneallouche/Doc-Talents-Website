@@ -1,14 +1,14 @@
 import React from "react";
 import SideBar from "../components/Menu/SideBar";
-import DoctorantSearch from "../components/DoctorantSearch/DoctorantSearch";
+import DoctorantUpdate from "../components/DoctorantUpdate/DoctorantUpdate";
 
-function Doctorant() {
+function Update() {
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
-      <DoctorantSearch className={`grow`} />
+      <DoctorantUpdate className={`grow`} />
     </div>
   );
 }
 
-export default Doctorant;
+export default Update;

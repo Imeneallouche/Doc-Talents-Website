@@ -56,7 +56,11 @@ const SideBar = () => {
                 src={require(`../../assets/SideBar/${Menu.src}.png`)}
                 alt="icon"
               />
-              <span className={`${!open && "hidden"} text-white text-base origin-left duration-200`}>
+              <span
+                className={`${
+                  !open && "hidden"
+                } text-white text-base origin-left duration-200`}
+              >
                 {Menu.title}
               </span>
             </li>
