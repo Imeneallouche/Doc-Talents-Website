@@ -3,12 +3,25 @@ import headimg from "../assets/head_image.svg";
 import vect1 from "../assets/Homevector1.svg";
 import vect2 from "../assets/Homevector2.svg";
 
+import React from "react";
+import { useHistory } from "react-router-dom";
+
 export default function HomePage() {
+  const history = useHistory();
+
+  function handleOnClick() {
+    history.push("/Connexion");
+  }
+
   return (
     <div className="Home mx-20 my-10">
-      <img src={vect1} className="absolute left-0 top-0 z-[-1]"></img>
+      <img
+        src={vect1}
+        alt="vector1"
+        className="absolute left-0 top-0 z-[-1]"
+      ></img>
       <nav className="navBar">
-        <img src={logoP} className="logo w-24"></img>
+        <img src={logoP} alt="Logo" className="logo w-24"></img>
       </nav>
       <main className="mainSec flex justify-between items-center">
         <section className="sec1">
@@ -24,15 +37,18 @@ export default function HomePage() {
             tempus aenean <br /> ullamcorper placerat vitae. Proin urna vitae
             <br /> ac nunc, vulputate cras velit lacus nunc.
           </p>
-          <button className="cnxbtn p-2 rounded-[10px]">
-            <a className="font-['Poppins'] bg-purple text-white">Connexion</a>
+          <button
+            className="cnxbtn p-2 rounded-[10px] font-['Poppins'] bg-purple text-white"
+            onClick={handleOnClick}
+          >
+            Connexion
           </button>
         </section>
         <section className="sec2">
-          <img src={headimg} className="headimg pr-10"></img>
+          <img src={headimg} alt="heading-img" className="headimg pr-10"></img>
         </section>
       </main>
-      <img src={vect2} className="absolute left-0 bottom-0"></img>
+      <img src={vect2} alt="vector2" className="absolute left-0 bottom-0"></img>
     </div>
   );
 }

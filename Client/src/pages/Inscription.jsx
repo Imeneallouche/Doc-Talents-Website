@@ -2,6 +2,10 @@ import Inscription01 from "../components/Inscription01/Inscription01";
 import Menu from "../components/Menu/SideBar";
 
 export default function Inscription() {
-  <Menu />;
-  <Inscription01 />;
+  return (
+    <div>
+      <Menu />;
+      <Inscription01 />;
+    </div>
+  );
 }
