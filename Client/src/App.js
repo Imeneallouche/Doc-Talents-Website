@@ -9,22 +9,20 @@ import Inscription from "./pages/Inscription";
 export default function App() {
   return (
     <div className="App flex h-screen">
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/Connexion" exact>
-            <Connexion />
-          </Route>
-          <Route path="/Doctorant" exact>
-            <Doctorant />
-          </Route>
-          <Route path="/Inscription" exact>
-            <Inscription />
-          </Route>
-        </Switch>
-      </Router>
+      <Switch>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
+        <Route path="/Connexion" exact>
+          <Connexion />
+        </Route>
+        <Route path="/Doctorant" exact>
+          <Doctorant />
+        </Route>
+        <Route path="/Inscription" exact>
+          <Inscription />
+        </Route>
+      </Switch>
     </div>
   );
 }

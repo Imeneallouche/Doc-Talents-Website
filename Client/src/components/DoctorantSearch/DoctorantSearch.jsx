@@ -2,9 +2,16 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "./DoctorantSearch.css";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 const DoctorantSearch = () => {
   const [Doctorants, setDoctorants] = useState([]);
+  const [page, setPage] = useState([0]);
+  const [limit, setlimit] = useState([10]);
+  const [pages, setPages] = useState([0]);
+  const [rows, setRows] = useState([0]);
+  const [keyword, setKeyword] = useState("");
+  const [query, setQuery] = useState("");
 
   const [selectedGender, setSelectedGender] = useState("all"); //Gender filter : dropdow list (Male/Female)
   const [selectedStatues, setSelectedStatues] = useState("all"); //Statues filter: dropdown list (radié, abondan, soutenu, reinscri, differe)
@@ -20,10 +27,13 @@ const DoctorantSearch = () => {
   useEffect(() => {
     const fetchDoctorants = async () => {
       const response = await axios.get(
-        //`http://localhost:5000/users?search_query=${searchText}&page=${page}&limit=${limit}`
-        `http://localhost:3000/Update`
+        //`http://localhost:5000/users?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:3000/Doctorants?search_query=${searchText}`
       );
-      setDoctorants(response.data);
+      setDoctorants(response.data.result);
+      setPage(response.data.page);
+      setPages(response.data.totalPage);
+      setRows(response.data.totalRows);
     };
 
     fetchDoctorants();
@@ -42,6 +52,16 @@ const DoctorantSearch = () => {
   for (let year = FirstYearEver; year <= currentYear; year++) {
     years.push(year);
   }
+
+  const changePage = ({ selected }) => {
+    setPage(selected);
+  };
+
+  const searchData = (e) => {
+    e.preventDefault();
+    setPage(0);
+    setKeyword(query);
+  };
 
   const handleGenderChange = (selectedOption) => {
     setSelectedGender(selectedOption);
@@ -187,31 +207,85 @@ const DoctorantSearch = () => {
             onChange={handleSearchTextChange}
           />
         </div>
-      </div>
-      <ul className="Search-Results">
-        {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
-          <li
-            key={Doctorant.Id_Doctorant}
-            className="bg-white rounded-lg p-4 m-2 flex"
-          >
-            <img
-              className="w-12"
-              src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
-                index % 5
-              }.png`)}
-              alt="profile"
-            />
-            <span>
+
+        <ul>
+          {searchResults.filter(filterDoctorants).map((Doctorant) => (
+            <li key={Doctorant.id}>
               {Doctorant.nom} {Doctorant.prenom}
-            </span>
-            <span>{Doctorant.mail}</span>
-            <span>{Doctorant.Specialite}</span>
-            <span>{Doctorant.intitule_sujet}</span>
-            <span>{Doctorant.statut}</span>
-            <button>Details</button>
-          </li>
-        ))}
-      </ul>
+              {Doctorant.id} -{Doctorant.telephone}
+            </li>
+          ))}
+        </ul>
+        <div className="container mt-5">
+          <div className="columns">
+            <div className="column is-centered">
+              <form onSubmit={searchData}>
+                <div className="field has-addons">
+                  <div className="control is-expanded">
+                    <input
+                      type="text"
+                      className="input"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="find something here..."
+                    />
+                  </div>
+                  <div className="control">
+                    <button type="submit" className="button is-info">
+                      Search
+                    </button>
+                  </div>
+                </div>
+                <table className="table is-striped is-bordered is-fullwidth mt-2">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Nom</th>
+                      <th>Prenom</th>
+                      <th>Date de 1er inscription</th>
+                      <th>Option</th>
+                      <th>Titre de thèse</th>
+                      <th>Status</th>
+                      <th>Profile</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Doctorants.map((Doctorant) => (
+                      <tr key={Doctorant.id}>
+                        <td>{Doctorant.nom}</td>
+                        <td>{Doctorant.prenom}</td>
+                        <td>{Doctorant.status}</td>
+                        <td>{Doctorant.Premiere_inscription}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p>
+                  Total Rows: {rows} page: {rows ? page + 1 : 0} of {pages}
+                </p>
+                <nav
+                  className="pagination is-centred"
+                  role="navigation"
+                  aria-label="pagination"
+                >
+                  <ReactPaginate
+                    previousLabel={"< Prev"}
+                    nextLabel={"Next >"}
+                    pageCount={pages}
+                    onPageChange={changePage}
+                    containerClassName={"pagination-list"}
+                    pageLinkClassName={"pagination-link"}
+                    previousLinkClassName={"pagination-previous"}
+                    nextLinkClassName={"pagination-next"}
+                    activeLinkClassName={"pagination-link is-current"}
+                    disabledLinkClassName={"pagination-link is-disabled"}
+                  />
+                </nav>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
