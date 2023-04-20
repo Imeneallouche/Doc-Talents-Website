@@ -172,27 +172,30 @@ const DoctorantUpdate = () => {
         </div>
 
         <button
-          className="Update-Doctorant-Button text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white"
           onClick={handleReinscription}
         >
           Reinscription
         </button>
 
         <button
-          className="Update-Doctorant-Button text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white"
           onClick={handleSoutenane}
         >
           Soutenance
         </button>
 
         <button
-          className="Update-Doctorant-Button text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white"
           onClick={handleRadiation}
         >
           Radiation
         </button>
 
-        <button className="Update-Doctorant-Button text-white" onClick={handleAbondan}>
+        <button
+          className="m-2 p-3 bg-dark-purple rounded-md text-white"
+          onClick={handleAbondan}
+        >
           Abandon
         </button>
       </div>

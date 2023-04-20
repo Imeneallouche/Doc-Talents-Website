@@ -1,6 +1,10 @@
-import "./Inscription01.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
+
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function Inscription01() {
   const [Nom, setNom] = useState("");
@@ -11,207 +15,229 @@ function Inscription01() {
   const [Numero_tel, setNumeroTel] = useState("");
   const [Email, setEmail] = useState("");
 
-  const [days, setDays] = useState([]);
-  const [months, setMonths] = useState([]);
-  const [years, setYears] = useState([]);
+  const [Birthday, setBirthday] = useState({
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
+  });
   const [Sex, setSex] = useState([]);
 
   const genderOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
+    { value: "M", label: "Male" },
+    { value: "F", label: "Female" },
   ];
-
-  const daysOption = [];
-  for (let i = 1; i <= 31; i++) {
-    let obj = { value: i, label: i };
-    daysOption.push(obj);
-  }
-
-  const monthsOption = [
-    { value: "Janvier", label: "Janvier" },
-    { value: "Février", label: "Février" },
-    { value: "Mars", label: "Mars" },
-    { value: "Avril", label: "Avril" },
-    { value: "Mai", label: "Mai" },
-    { value: "Juin", label: "Juin" },
-    { value: "Juillet", label: "Juillet" },
-    { value: "Aout", label: "Aout" },
-    { value: "Septembre", label: "Septembre" },
-    { value: "Octobre", label: "Octobre" },
-    { value: "Novembre", label: "Novembre" },
-    { value: "Décembre", label: "Décembre" },
-  ];
-
-  const currentYear = new Date().getFullYear();
-  const FirstYearEver = 1970;
-  const yearsOption = [];
-  for (let i = FirstYearEver; i <= currentYear; i++) {
-    let obj = { value: i, label: i };
-    yearsOption.push(obj);
-  }
-
-  useEffect(() => {
-    const daysInMonth = new Date(years[0], months[0], 0).getDate();
-    const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-    setDays(daysArray);
-  }, [months, years]);
-
-  useEffect(() => {
-    const monthsArray = Array.from({ length: 12 }, (_, i) => i + 1);
-    setMonths(monthsArray);
-  }, []);
-
-  useEffect(() => {
-    const currentYear = new Date().getFullYear();
-    const yearsArray = Array.from({ length: 120 }, (_, i) => currentYear - i);
-    setYears(yearsArray);
-  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     //console.log(`Email: ${email}, Password: ${password}`);
   };
 
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: "white",
+      borderColor: "#19202E",
+      color: "#1E2959",
+      placeholderColor: "#35468E",
+      fontSize: "1rem",
+      borderRadius: "0.375rem",
+      padding: "0.75rem",
+
+      "&:focus": {
+        outline: "none",
+        boxShadow: "none",
+        borderColor: "#51BCA2",
+        placeholderColor: "#51BCA2",
+      },
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      color: "#35468E",
+    }),
+  };
+  /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  */
+
   return (
-    <form className="Inscription01-form" onSubmit={handleSubmit}>
-      <section className="form-row">
-        <div className="form-information">
-          <label htmlFor="Nom">Nom:</label>
+    <form
+      className="m-10 w-full h-full flex flex-col justify-center items-center"
+      onSubmit={handleSubmit}
+    >
+      <section className="flex w-full">
+        <div className="m-4 flex flex-col flex-1">
+          <label
+            htmlFor="Nom"
+            className={`font-bold text-dark-purple focus:text-green`}
+          >
+            Nom
+          </label>
           <input
+            className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
             type="text"
             id="Nom"
             name="Nom"
             value={Nom}
-            placeholder="Nom du doctorant"
+            placeholder="ex : ALLOUCHE"
             onChange={(event) => setNom(event.target.value)}
             required
           />
         </div>
-        <div className="form-information">
+        <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Prenom">Password:</label>
+          <label htmlFor="Prenom" className={`font-bold text-dark-purple`}>
+            Prénom
+          </label>
           <input
+            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="text"
             id="Prenom"
             name="Prenom"
-            placeholder="Prenom du doctorant"
+            placeholder="ex : Imène"
             value={Prenom}
             onChange={(event) => setPrenom(event.target.value)}
             required
           />
         </div>
 
-        <div className="form-information">
+        <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Id_Doctorant">ID du doctorant</label>
+          <label
+            htmlFor="Id_Doctorant"
+            className={`font-bold text-dark-purple`}
+          >
+            ID du doctorant
+          </label>
           <input
+            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="text"
             id="Id_Doctorant"
             name="Id_Doctorant"
             value={Id_Doctorant}
-            placeholder="21/0022"
+            placeholder="ex : 21/0022"
             onChange={(event) => setIdDoctorant(event.target.value)}
             required
           />
         </div>
       </section>
 
-      <section className="form-row">
-        <div className="form-information">
-          {" "}
-          <label htmlFor="day">Day:</label>
-          <Select
-            id="day"
-            placeholder="01"
-            value={days}
-            onChange={(event) => setDays(event.target.value)}
-            options={daysOption}
-            isClearable
-          />
-        </div>
-        <div className="form-information">
-          {" "}
-          <label htmlFor="month">Month:</label>
-          <Select
-            id="month"
-            placeholder="Janvier"
-            value={months}
-            onChange={(event) => setMonths(event.target.value)}
-            options={monthsOption}
-            isClearable
-          />
-        </div>
-        <div className="form-information">
-          {" "}
-          <label htmlFor="year">Year:</label>
-          <Select
-            id="year"
-            placeholder={currentYear}
-            value={years}
-            onChange={(event) => setYears(event.target.value)}
-            options={yearsOption}
-            isClearable
-          />
+      <section className={`flex m-10 w-full items-center`}>
+        <div className="m-4 flex flex-col flex-1">
+          <label
+            htmlFor="Birthday"
+            className={`font-bold text-dark-purple m-2`}
+          >
+            Date de naissance
+          </label>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            id="Birthday"
+            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
+          >
+            <DatePicker
+              label="select date"
+              className="bg-white border"
+              value={Birthday}
+              onChange={(event) => setBirthday(event)}
+              renderInput={(params) => <TextField {...params} required />}
+            />
+          </LocalizationProvider>
         </div>
 
-        <div className="form-information">
-          <label htmlFor="Sexe">Sexe </label>
+        <div className="m-4 flex flex-col flex-1">
+          <label htmlFor="Sexe" className={`font-bold text-dark-purple`}>
+            Sexe
+          </label>
           <Select
             placeholder="Male"
+            styles={customStyles}
             id="Sexe"
             options={genderOptions}
             value={Sex}
-            onChange={(event) => setSex(event.target.value)}
+            onChange={(event) => setSex(event)}
             isClearable
           />
         </div>
       </section>
 
-      <section className="form-row">
-        <div className="form-information">
+      <section className="flex w-full">
+        <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Id_PV">ID du PV</label>
+          <label htmlFor="Id_PV" className={`font-bold text-dark-purple`}>
+            ID du PV
+          </label>
           <input
+            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="text"
             id="Id_PV"
             name="Id_PV"
-            placeholder="ID du PV du CS"
+            placeholder="ex : 23/0001"
             value={Id_PV}
             onChange={(event) => setIdPV(event.target.value)}
             required
           />
         </div>
 
-        <div className="form-information">
+        <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Numero_telephone">Numero du telephone</label>
+          <label
+            htmlFor="Numero_telephone"
+            className={`font-bold text-dark-purple`}
+          >
+            Numero du telephone
+          </label>
           <input
-            type="text"
+            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
+            type="tel"
             id="Numero_telephone"
             name="Numero_telephone"
-            placeholder="0699240858"
+            placeholder="ex : 0699240858"
             value={Numero_tel}
             onChange={(event) => setNumeroTel(event.target.value)}
             required
           />
         </div>
 
-        <div className="form-information">
+        <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Email">Email du doctorant</label>
+          <label htmlFor="Email" className={`font-bold text-dark-purple`}>
+            Email du doctorant
+          </label>
           <input
-            type="text"
+            className="bg-white border peer border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
+            type="email"
             id="Email"
             name="Email"
-            placeholder="0699240858"
+            placeholder="ex : doctalents@gmail.com"
             value={Email}
             onChange={(event) => setEmail(event.target.value)}
             required
           />
+          <p className="mt-2 invisible peer-invalid:visible text-orange text-sm">
+            Please provide a valid email address.
+          </p>
         </div>
       </section>
-
-      <button type="submit" className="submit-form suivant">
+      <button
+        type="submit"
+        className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+      >
         Suivant
       </button>
     </form>

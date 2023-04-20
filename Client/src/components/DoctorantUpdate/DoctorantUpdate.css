@@ -27,12 +27,6 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.Update-Doctorant-Button {
-  margin: 10px;
-  padding: 8.18039px 10.2255px;
-  background: #19202e;
-  border-radius: 6.80217px;
-}
 
 .Update-Doctorant-Button.Search {
   flex: 2;

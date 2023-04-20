@@ -132,7 +132,9 @@ const DoctorantSearch = () => {
   }
 
   return (
-    <div className={`Search-Doctorant flex flex-col flex-1`}>
+    <div
+      className={`bg-white-bluish w-full h-full overflow-y-scroll flex flex-col flex-1`}
+    >
       <div className="Filter-Doctorant Search p-8 ">
         <label htmlFor="searchBar"></label>
         <input
@@ -145,7 +147,7 @@ const DoctorantSearch = () => {
         />
       </div>
 
-      <div className="SearchBar-Filters-Doctorant">
+      <div className="text-gray-600 flex items-center justify-evenly">
         <div className="Filter-Doctorant">
           <label htmlFor="Sexe" className="font-black text-dark-purple">
             Sexe{" "}
@@ -203,11 +205,11 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
       </div>
-      <ul className="Search-Results">
+      <ul className="m-8">
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className="bg-white rounded-lg p-4 m-2 flex"
+            className="bg-white rounded-lg p-4 m-2 flex justify-between items-center content-center"
           >
             <img
               className="w-12"

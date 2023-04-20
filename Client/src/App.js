@@ -6,6 +6,11 @@ import Connexion from "./pages/Connexion";
 import Doctorant from "./pages/Doctorant";
 import Inscription from "./pages/Inscription";
 import Update from "./pages/Update";
+import PVs from "./pages/PVs";
+import Users from "./pages/Users";
+import Profile from "./pages/Profile";
+
+import Inscription01 from "./components/Inscription01/Inscription01";
 
 export default function App() {
   return (
@@ -26,6 +31,15 @@ export default function App() {
           </Route>
           <Route path="/Update" exact>
             <Update />
+          </Route>
+          <Route path="/PVs" exact>
+            <PVs />
+          </Route>
+          <Route path="/Users" exact>
+            <Users />
+          </Route>
+          <Route path="/Profile" exact>
+            <Profile />
           </Route>
         </Switch>
       </Router>
