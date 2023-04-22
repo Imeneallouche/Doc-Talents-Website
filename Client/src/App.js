@@ -9,6 +9,7 @@ import Update from "./pages/Update";
 import PVs from "./pages/PVs";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import Seminaire from "./pages/Seminaire";
 
 import Inscription01 from "./components/Inscription01/Inscription01";
 
@@ -40,6 +41,9 @@ export default function App() {
           </Route>
           <Route path="/Profile" exact>
             <Profile />
+          </Route>
+          <Route path="/Seminaire" exact>
+            <Seminaire />
           </Route>
         </Switch>
       </Router>
