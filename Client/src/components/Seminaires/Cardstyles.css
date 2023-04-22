@@ -1,9 +1,8 @@
-.Card{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: sans-serif;
-    text-align: center;
-  }
-  
+.Card {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  text-align: center;
+}

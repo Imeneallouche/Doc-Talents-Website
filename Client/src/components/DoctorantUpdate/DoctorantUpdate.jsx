@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./DoctorantUpdate.css";
 import axios from "axios";
 
 const DoctorantUpdate = () => {
@@ -147,11 +146,11 @@ const DoctorantUpdate = () => {
   };
 
   return (
-    <div className={`Search-Doctorant flex flex-col flex-1`}>
-      <div className="Search p-8 ">
+    <div className={`bg-white-bluish w-full flex flex-col flex-1`}>
+      <div className="flex-2 p-8 ">
         <label htmlFor="searchBar"></label>
         <input
-          className="h-25 rounded p-3 "
+          className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
           id="searchBar"
           type="text"
           placeholder="Rechercher"
@@ -160,7 +159,7 @@ const DoctorantUpdate = () => {
         />
       </div>
 
-      <div className="SearchBar-Filters-Doctorant">
+      <div className="text-gray-600 flex items-center justify-evenly">
         <div>
           <input
             type="checkbox"
@@ -199,11 +198,11 @@ const DoctorantUpdate = () => {
           Abandon
         </button>
       </div>
-      <ul className="Search-Results">
+      <ul className="m-8 overflow-y-scroll">
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className={`bg-white rounded-lg p-4 m-2 flex`}
+            className={`bg-white rounded-lg p-4 m-2 flex items-center content-center`}
           >
             <input type="checkbox" />
             <img

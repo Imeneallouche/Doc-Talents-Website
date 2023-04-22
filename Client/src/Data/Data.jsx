@@ -4,7 +4,7 @@ export const CardsData = [
   {
     title: "Doctorants",
     color: {
-      backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
+      backGround: "linear-gradient(180deg, #35468E 0%, #c484f3 100%)",
       boxShadow: "0px 10px 20px 0px #e0c6f5",
     },
 
@@ -35,7 +35,7 @@ export const CardsData = [
   {
     title: "Femmes",
     color: {
-      backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
+      backGround: "linear-gradient(180deg, #D96B7F 0%, #FFA4B6 100%)",
       boxShadow: "0px 10px 20px 0px #FDC0C7",
     },
     barValue: 60,
@@ -69,14 +69,14 @@ export const CardsData = [
     title: "Hommes",
 
     color: {
-      backGround:
-        "linear-gradient(rgb(248, 212, 154) -146.42%, rgb(255 202 113) -46.42%)",
-      boxShadow: "0px 10px 20px 0px #F9D59B",
+      //backGround: "linear-gradient(#274046  -146.42%, #E6DADA -46.42%)"
+      backGround: "linear-gradient(#274046 , #E6DADA)",
+      boxShadow: "0px 10px 20px 0px #CCC",
     },
 
     barValue: 40,
 
-    value: "32",
+    value: "24",
 
     png: UilMars,
 

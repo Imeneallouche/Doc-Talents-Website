@@ -16,7 +16,7 @@ const SeminairesButton = () => {
         fontWeight: "bold",
         fontFamily: "sans-serif",
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)", // Add box shadow CSS property
-        paddingLeft: "30px" // Add left padding to align text with left edge of button
+        paddingLeft: "30px", // Add left padding to align text with left edge of button
       }}
     >
       Séminaires

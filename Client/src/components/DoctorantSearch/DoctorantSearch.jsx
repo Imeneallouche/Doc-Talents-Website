@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import "./DoctorantSearch.css";
+//import "./DoctorantSearch.css";
 import axios from "axios";
 
 const DoctorantSearch = () => {
@@ -119,10 +119,11 @@ const DoctorantSearch = () => {
   ];
 
   const statuesOptions = [
-    { value: "reinscrit", label: "inscrit" },
+    { value: "inscrit", label: "inscrit" },
     { value: "radie", label: "radié" },
     { value: "soutenu", label: "soutenu" },
     { value: "abandon", label: "abandon" },
+    { value: "differe", label: "différé" },
   ];
 
   const yearsOption = [];
@@ -132,13 +133,10 @@ const DoctorantSearch = () => {
   }
 
   return (
-    <div
-      className={`bg-white-bluish w-full h-full overflow-y-scroll flex flex-col flex-1`}
-    >
-      <div className="Filter-Doctorant Search p-8 ">
-        <label htmlFor="searchBar"></label>
+    <div className={`bg-white-bluish w-full flex flex-col`}>
+      <div className="flex-2 Search p-8 flex justify-end">
         <input
-          className="h-25 rounded p-3 absolute right-10"
+          className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
           id="searchBar"
           type="text"
           placeholder="Rechercher"
@@ -148,7 +146,7 @@ const DoctorantSearch = () => {
       </div>
 
       <div className="text-gray-600 flex items-center justify-evenly">
-        <div className="Filter-Doctorant">
+        <div className="m-2 flex-2">
           <label htmlFor="Sexe" className="font-black text-dark-purple">
             Sexe{" "}
           </label>
@@ -162,7 +160,7 @@ const DoctorantSearch = () => {
             isClearable
           />
         </div>
-        <div className="Filter-Doctorant ">
+        <div className="m-2 flex-2 ">
           <label htmlFor="Statue" className="font-black text-dark-purple">
             Statut{" "}
           </label>
@@ -176,7 +174,7 @@ const DoctorantSearch = () => {
             isClearable
           />
         </div>
-        <div className="Filter-Doctorant">
+        <div className="m-2 flex-2">
           <label htmlFor="minYear" className="font-black text-dark-purple">
             Min Year{" "}
           </label>
@@ -191,7 +189,7 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
 
-        <div className="Filter-Doctorant">
+        <div className="m-2 flex-2">
           <label htmlFor="maxYear" className="font-black text-dark-purple">
             Max Year{" "}
           </label>
@@ -205,7 +203,7 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
       </div>
-      <ul className="m-8">
+      <ul className="m-8 overflow-y-scroll">
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}

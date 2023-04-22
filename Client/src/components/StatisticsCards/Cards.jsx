@@ -9,7 +9,7 @@ function Cards() {
       {CardsData.map((card, index) => {
         return (
           <div className="w-full" key={index}>
-            <Card
+            <Card className="text-white"
               title={card.title}
               color={card.color}
               barValue={card.barValue}

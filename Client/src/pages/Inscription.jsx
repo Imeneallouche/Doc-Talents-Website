@@ -14,9 +14,12 @@ function Inscription() {
   const [pgNo, setPgNo] = useState(1);
 
   return (
-    <div className={`bg-white-bluish w-full flex`}>
+    <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
-      <div className={`grow flex flex-col`}>
+      <div className={`grow flex flex-col justify-between`}>
+        <div className="flex justify-end">
+          <ProfileIcon />
+        </div>
         {pgNo == 1 ? (
           <Inscription01 />
         ) : pgNo == 2 ? (

@@ -11,7 +11,8 @@ import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import Statistics from "./pages/Statistics";
-import Seminaire from "./pages/Seminaire";
+import Seminaire from "./pages/Seminaire"
+
 
 import Inscription01 from "./components/Inscription01/Inscription01";
 

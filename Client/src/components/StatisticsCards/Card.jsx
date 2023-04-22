@@ -41,12 +41,12 @@ function CompactCard({ param, setExpanded }) {
           value={param.barValue}
           text={`${param.barValue}%`}
         />
-        <span className={`text-base font-bold`}>{param.title}</span>
+        <span className={`text-base font-bold text-white`}>{param.title}</span>
       </div>
       <div className="flex flex-1 flex-col items-end justify-between">
-        <Png />
-        <span>${param.value}</span>
-        <span>Last 24 hours</span>
+        <Png className="fill-white" />
+        <span className="text-white">{param.value} inscrits</span>
+        <span className="text-white">Alwayws Updated</span>
       </div>
     </motion.div>
   );
