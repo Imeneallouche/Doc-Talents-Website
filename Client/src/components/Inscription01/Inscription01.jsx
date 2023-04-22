@@ -77,7 +77,7 @@ function Inscription01() {
 
   return (
     <form
-      className="m-10 w-full h-full flex flex-col justify-center items-center"
+      className="m-10 grow flex flex-col justify-center items-center"
       onSubmit={handleSubmit}
     >
       <section className="flex w-full">
@@ -234,12 +234,6 @@ function Inscription01() {
           </p>
         </div>
       </section>
-      <button
-        type="submit"
-        className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
-      >
-        Suivant
-      </button>
     </form>
   );
 }

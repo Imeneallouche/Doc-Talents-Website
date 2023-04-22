@@ -9,6 +9,8 @@ import Update from "./pages/Update";
 import PVs from "./pages/PVs";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard";
+import Statistics from "./pages/Statistics";
 
 import Inscription01 from "./components/Inscription01/Inscription01";
 
@@ -26,8 +28,14 @@ export default function App() {
           <Route path="/Doctorant" exact>
             <Doctorant />
           </Route>
+          <Route path="/Dashboard" exact>
+            <Dashboard />
+          </Route>
           <Route path="/Inscription" exact>
             <Inscription />
+          </Route>
+          <Route path="/Statistics" exact>
+            <Statistics />
           </Route>
           <Route path="/Update" exact>
             <Update />

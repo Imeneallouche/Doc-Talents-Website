@@ -80,7 +80,7 @@ function Inscription02() {
 
   return (
     <form
-      className="m-10 w-full h-full flex flex-col justify-center items-center"
+      className="m-10 grow flex flex-col justify-center items-center"
       onSubmit={handleSubmit}
     >
       <section className="flex w-full">
@@ -278,21 +278,6 @@ function Inscription02() {
             />
           </LocalizationProvider>
         </div>
-      </section>
-      <section>
-        <button
-          type="submit"
-          className="m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
-        >
-          Précédant
-        </button>
-
-        <button
-          type="submit"
-          className="m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
-        >
-          Suivant
-        </button>
       </section>
     </form>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import SideBar from "../components/Menu/SideBar";
 
-function Profile() {
+function Statistics() {
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
@@ -9,4 +9,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Statistics;
