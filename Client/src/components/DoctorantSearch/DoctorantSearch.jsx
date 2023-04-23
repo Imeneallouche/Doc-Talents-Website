@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 //import "./DoctorantSearch.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const DoctorantSearch = () => {
   const [Doctorants, setDoctorants] = useState([]);
@@ -16,6 +17,19 @@ const DoctorantSearch = () => {
 
   const currentYear = new Date().getFullYear();
   const FirstYearEver = 2012;
+
+  const history = useHistory();
+
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportHeight(window.innerHeight);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchDoctorants = async () => {
@@ -37,6 +51,11 @@ const DoctorantSearch = () => {
     );
     setSearchResults(results);
   }, [searchText, Doctorants]);
+
+  function handleOnClickUser(username) {
+    const usernamerouter = username.toLowerCase().replace(" ", "");
+    history.push(`/Users/${usernamerouter}`);
+  }
 
   const years = [];
   for (let year = FirstYearEver; year <= currentYear; year++) {
@@ -136,7 +155,7 @@ const DoctorantSearch = () => {
     <div className={`bg-white-bluish w-full flex flex-col`}>
       <div className="flex-2 Search p-8 flex justify-end">
         <input
-          className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
+          className="text-purple drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
           id="searchBar"
           type="text"
           placeholder="Rechercher"
@@ -146,7 +165,7 @@ const DoctorantSearch = () => {
       </div>
 
       <div className="text-gray-600 flex items-center justify-evenly">
-        <div className="m-2 flex-2">
+        <div className="m-2 flex-1">
           <label htmlFor="Sexe" className="font-black text-dark-purple">
             Sexe{" "}
           </label>
@@ -160,7 +179,7 @@ const DoctorantSearch = () => {
             isClearable
           />
         </div>
-        <div className="m-2 flex-2 ">
+        <div className="m-2 flex-1">
           <label htmlFor="Statue" className="font-black text-dark-purple">
             Statut{" "}
           </label>
@@ -174,7 +193,7 @@ const DoctorantSearch = () => {
             isClearable
           />
         </div>
-        <div className="m-2 flex-2">
+        <div className="m-2 flex-1">
           <label htmlFor="minYear" className="font-black text-dark-purple">
             Min Year{" "}
           </label>
@@ -189,7 +208,7 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
 
-        <div className="m-2 flex-2">
+        <div className="m-2 flex-1">
           <label htmlFor="maxYear" className="font-black text-dark-purple">
             Max Year{" "}
           </label>
@@ -203,26 +222,45 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
       </div>
-      <ul className="m-8 overflow-y-scroll">
+      <ul
+        className={`m-2 grow overflow-y-auto`}
+        style={{ height: "calc(100vh - 18rem)" }}
+      >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className="bg-white rounded-lg p-4 m-2 flex justify-between items-center content-center"
+            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center hover:cursor-pointer hover:bg-white-bluish"
+            onClick={() => handleOnClickUser(Doctorant.nom + Doctorant.prenom)}
+            role="button"
           >
             <img
-              className="w-12"
+              className="w-12 mr-5"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
                 index % 5
               }.png`)}
               alt="profile"
             />
-            <span>
-              {Doctorant.nom} {Doctorant.prenom}
-            </span>
-            <span>{Doctorant.mail}</span>
-            <span>{Doctorant.Specialite}</span>
-            <span>{Doctorant.intitule_sujet}</span>
-            <span>{Doctorant.statut}</span>
+            <div className="mr-2 flex justify-start flex-1">
+              <span>
+                {Doctorant.nom} {Doctorant.prenom}
+              </span>
+            </div>
+            <div className="mr-2 flex justify-start flex-1">
+              <span>{Doctorant.mail}</span>
+            </div>
+
+            <div className="flex justify-start flex-1">
+              <span>{Doctorant.Specialite}</span>
+            </div>
+
+            <div className="mr-2 flex justify-start flex-1">
+              <span>{Doctorant.intitule_sujet}</span>
+            </div>
+
+            <div className="flex justify-start flex-1">
+              <span>{Doctorant.statut}</span>
+            </div>
+
             <button>Details</button>
           </li>
         ))}

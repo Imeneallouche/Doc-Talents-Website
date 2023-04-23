@@ -5,13 +5,13 @@ import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
 
 function Doctorant() {
   return (
-    <div className={`bg-white-bluish w-full flex `}>
+    <div className={`bg-white-bluish w-full h-screen flex `}>
       <SideBar />
-      <div className={`grow flex flex-col justify-items-start`}>
+      <div className={`grow flex flex-col justify-items-start h-full`}>
         <div className="flex justify-end">
           <ProfileIcon />
         </div>
-        <DoctorantSearch />
+        <DoctorantSearch/>
       </div>
     </div>
   );
