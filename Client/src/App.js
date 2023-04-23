@@ -12,7 +12,7 @@ import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import Statistics from "./pages/Statistics";
 import Seminaire from "./pages/Seminaire"
-
+import SeminaireLirePlus from "./pages/SeminaireLirePlus";
 
 import Inscription01 from "./components/Inscription01/Inscription01";
 
@@ -54,6 +54,7 @@ export default function App() {
           <Route path="/Seminaire" exact>
             <Seminaire />
           </Route>
+          <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} />
         </Switch>
       </Router>
     </div>
