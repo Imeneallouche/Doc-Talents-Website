@@ -7,12 +7,14 @@ const SeminairesButton = () => {
         background: "linear-gradient(to left, #19202E, #35468E)",
         width: "350px",
         height: "55px",
-        borderRadius: "16px",
+        borderRadius: "10px",
         display: "flex",
         justifyContent: "flex-start", // align text to the center left
         alignItems: "center",
         color: "#ffffff",
         fontSize: "20px",
+        marginTop: '80px', 
+        marginLeft: "60px",
         fontWeight: "bold",
         fontFamily: "sans-serif",
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)", // Add box shadow CSS property
