@@ -3,14 +3,15 @@ import Card from "../components/Seminaires/Card";
 import SeminaireButton from "../components/Seminaires/SeminairesButton";
 import SideBar from "../components/Menu/SideBar";
 
-function Seminaire() {
+export default function Seminaire() {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <SideBar />
-      <SeminaireButton />
-      <Card />
+      <div style={{ flex: 1, overflowY: "auto" }}>
+        <SeminaireButton style={{ marginTop: '20px', margin: "20px" }} />
+        <Card style={{ position: "relative", top: 0, left: 0 }} />
+      </div>
+      
     </div>
   );
-}
-
-export default Seminaire;
+};
