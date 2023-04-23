@@ -1,25 +1,34 @@
 import React from "react";
 import "./Cardstyles.css";
 import map from "lodash/map";
-import range from "lodash/range";
+import seminaireData from "../../Data/seminaireData.json";
+import { useHistory } from "react-router-dom";
 
-const CardContainer = () => {
-  const currentDate = new Date().toLocaleDateString();
-  const title = "Titre";
-  const paragraph =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo sulaborum...  ";
+const CardContainer = ({ title, paragraph }) => {
+  const history = useHistory();
+
+  const handleReadMoreClick = () => {
+    history.push({
+      pathname: `/SeminaireLirePlus/${title}`,
+      state: {
+        title: title,
+      },
+    });
+  };
+
   return (
     <div
       style={{
-        height: "200px",
-        width: "280px",
+        height: "220px",
+        width: "320px",
         margin: "10px 20px",
+        marginLeft: "60px",
         position: "relative",
-        borderRadius: "36px",
+        borderRadius: "18px",
         backgroundColor: "#fdfdff",
-        border: "2px solid #ffffff", // Add border CSS property
+        border: "2px solid #ffffff",
         boxShadow:
-          "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)", // Add boxShadow CSS property
+          "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)",
       }}
     >
       <div
@@ -27,29 +36,18 @@ const CardContainer = () => {
           position: "absolute",
           top: "20px",
           left: "20px",
-          fontSize: "34px",
+          fontSize: "16px",
           color: "#35468e",
-          fontWeight: "bold",
+          fontWeight: 900,
         }}
       >
         {title}
       </div>
       <div
         style={{
+          marginTop: "10px",
           position: "absolute",
-          top: "40px",
-          right: "20px",
-          fontSize: "12px",
-          color: "#35468e",
-          fontFamily: "Poppins Extra Bold",
-        }}
-      >
-        {currentDate}
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          top: "80px",
+          top: "60px",
           left: "20px",
           right: "20px",
           fontSize: "12px",
@@ -63,6 +61,7 @@ const CardContainer = () => {
             cursor: "pointer",
             color: "#35468e",
           }}
+          onClick={handleReadMoreClick}
         >
           {" Lire plus"}
         </span>
@@ -79,12 +78,12 @@ function Card() {
           width: "100%",
           overflow: "auto",
           display: "flex",
-          //justifyContent: "center",
+          justifyContent: "center",
         }}
       >
-        {map(range(50), (index) => (
+        {map(seminaireData, (data, index) => (
           <div key={index}>
-            <CardContainer />
+            <CardContainer title={data.title} paragraph={data.paragraph} />
           </div>
         ))}
       </div>
