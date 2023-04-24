@@ -16,6 +16,9 @@ import InscriptionStep1 from "./pages/InscriptionStep1";
 import InscriptionStep2 from "./pages/InscriptionStep2";
 import InscriptionStep3 from "./pages/InscriptionStep3";
 import ConfirmEndacrant from "./pages/ConfirmEndacrant";
+import SeminaireLirePlus from "./pages/SeminaireLirePlus";
+
+import Inscription01 from "./components/Inscription01/Inscription01";
 
 export default function App() {
   return (
@@ -64,6 +67,7 @@ export default function App() {
           <Route path="/Seminaire" exact>
             <Seminaire />
           </Route>
+          <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} />
         </Switch>
       </Router>
     </div>

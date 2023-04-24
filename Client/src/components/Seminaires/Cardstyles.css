@@ -1,5 +1,5 @@
-.Card {
-  height: 100vh;
+.Card{
+  height: calc(80vh - 55px); /* subtract height of SeminaireButton from viewport height */
   display: flex;
   align-items: center;
   justify-content: center;
