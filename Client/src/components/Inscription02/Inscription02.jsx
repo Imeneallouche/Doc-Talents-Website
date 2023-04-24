@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 import TextField from "@mui/material/TextField";
+import { useHistory } from "react-router-dom";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -28,10 +29,18 @@ function Inscription02() {
     { value: "LMD", label: "LMD" },
     { value: "Classique", label: "Classique" },
   ];
-  const handleSubmit = (event) => {
+  const handleNext = (event) => {
     event.preventDefault();
     //console.log(`Email: ${email}, Password: ${password}`);
+    history.push("/Inscription/Step3");
   };
+
+  const handlePrevious = (event) => {
+    event.preventDefault();
+    history.push("/Inscription/Step1");
+  };
+
+  const history = useHistory();
 
   const customStyles = {
     control: (provided, state) => ({
@@ -81,7 +90,7 @@ function Inscription02() {
   return (
     <form
       className="m-10 grow flex flex-col justify-center items-center"
-      onSubmit={handleSubmit}
+      onSubmit={handleNext}
     >
       <section className="flex w-full">
         <div className="m-4 flex flex-col flex-1">
@@ -175,6 +184,7 @@ function Inscription02() {
             value={TypeDoctorant}
             onChange={(event) => setTypeDoctorant(event)}
             isClearable
+            required
           />
         </div>
 
@@ -279,6 +289,23 @@ function Inscription02() {
           </LocalizationProvider>
         </div>
       </section>
+
+      <div>
+        <button
+          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          type="button"
+          onClick={handlePrevious}
+        >
+          Précédant
+        </button>
+
+        <button
+          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          type="submit"
+        >
+          Suivant
+        </button>
+      </div>
     </form>
   );
 }

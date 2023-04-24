@@ -1,20 +1,20 @@
 import React from "react";
+import Inscription02 from "../components/Inscription02/Inscription02";
 import SideBar from "../components/Menu/SideBar";
-import DoctorantUpdate from "../components/DoctorantUpdate/DoctorantUpdate";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
 
-function Update() {
+function InscriptionStep2() {
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
-      <div className={`grow flex flex-col justify-items-start h-full`}>
+      <div className={`grow flex flex-col justify-between`}>
         <div className="flex justify-end">
           <ProfileIcon />
         </div>
-        <DoctorantUpdate />
+        <Inscription02 />
       </div>
     </div>
   );
 }
 
-export default Update;
+export default InscriptionStep2;

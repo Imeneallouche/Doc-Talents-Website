@@ -155,27 +155,19 @@ const DoctorantUpdate = () => {
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col flex-1`}>
-      <div className="flex-2 p-8 ">
-        <label htmlFor="searchBar"></label>
-        <input
-          className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
-          id="searchBar"
-          type="text"
-          placeholder="Rechercher"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-      </div>
-
       <div className="text-purple flex items-center justify-evenly">
         <div className="flex items-center">
-          <input className="w-5 h-5"
+          <input
+            className="w-5 h-5"
             type="checkbox"
             id="selectionner-tout"
             name="selectionner-tout"
             value="selectionner-tout"
           />
-          <label className="ml-2" for="selectionner-tout"> Selectionner tout</label>
+          <label className="ml-2" for="selectionner-tout">
+            {" "}
+            Selectionner tout
+          </label>
         </div>
 
         <button
@@ -205,8 +197,24 @@ const DoctorantUpdate = () => {
         >
           Abandon
         </button>
+
+        <div className="p-8 ">
+          <label htmlFor="searchBar"></label>
+          <input
+            className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
+            id="searchBar"
+            type="text"
+            placeholder="Rechercher"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+        </div>
       </div>
-      <ul className="m-8 overflow-y-scroll">
+
+      <ul
+        className="mx-8 overflow-y-scroll"
+        style={{ height: "calc(100vh - 14rem)" }}
+      >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}

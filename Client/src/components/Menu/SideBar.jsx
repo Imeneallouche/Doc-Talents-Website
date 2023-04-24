@@ -8,7 +8,7 @@ const SideBar = () => {
     { title: "Dashboard", src: "Chart_fill", Path: "/Dashboard" },
 
     { title: "Search", src: "Search", Path: "/Doctorant", gap: true },
-    { title: "Register", src: "Chat", Path: "/Inscription" },
+    { title: "Register", src: "Chat", Path: "/Inscription/Step1" },
     { title: "Update", src: "Calendar", Path: "/Update" },
     { title: "Statistics", src: "Chart", Path: "/Statistics" },
     { title: "PVs ", src: "Folder", Path: "/PVs" },
@@ -23,7 +23,7 @@ const SideBar = () => {
     <div className="flex">
       <div
         className={` ${
-          open ? "w-60" : "w-20 "
+          open ? "w-64" : "w-20 "
         } bg-purple h-screen p-5  pt-8 relative duration-300 SideBar`}
       >
         <img

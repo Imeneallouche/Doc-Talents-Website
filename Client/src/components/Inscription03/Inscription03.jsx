@@ -211,6 +211,21 @@ function Inscription03() {
           />
         </div>
       </section>
+      <div>
+        <button
+          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          type="button"
+        >
+          Précédant
+        </button>
+
+        <button
+          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          type="submit"
+        >
+          Confirmer
+        </button>
+      </div>
     </form>
   );
 }

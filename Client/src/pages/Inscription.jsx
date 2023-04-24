@@ -27,8 +27,13 @@ function Inscription() {
         ) : (
           <Inscription03 />
         )}
+      </div>
+    </div>
+  );
+}
 
-        <div className="flex justify-center ">
+/*
+<div className="flex justify-center ">
           {pgNo > 1 && (
             <button
               className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
@@ -49,9 +54,5 @@ function Inscription() {
             </button>
           )}
         </div>
-      </div>
-    </div>
-  );
-}
-
+*/
 export default Inscription;

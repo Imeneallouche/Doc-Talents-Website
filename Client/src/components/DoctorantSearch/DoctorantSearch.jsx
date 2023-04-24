@@ -20,17 +20,6 @@ const DoctorantSearch = () => {
 
   const history = useHistory();
 
-  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
-
-  useEffect(() => {
-    function handleResize() {
-      setViewportHeight(window.innerHeight);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   useEffect(() => {
     const fetchDoctorants = async () => {
       const response = await axios.get(
@@ -153,24 +142,13 @@ const DoctorantSearch = () => {
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col`}>
-      <div className="flex-2 Search p-8 flex justify-end">
-        <input
-          className="text-purple drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
-          id="searchBar"
-          type="text"
-          placeholder="Rechercher"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-      </div>
-
       <div className="text-gray-600 flex items-center justify-evenly">
         <div className="m-2 flex-1">
-          <label htmlFor="Sexe" className="font-black text-dark-purple">
-            Sexe{" "}
+          <label htmlFor="Sexe" className="font-normal text-sm text-dark-purple">
+            Sexe
           </label>
           <Select
-            className="mt-2 w-48"
+            className="mt-1"
             placeholder="Male"
             id="Sexe"
             options={genderOptions}
@@ -180,11 +158,11 @@ const DoctorantSearch = () => {
           />
         </div>
         <div className="m-2 flex-1">
-          <label htmlFor="Statue" className="font-black text-dark-purple">
-            Statut{" "}
+          <label htmlFor="Statue" className="font-normal text-sm text-dark-purple">
+            Statut
           </label>
           <Select
-            className="mt-2 w-48"
+            className="mt-1"
             placeholder="Inscrit"
             id="Statue"
             options={statuesOptions}
@@ -194,11 +172,11 @@ const DoctorantSearch = () => {
           />
         </div>
         <div className="m-2 flex-1">
-          <label htmlFor="minYear" className="font-black text-dark-purple">
-            Min Year{" "}
+          <label htmlFor="minYear" className=" font-nrormal text-sm text-dark-purple">
+            1st year register min
           </label>
           <Select
-            className="mt-2 w-48"
+            className="mt-1"
             placeholder={FirstYearEver}
             id="minYear"
             value={selectedMinYear}
@@ -208,11 +186,15 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
 
-        <div className="m-2 flex-1">
-          <label htmlFor="maxYear" className="font-black text-dark-purple">
-            Max Year{" "}
+        <div className="m-2 flex-1 ">
+          <label
+            htmlFor="maxYear"
+            className="font-normal text-sm text-dark-purple"
+          >
+            1st year register max
           </label>
           <Select
+            className="mt-1"
             placeholder={currentYear}
             id="maxYear"
             value={selectedMaxYear}
@@ -221,10 +203,21 @@ const DoctorantSearch = () => {
             isClearable
           ></Select>
         </div>
+
+        <div className="flex-1 p-8">
+          <input
+            className="text-purple font-normal drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
+            id="searchBar"
+            type="text"
+            placeholder="Rechercher"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+        </div>
       </div>
       <ul
-        className={`m-2 grow overflow-y-auto`}
-        style={{ height: "calc(100vh - 18rem)" }}
+        className={`mx-8 grow overflow-y-auto`}
+        style={{ height: "calc(100vh - 14rem)" }}
       >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
