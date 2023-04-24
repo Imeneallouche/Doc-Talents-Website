@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import "./DoctorantSearch.css";
+//import "./DoctorantSearch.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const DoctorantSearch = () => {
   const [Doctorants, setDoctorants] = useState([]);
@@ -16,6 +17,8 @@ const DoctorantSearch = () => {
 
   const currentYear = new Date().getFullYear();
   const FirstYearEver = 2012;
+
+  const history = useHistory();
 
   useEffect(() => {
     const fetchDoctorants = async () => {
@@ -37,6 +40,11 @@ const DoctorantSearch = () => {
     );
     setSearchResults(results);
   }, [searchText, Doctorants]);
+
+  function handleOnClickUser(username) {
+    const usernamerouter = username.toLowerCase().replace(" ", "");
+    history.push(`/Users/${usernamerouter}`);
+  }
 
   const years = [];
   for (let year = FirstYearEver; year <= currentYear; year++) {
@@ -119,10 +127,11 @@ const DoctorantSearch = () => {
   ];
 
   const statuesOptions = [
-    { value: "reinscrit", label: "inscrit" },
+    { value: "inscrit", label: "inscrit" },
     { value: "radie", label: "radié" },
     { value: "soutenu", label: "soutenu" },
     { value: "abandon", label: "abandon" },
+    { value: "differe", label: "différé" },
   ];
 
   const yearsOption = [];
@@ -132,28 +141,14 @@ const DoctorantSearch = () => {
   }
 
   return (
-    <div
-      className={`bg-white-bluish w-full h-full overflow-y-scroll flex flex-col flex-1`}
-    >
-      <div className="Filter-Doctorant Search p-8 ">
-        <label htmlFor="searchBar"></label>
-        <input
-          className="h-25 rounded p-3 absolute right-10"
-          id="searchBar"
-          type="text"
-          placeholder="Rechercher"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-      </div>
-
+    <div className={`bg-white-bluish w-full flex flex-col`}>
       <div className="text-gray-600 flex items-center justify-evenly">
-        <div className="Filter-Doctorant">
-          <label htmlFor="Sexe" className="font-black text-dark-purple">
-            Sexe{" "}
+        <div className="m-2 flex-1">
+          <label htmlFor="Sexe" className="font-normal text-sm text-dark-purple">
+            Sexe
           </label>
           <Select
-            className="mt-2 w-48"
+            className="mt-1"
             placeholder="Male"
             id="Sexe"
             options={genderOptions}
@@ -162,12 +157,12 @@ const DoctorantSearch = () => {
             isClearable
           />
         </div>
-        <div className="Filter-Doctorant ">
-          <label htmlFor="Statue" className="font-black text-dark-purple">
-            Statut{" "}
+        <div className="m-2 flex-1">
+          <label htmlFor="Statue" className="font-normal text-sm text-dark-purple">
+            Statut
           </label>
           <Select
-            className="mt-2 w-48"
+            className="mt-1"
             placeholder="Inscrit"
             id="Statue"
             options={statuesOptions}
@@ -176,12 +171,12 @@ const DoctorantSearch = () => {
             isClearable
           />
         </div>
-        <div className="Filter-Doctorant">
-          <label htmlFor="minYear" className="font-black text-dark-purple">
-            Min Year{" "}
+        <div className="m-2 flex-1">
+          <label htmlFor="minYear" className=" font-nrormal text-sm text-dark-purple">
+            1st year register min
           </label>
           <Select
-            className="mt-2 w-48"
+            className="mt-1"
             placeholder={FirstYearEver}
             id="minYear"
             value={selectedMinYear}
@@ -191,11 +186,15 @@ const DoctorantSearch = () => {
           ></Select>
         </div>
 
-        <div className="Filter-Doctorant">
-          <label htmlFor="maxYear" className="font-black text-dark-purple">
-            Max Year{" "}
+        <div className="m-2 flex-1 ">
+          <label
+            htmlFor="maxYear"
+            className="font-normal text-sm text-dark-purple"
+          >
+            1st year register max
           </label>
           <Select
+            className="mt-1"
             placeholder={currentYear}
             id="maxYear"
             value={selectedMaxYear}
@@ -204,27 +203,57 @@ const DoctorantSearch = () => {
             isClearable
           ></Select>
         </div>
+
+        <div className="flex-1 p-8">
+          <input
+            className="text-purple font-normal drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
+            id="searchBar"
+            type="text"
+            placeholder="Rechercher"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+        </div>
       </div>
-      <ul className="m-8">
+      <ul
+        className={`mx-8 grow overflow-y-auto`}
+        style={{ height: "calc(100vh - 14rem)" }}
+      >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className="bg-white rounded-lg p-4 m-2 flex justify-between items-center content-center"
+            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center hover:cursor-pointer hover:bg-white-bluish"
+            onClick={() => handleOnClickUser(Doctorant.nom + Doctorant.prenom)}
+            role="button"
           >
             <img
-              className="w-12"
+              className="w-12 mr-5"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
                 index % 5
               }.png`)}
               alt="profile"
             />
-            <span>
-              {Doctorant.nom} {Doctorant.prenom}
-            </span>
-            <span>{Doctorant.mail}</span>
-            <span>{Doctorant.Specialite}</span>
-            <span>{Doctorant.intitule_sujet}</span>
-            <span>{Doctorant.statut}</span>
+            <div className="mr-2 flex justify-start flex-1">
+              <span>
+                {Doctorant.nom} {Doctorant.prenom}
+              </span>
+            </div>
+            <div className="mr-2 flex justify-start flex-1">
+              <span>{Doctorant.mail}</span>
+            </div>
+
+            <div className="flex justify-start flex-1">
+              <span>{Doctorant.Specialite}</span>
+            </div>
+
+            <div className="mr-2 flex justify-start flex-1">
+              <span>{Doctorant.intitule_sujet}</span>
+            </div>
+
+            <div className="flex justify-start flex-1">
+              <span>{Doctorant.statut}</span>
+            </div>
+
             <button>Details</button>
           </li>
         ))}

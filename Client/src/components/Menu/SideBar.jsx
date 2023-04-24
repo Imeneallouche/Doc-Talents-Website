@@ -1,29 +1,29 @@
 import { useState } from "react";
-import "./SideBar.css";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
 
   const Menus = [
-    { title: "Dashboard", src: "Chart_fill" },
+    { title: "Dashboard", src: "Chart_fill", Path: "/Dashboard" },
 
-    { title: "Search", src: "Search", gap: true },
-    { title: "Register", src: "Chat" },
-    { title: "Update", src: "Calendar" },
-    { title: "Statistics", src: "Chart" },
-    { title: "PVs ", src: "Folder" },
+    { title: "Search", src: "Search", Path: "/Doctorant", gap: true },
+    { title: "Register", src: "Chat", Path: "/Inscription/Step1" },
+    { title: "Update", src: "Calendar", Path: "/Update" },
+    { title: "Statistics", src: "Chart", Path: "/Statistics" },
+    { title: "PVs ", src: "Folder", Path: "/PVs" },
 
-    { title: "Accounts", src: "User", gap: true },
-    { title: "Settings", src: "Setting" },
+    { title: "Users", src: "User", Path: "/Users", gap: true },
+    { title: "Settings", src: "Setting", Path: "/Profile" },
 
-    { title: "Logout", src: "Setting", gap: true },
+    { title: "Logout", src: "Setting", Path: "/", gap: true },
   ];
 
   return (
     <div className="flex">
       <div
         className={` ${
-          open ? "w-60" : "w-20 "
+          open ? "w-64" : "w-20 "
         } bg-purple h-screen p-5  pt-8 relative duration-300 SideBar`}
       >
         <img
@@ -47,22 +47,27 @@ const SideBar = () => {
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex  rounded-md p-2 cursor-pointer text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? "mt-10" : "mt-2"} ${
+              className={`flex rounded-md p-2 cursor-pointer text-gray-300 text-sm items-center gap-x-4 
+              ${Menu.gap ? "mt-10" : "mt-2 hover:bg-gray-400/10"} ${
                 index === 0 && "bg-light-white"
               } `}
             >
-              <img
-                src={require(`../../assets/SideBar/${Menu.src}.png`)}
-                alt="icon"
-              />
-              <span
-                className={`${
-                  !open && "hidden"
-                } text-white text-base origin-left duration-200`}
+              <Link
+                to={Menu.Path}
+                className="w-full flex  rounded-md cursor-pointer text-gray-300 text-sm items-center gap-x-4 "
               >
-                {Menu.title}
-              </span>
+                <img
+                  src={require(`../../assets/SideBar/${Menu.src}.png`)}
+                  alt="icon"
+                />
+                <span
+                  className={`${
+                    !open && "hidden"
+                  } text-white text-base origin-left duration-200`}
+                >
+                  {Menu.title}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

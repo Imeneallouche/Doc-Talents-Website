@@ -5,11 +5,15 @@ import Profilee from "../components/Profile/Profile";
 
 function Profile() {
   return (
-
-     
-    <Profilee/>
-      
-     
+    <div className={`bg-white-bluish w-full flex `}>
+      <SideBar />
+      <div className="grow flex flex-col justify-between">
+        <div className="flex justify-end">
+          <ProfileIcon />
+          <Profilee/>
+        </div>
+      </div>
+    </div>
   );
 }
 

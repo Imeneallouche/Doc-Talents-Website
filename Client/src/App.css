@@ -1,7 +1,5 @@
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
-
 @import "tailwindcss/utilities";
 
 html {
@@ -9,7 +7,7 @@ html {
   box-sizing: border-box;
   font-size: calc(10px + 0.33vw);
   scroll-behavior: smooth;
-  color: #ffffff;
+  color: white;
 }
 
 *,

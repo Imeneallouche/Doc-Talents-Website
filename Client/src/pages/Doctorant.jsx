@@ -1,12 +1,18 @@
 import React from "react";
 import SideBar from "../components/Menu/SideBar";
 import DoctorantSearch from "../components/DoctorantSearch/DoctorantSearch";
+import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
 
 function Doctorant() {
   return (
-    <div className={`bg-white-bluish w-full flex `}>
+    <div className={`bg-white-bluish w-full h-screen flex `}>
       <SideBar />
-      <DoctorantSearch className={`grow`} />
+      <div className={`grow flex flex-col justify-items-start h-full`}>
+        <div className="flex justify-end">
+          <ProfileIcon />
+        </div>
+        <DoctorantSearch/>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,8 @@
+.Card{
+  height: calc(80vh - 55px); /* subtract height of SeminaireButton from viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  text-align: center;
+}

@@ -4,7 +4,6 @@ import "./App.css";
 import HomePage from "./pages/Home";
 import Connexion from "./pages/Connexion";
 import Doctorant from "./pages/Doctorant";
-import Inscription from "./pages/Inscription";
 import Update from "./pages/Update";
 import PVs from "./pages/PVs";
 import Users from "./pages/Users";
@@ -13,8 +12,16 @@ import Editprofile from "./pages/Editprofile";
 
 
 
+import Dashboard from "./pages/Dashboard";
+import Statistics from "./pages/Statistics";
+import Seminaire from "./pages/Seminaire";
+import InscriptionStep1 from "./pages/InscriptionStep1";
+import InscriptionStep2 from "./pages/InscriptionStep2";
+import InscriptionStep3 from "./pages/InscriptionStep3";
+import ConfirmEndacrant from "./pages/ConfirmEndacrant";
+import SeminaireLirePlus from "./pages/SeminaireLirePlus";
 
-import Inscription01 from "./components/Inscription01/Inscription01";
+
 
 export default function App() {
   return (
@@ -30,8 +37,23 @@ export default function App() {
           <Route path="/Doctorant" exact>
             <Doctorant />
           </Route>
-          <Route path="/Inscription" exact>
-            <Inscription />
+          <Route path="/Dashboard" exact>
+            <Dashboard />
+          </Route>
+          <Route path="/Inscription/Step1">
+            <InscriptionStep1 />
+          </Route>
+          <Route path="/Inscription/Step2">
+            <InscriptionStep2 />
+          </Route>
+          <Route path="/Inscription/Step3">
+            <InscriptionStep3 />
+          </Route>
+          <Route path="/Inscription/ConfirmEncadrant">
+            <ConfirmEndacrant />
+          </Route>
+          <Route path="/Statistics" exact>
+            <Statistics />
           </Route>
           <Route path="/Update" exact>
             <Update />
@@ -49,6 +71,10 @@ export default function App() {
           <Route path="/Editprofile" exact>
             <Editprofile />
           </Route>
+          <Route path="/Seminaire" exact>
+            <Seminaire />
+          </Route>
+          <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} />
         </Switch>
       </Router>
     </div>

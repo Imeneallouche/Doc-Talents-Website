@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./DoctorantUpdate.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const DoctorantUpdate = () => {
   const [Doctorants, setDoctorants] = useState([]);
@@ -15,6 +15,13 @@ const DoctorantUpdate = () => {
 
   const currentYear = new Date().getFullYear();
   const FirstYearEver = 2012;
+
+  const history = useHistory();
+
+  function handleOnClickUser(username) {
+    const usernamerouter = username.toLowerCase().replace(" ", "");
+    history.push(`/Users/${usernamerouter}`);
+  }
 
   useEffect(() => {
     const fetchDoctorants = async () => {
@@ -147,80 +154,109 @@ const DoctorantUpdate = () => {
   };
 
   return (
-    <div className={`Search-Doctorant flex flex-col flex-1`}>
-      <div className="Search p-8 ">
-        <label htmlFor="searchBar"></label>
-        <input
-          className="h-25 rounded p-3 "
-          id="searchBar"
-          type="text"
-          placeholder="Rechercher"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
-      </div>
-
-      <div className="SearchBar-Filters-Doctorant">
-        <div>
+    <div className={`bg-white-bluish w-full flex flex-col flex-1`}>
+      <div className="text-purple flex items-center justify-evenly">
+        <div className="flex items-center">
           <input
+            className="w-5 h-5"
             type="checkbox"
             id="selectionner-tout"
             name="selectionner-tout"
             value="selectionner-tout"
           />
-          <label for="selectionner-tout"> Selectionner tout</label>
+          <label className="ml-2" for="selectionner-tout">
+            {" "}
+            Selectionner tout
+          </label>
         </div>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleReinscription}
         >
           Reinscription
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleSoutenane}
         >
           Soutenance
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleRadiation}
         >
           Radiation
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white"
+          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleAbondan}
         >
           Abandon
         </button>
+
+        <div className="p-8 ">
+          <label htmlFor="searchBar"></label>
+          <input
+            className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
+            id="searchBar"
+            type="text"
+            placeholder="Rechercher"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+        </div>
       </div>
-      <ul className="Search-Results">
+
+      <ul
+        className="mx-8 overflow-y-scroll"
+        style={{ height: "calc(100vh - 14rem)" }}
+      >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className={`bg-white rounded-lg p-4 m-2 flex`}
+            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center="
           >
-            <input type="checkbox" />
+            <input type="checkbox" className="w-5 h-5 mr-5" />
             <img
-              className="w-12"
+              className="w-12 mr-5"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
                 index % 5
               }.png`)}
               alt="profile"
             />
-            <span className="f">
-              {Doctorant.nom} {Doctorant.prenom}
-            </span>
-            <span className="">{Doctorant.mail}</span>
-            <span className="">{Doctorant.Specialite}</span>
-            <span className="">{Doctorant.intitule_sujet}</span>
-            <span className="">{Doctorant.statut}</span>
-            <button>Details</button>
+            <div className="mr-2 flex justify-start flex-1">
+              <span>
+                {Doctorant.nom} {Doctorant.prenom}
+              </span>
+            </div>
+            <div className="mr-2 flex justify-start flex-1">
+              <span>{Doctorant.mail}</span>
+            </div>
+
+            <div className="flex justify-start flex-1">
+              <span>{Doctorant.Specialite}</span>
+            </div>
+
+            <div className="mr-2 flex justify-start flex-1">
+              <span>{Doctorant.intitule_sujet}</span>
+            </div>
+
+            <div className="flex justify-start flex-1">
+              <span>{Doctorant.statut}</span>
+            </div>
+            <button
+              className={`m-2 p-2 bg-purple rounded-md text-white hover:bg-green`}
+              onClick={() =>
+                handleOnClickUser(Doctorant.nom + Doctorant.prenom)
+              }
+              role="button"
+            >
+              Details
+            </button>
           </li>
         ))}
       </ul>

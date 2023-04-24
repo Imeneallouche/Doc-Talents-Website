@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-import TextField from "@mui/material/TextField";
+//import { TextField, Typography } from "@material-ui/core";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useHistory } from "react-router-dom";
 
 function Inscription01() {
   const [Nom, setNom] = useState("");
@@ -19,6 +20,8 @@ function Inscription01() {
     startDate: new Date(),
     endDate: new Date().setMonth(11),
   });
+
+  const [isDatePickerFilled, setisDatePickerFilled] = useState(false);
   const [Sex, setSex] = useState([]);
 
   const genderOptions = [
@@ -26,9 +29,11 @@ function Inscription01() {
     { value: "F", label: "Female" },
   ];
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    //console.log(`Email: ${email}, Password: ${password}`);
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    history.push("/Inscription/Step2");
   };
 
   const customStyles = {
@@ -54,6 +59,7 @@ function Inscription01() {
       color: "#35468E",
     }),
   };
+
   /*
 
 
@@ -77,7 +83,7 @@ function Inscription01() {
 
   return (
     <form
-      className="m-10 w-full h-full flex flex-col justify-center items-center"
+      className="m-10 grow flex flex-col justify-center items-center"
       onSubmit={handleSubmit}
     >
       <section className="flex w-full">
@@ -155,8 +161,13 @@ function Inscription01() {
               className="bg-white border"
               value={Birthday}
               onChange={(event) => setBirthday(event)}
-              renderInput={(params) => <TextField {...params} required />}
+              renderInput={(params) => (
+                <TextField {...params} inputProps={{ required: true }} />
+              )}
             />
+            <p className="mt-2 invisible peer-required:visible text-orange text-sm">
+              Please fill in the datepicker
+            </p>
           </LocalizationProvider>
         </div>
 
@@ -172,6 +183,7 @@ function Inscription01() {
             value={Sex}
             onChange={(event) => setSex(event)}
             isClearable
+            required
           />
         </div>
       </section>
@@ -234,12 +246,14 @@ function Inscription01() {
           </p>
         </div>
       </section>
-      <button
-        type="submit"
-        className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
-      >
-        Suivant
-      </button>
+      <div>
+        <button
+          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          type="submit"
+        >
+          Suivant
+        </button>
+      </div>
     </form>
   );
 }

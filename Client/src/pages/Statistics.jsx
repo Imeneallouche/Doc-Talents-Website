@@ -1,20 +1,18 @@
 import React from "react";
-import SideBar from "../components/Menu/SideBar";
-import DoctorantUpdate from "../components/DoctorantUpdate/DoctorantUpdate";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
+import SideBar from "../components/Menu/SideBar";
 
-function Update() {
+function Statistics() {
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
-      <div className={`grow flex flex-col justify-items-start h-full`}>
+      <div className="grow flex flex-col justify-between">
         <div className="flex justify-end">
           <ProfileIcon />
         </div>
-        <DoctorantUpdate />
       </div>
     </div>
   );
 }
 
-export default Update;
+export default Statistics;
