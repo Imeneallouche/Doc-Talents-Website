@@ -9,6 +9,10 @@ import Update from "./pages/Update";
 import PVs from "./pages/PVs";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import Editprofile from "./pages/Editprofile";
+
+
+
 
 import Inscription01 from "./components/Inscription01/Inscription01";
 
@@ -40,6 +44,10 @@ export default function App() {
           </Route>
           <Route path="/Profile" exact>
             <Profile />
+          </Route>
+            
+          <Route path="/Editprofile" exact>
+            <Editprofile />
           </Route>
         </Switch>
       </Router>
