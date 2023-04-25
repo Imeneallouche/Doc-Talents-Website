@@ -1,18 +1,19 @@
-import connection from "../../../DB/db_config";
+import "../../../../Client/src/pages/Home";
+const db = require("../../../DB/db_config");
 const bcrypt = require("bcryptjs");
-
-//export async function login(req, res) {
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).sendFile(__dirname + "/login.html", {
-        message: "Please Provide an email and password",
+      return res.status(400).send({
+        message: "Please provide an email and password",
       });
     }
-    connection.query(
-      "SELECT * FROM DPGR WHERE email = ?",
+    db.query(
+      "SELECT * FROM DPGR WHERE mail = ?",
       [email],
       async (err, results) => {
         console.log(results);
@@ -20,17 +21,11 @@ const login = async (req, res) => {
           !results ||
           !(await bcrypt.compare(password, results[0].password))
         ) {
-          res.status(401).sendFile(__dirname + "/login.html", {
-            message: "Email or Password is incorrect",
+          res.status(401).send({
+            message: "Email or password is incorrect",
           });
         } else {
-          const id = results[0].id;
-
-          const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-            expiresIn: process.env.JWT_EXPIRES_IN,
-          });
-
-          console.log("the token is " + token);
+          console.log("The token is " + token);
 
           const cookieOptions = {
             expires: new Date(
@@ -39,11 +34,19 @@ const login = async (req, res) => {
             httpOnly: true,
           };
           res.cookie("userSave", token, cookieOptions);
-          res.status(200).redirect("/");
+          res.status(200).send({
+            message: "Login successful",
+            redirect: "../../../../Client/src/pages/Home",
+          });
         }
       }
     );
   } catch (err) {
     console.log(err);
+    res.status(500).send({
+      message: "Server error",
+    });
   }
 };
+
+module.exports = login;
