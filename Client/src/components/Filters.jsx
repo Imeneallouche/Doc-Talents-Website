@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const DataList = () => {
-  const [Sexe, setSexe] = useState('');
-  const [statue, setstatue] = useState('');
+  const [Sexe, setSexe] = useState("");
+  const [statue, setstatue] = useState("");
   const [Doctorants, setDoctorant] = useState([]);
 
   useEffect(() => {
     const fetchDoctorants = async () => {
-      const response = await axios.get(`http://localhost:3000/data?sexe=${Sexe}&statue=${statue}`);
+      const response = await axios.get(
+        `http://localhost:3000/data?sexe=${Sexe}&statue=${statue}`
+      );
 
       setDoctorant(response.Doctorants);
     };
