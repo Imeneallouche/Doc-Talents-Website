@@ -4,11 +4,14 @@ import "./App.css";
 import HomePage from "./pages/Home";
 import Connexion from "./pages/Connexion";
 import Doctorant from "./pages/Doctorant";
-import Inscription from "./pages/Inscription";
 import Update from "./pages/Update";
 import PVs from "./pages/PVs";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import Editprofile from "./pages/Editprofile";
+
+
+
 import Dashboard from "./pages/Dashboard";
 import Statistics from "./pages/Statistics";
 import Seminaire from "./pages/Seminaire";
@@ -18,7 +21,7 @@ import InscriptionStep3 from "./pages/InscriptionStep3";
 import ConfirmEndacrant from "./pages/ConfirmEndacrant";
 import SeminaireLirePlus from "./pages/SeminaireLirePlus";
 
-import Inscription01 from "./components/Inscription01/Inscription01";
+
 
 export default function App() {
   return (
@@ -63,6 +66,10 @@ export default function App() {
           </Route>
           <Route path="/Profile" exact>
             <Profile />
+          </Route>
+            
+          <Route path="/Editprofile" exact>
+            <Editprofile />
           </Route>
           <Route path="/Seminaire" exact>
             <Seminaire />
