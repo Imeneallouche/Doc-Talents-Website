@@ -1,4 +1,4 @@
-const connection = require("../../../DB/db_config");
+const connection = require("../DB/db_config");
 //Champs inserted successfully
 var sqlQuery = `INSERT INTO Doctorant ( 
         Id_Doctorant,

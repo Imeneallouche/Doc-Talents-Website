@@ -1,4 +1,4 @@
-const db = require("../../../DB/db_config");
+import connection from "../../../DB/db_config";
 const bcrypt = require("bcryptjs");
 
 //export async function login(req, res) {
@@ -11,8 +11,8 @@ const login = async (req, res) => {
         message: "Please Provide an email and password",
       });
     }
-    db.query(
-      "SELECT * FROM users WHERE email = ?",
+    connection.query(
+      "SELECT * FROM DPGR WHERE email = ?",
       [email],
       async (err, results) => {
         console.log(results);
