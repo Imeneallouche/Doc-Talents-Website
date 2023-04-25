@@ -1,7 +1,6 @@
 import React from "react";
 
 function TimelineStepper({ currentStep }) {
-     
   const steps = [
     { image: "../../assets/SideBar/control.png", alt: "Step 1" },
     { image: "../../assets/SideBar/control.png", alt: "Step 2" },
@@ -23,11 +22,7 @@ function TimelineStepper({ currentStep }) {
             index <= currentStep ? "text-purple" : "text-green"
           }`}
         >
-          <img
-            src={step.image}
-            alt={step.alt}
-            className="h-8 w-8 mr-2"
-          />
+          <img src={step.image} alt={step.alt} className="h-8 w-8 mr-2" />
           <div className="text-sm">{step.alt}</div>
         </div>
       ))}
