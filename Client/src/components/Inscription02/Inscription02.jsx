@@ -96,7 +96,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="DirecteurThese"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Directeur de thèse
           </label>
@@ -115,7 +115,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="CoDirecteurThese"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Co directeur de thèse
           </label>
@@ -133,7 +133,7 @@ function Inscription02() {
 
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Laboratoire" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Laboratoire" className={`font-medium text-dark-purple`}>
             Laboratoire
           </label>
           <input
@@ -153,7 +153,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Option"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Option
           </label>
@@ -172,7 +172,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="TypeDoctorant"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Type Doctorant
           </label>
@@ -192,7 +192,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="IntituleSujet"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Intitulé sujet
           </label>
@@ -213,7 +213,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="EtablissementMaster"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Etablissement d'origine Master
           </label>
@@ -231,7 +231,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="EtablissementMagestere"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Etablissement d'origine Magestere
           </label>
@@ -250,7 +250,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="EtablissementIngeniorat"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Etablissement d'origine Ingéniorat
           </label>
@@ -270,7 +270,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="PremiereInscription"
-            className={`font-bold text-dark-purple m-2`}
+            className={`font-medium text-dark-purple m-2`}
           >
             Date de première inscription
           </label>

@@ -2,6 +2,7 @@ import React from "react";
 import Inscription01 from "../components/Inscription01/Inscription01";
 import SideBar from "../components/Menu/SideBar";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
+import TimelineStepper from "../components/Timeline Stepper/TimelineStepper";
 
 function InscriptionStep1() {
   return (
@@ -12,6 +13,7 @@ function InscriptionStep1() {
           <ProfileIcon />
         </div>
         <Inscription01 />
+        <TimelineStepper currentStep={1} />
       </div>
     </div>
   );

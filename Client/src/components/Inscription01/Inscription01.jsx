@@ -90,7 +90,7 @@ function Inscription01() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Nom"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={` font-medium text-dark-purple focus:text-green`}
           >
             Nom
           </label>
@@ -107,7 +107,7 @@ function Inscription01() {
         </div>
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Prenom" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Prenom" className={`font-medium text-dark-purple`}>
             Prénom
           </label>
           <input
@@ -126,7 +126,7 @@ function Inscription01() {
           {" "}
           <label
             htmlFor="Id_Doctorant"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             ID du doctorant
           </label>
@@ -147,7 +147,7 @@ function Inscription01() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Birthday"
-            className={`font-bold text-dark-purple m-2`}
+            className={`font-medium text-dark-purple m-2`}
           >
             Date de naissance
           </label>
@@ -172,7 +172,7 @@ function Inscription01() {
         </div>
 
         <div className="m-4 flex flex-col flex-1">
-          <label htmlFor="Sexe" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Sexe" className={`font-medium text-dark-purple`}>
             Sexe
           </label>
           <Select
@@ -191,7 +191,7 @@ function Inscription01() {
       <section className="flex w-full">
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Id_PV" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Id_PV" className={`font-medium text-dark-purple`}>
             ID du PV
           </label>
           <input
@@ -210,7 +210,7 @@ function Inscription01() {
           {" "}
           <label
             htmlFor="Numero_telephone"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Numero du telephone
           </label>
@@ -228,7 +228,7 @@ function Inscription01() {
 
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Email" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Email" className={`font-medium text-dark-purple`}>
             Email du doctorant
           </label>
           <input
@@ -248,7 +248,7 @@ function Inscription01() {
       </section>
       <div>
         <button
-          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          className="m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
           type="submit"
         >
           Suivant

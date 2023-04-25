@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function Inscription03() {
   const [Nom, setNom] = useState("");
@@ -13,9 +14,17 @@ function Inscription03() {
   const [Specialite, setSpecialite] = useState("");
   const [SujetInteret, setSujetInteret] = useState("");
 
-  const handleSubmit = (event) => {
+  const history = useHistory();
+
+  const handleNext = (event) => {
     event.preventDefault();
-    //console.log(`Email: ${email}, Password: ${password}`);
+    history.push("/Inscription/ConfirmEncadrant");
+    //send name of the 2 encadrants to the next page
+  };
+
+  const handlePrevious = (event) => {
+    event.preventDefault();
+    history.push("/Inscription/Step2");
   };
 
   /*
@@ -42,13 +51,13 @@ function Inscription03() {
   return (
     <form
       className="m-10 grow flex flex-col justify-center items-center"
-      onSubmit={handleSubmit}
+      onSubmit={handleNext}
     >
       <section className="flex w-full">
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Nom"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Nom d'encadreur
           </label>
@@ -65,7 +74,7 @@ function Inscription03() {
         </div>
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Prenom" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Prenom" className={`font-medium text-dark-purple`}>
             Prénom d'encadreur
           </label>
           <input
@@ -84,7 +93,7 @@ function Inscription03() {
           {" "}
           <label
             htmlFor="Etablissement"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Etablissement d'encadreur
           </label>
@@ -105,7 +114,7 @@ function Inscription03() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Diplome"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Diplome
           </label>
@@ -122,7 +131,7 @@ function Inscription03() {
         </div>
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Grade" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Grade" className={`font-medium text-dark-purple`}>
             Grade
           </label>
           <input
@@ -139,7 +148,7 @@ function Inscription03() {
 
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Tel" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Tel" className={`font-medium text-dark-purple`}>
             Numéro du téléphone
           </label>
           <input
@@ -159,7 +168,7 @@ function Inscription03() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Email"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Email
           </label>
@@ -176,7 +185,10 @@ function Inscription03() {
         </div>
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Specialite" className={`font-bold text-dark-purple`}>
+          <label
+            htmlFor="Specialite"
+            className={`font-medium text-dark-purple`}
+          >
             Spécialité
           </label>
           <input
@@ -195,7 +207,7 @@ function Inscription03() {
           {" "}
           <label
             htmlFor="SujetsInteret"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Sujets d'interet
           </label>
@@ -215,6 +227,7 @@ function Inscription03() {
         <button
           className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
           type="button"
+          onClick={handlePrevious}
         >
           Précédant
         </button>
