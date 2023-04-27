@@ -1,121 +1,163 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const connection = require("../../../DB/db_config");
+
 const app = express();
-const mysql = require("mysql");
-import Connection from "mysql2/typings/mysql/lib/Connection";
-
-const myConnection = require("express-myconnection");
-
-const optionBD = {
-  host: "bi8rqfiqnirh9lxoqlvx-mysql.services.clever-cloud.com",
-  user: "us8pi6zpi1yugtqt",
-  password: "RMueTG5ErjBW3lCO21ix",
-  database: "bi8rqfiqnirh9lxoqlvx",
-  port: 3306,
-};
-
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.use(myConnection(mysql, optionBD, "pool"));
+// In-memory mock database
+let users = [];
 
-app.set("view engine", "ejs");
-app.set("views", "IHM");
+// Register step 1 endpoint
+app.post("/RegisterDoctorant1", (req, res) => {
+  const { Nom, Prenom, Id_Doctorant, Id_PV, Numero_tel, Email, Birthday, Sex } =
+    req.body;
 
-app.get("/form", (req, res) => {
-  res.status(200).render("formDoctorant");
+  // Store first name and last name in session
+  req.session.data = {
+    Nom,
+    Prenom,
+    Id_Doctorant,
+    Id_PV,
+    Numero_tel,
+    Email,
+    Birthday,
+    Sex,
+  };
+
+  console.log("Registration step 1 successful");
+  res.status(200).json({ message: "Registration step 1 successful" });
 });
-app.get("/formEn", (req, res) => {
-  res.status(200).render("formEncadrant");
-});
 
-app.get("/formCo", (req, res) => {
-  res.status(200).render("formCoEncadrant");
-});
-app.post("/doctorant", (req, res) => {
-  const doctorant = {
-    Id_Doctorant: req.body.id_doctorant,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    Date_naissance: req.body.Date_naissance,
-    sexe: req.body.sexe,
-    mail: req.body.email,
-    telephone: req.body.telephone,
-    TypeDoctorat: req.body.type_doctorat,
-    Etablissement_origine_Master: req.body.etablissement_origine_Master,
-    Etablissement_origine_ingeniorat: req.body.etablissement_origine_ingeniorat,
-    Etablissement_origine_Magistere: req.body.etablissement_origine_Magister,
-    Specialite: req.body.specialite,
-    intitule_sujet: req.body.intitule_sujet,
+let doctorant;
+let PV;
+
+// Register step 2 endpoint
+app.post("/RegisterDoctorant2", (req, res) => {
+  const {
+    DirecteurThese,
+    CoDirecteurThese,
+    Laboratoire,
+    Option,
+    TypeDoctorant,
+    IntituleSujet,
+    EtablissementMagestere,
+    EtablissementIngeniorat,
+    EtablissementMaster,
+    PremiereInscription,
+    DateFichierCentral,
+  } = req.body;
+
+  // Retrieve first name and last name from session
+  const { Nom, Prenom, Id_Doctorant, Id_PV, Numero_tel, Email, Birthday, Sex } =
+    req.session.data;
+  // Create new user object
+  doctorant = {
+    nom: Nom,
+    prenom: Prenom,
+    Id_Doctorant: Id_Doctorant,
+    telephone: Numero_tel,
+    mail: Email,
+    Date_naissance: Birthday,
+    sexe: Sex,
+    Encadreur: DirecteurThese,
+    CoEncadreur: CoDirecteurThese,
+    laboratoire: Laboratoire,
+    Specialite: Option,
+    TypeDoctorat: TypeDoctorant,
+    intitule_sujet: IntituleSujet,
+    Etablissement_origine_Master: EtablissementMaster,
+    Etablissement_origine_Magistere: EtablissementMagestere,
+    Etablissement_origine_ingeniorat: EtablissementIngeniorat,
+    Premiere_inscription: PremiereInscription,
+    Date_fichier_central: DateFichierCentral,
+
     intitule_sujet_bis: null,
     PV_changement_these: null,
-    Premiere_inscription: req.body.premiere_inscription,
     Nombre_inscriptions: 1,
-    Date_fichier_central: req.body.date_fichier_central,
-    Id_Encadreur: req.body.encadreur_id,
-    Id_CoEncadreur: req.body.co_encadreur_id,
-    laboratoire: req.body.laboratoire,
-    statut: "reinscrit",
-    date_derniere_reinscription: req.body.date_fichier_central,
     soutenu: null,
     Date_soutenance: null,
     radie: null,
-    abandon: null,
+    statut: "inscrit",
   };
-  const num_pv = req.body.num_pv;
 
-  req.getConnection((err, connection) => {
-    if (err) {
-      console.log(err);
+  PV = {
+    Id_Doctorant: doctorant.Id_Doctorant,
+    Id_PV: Id_PV,
+  };
+
+  const fullnameEncadreur = doctorant.Encadreur.toLowerCase();
+  const fullnameCoEncadreur = doctorant.Encadreur.toLowerCase();
+
+  const query1 = `SELECT * FROM Encadrant WHERE LOWER(CONCAT(nom, prenom)) = '${fullnameEncadreur}'`;
+  const query2 = `SELECT * FROM Encadrant WHERE LOWER(CONCAT(nom, prenom)) = '${fullnameCoEncadreur}'`;
+
+  connection.query(query1, (error, results1) => {
+    if (error) {
+      console.log(error);
     } else {
-      connection.query(
-        "SELECT * FROM Encadrant WHERE Id_Encadreur = ?",
-        [doctorant.Id_Encadreur],
-        (error, results1) => {
+      if (results1.length !== 0) {
+        connection.query(query2, (error, results2) => {
           if (error) {
             console.log(error);
           } else {
-            if (results1.length !== 0) {
+            if (results2.length !== 0) {
               connection.query(
-                "SELECT * FROM Encadrant WHERE Id_Encadreur = ?",
-                [doctorant.Id_CoEncadreur],
-                (error, results2) => {
+                "INSERT INTO Doctorant SET ?",
+                doctorant,
+                (error, results) => {
                   if (error) {
                     console.log(error);
+                    res.status(500).send("Error saving doctorant to database");
                   } else {
-                    if (results2.length !== 0) {
-                      connection.query(
-                        "INSERT INTO Doctorant SET ?",
-                        doctorant,
-                        (error, results) => {
-                          if (error) {
-                            console.log(error);
-                            res
-                              .status(500)
-                              .send("Error saving doctorant to database");
-                          } else {
-                            res
-                              .status(200)
-                              .send("Doctorant saved successfully");
-                          }
-                        }
-                      );
-                    } else {
-                      res.status(300).redirect("/formCo");
-                    }
+                    res.status(200).send("Doctorant saved successfully");
+                  }
+                }
+              );
+              connection.query(
+                "INSERT INTO Inscription SET ?",
+                PV,
+                (error, results) => {
+                  if (error) {
+                    console.log(error);
+                    res.status(500).send("Error saving PV to database");
+                  } else {
+                    res.status(200).send("PV saved successfully");
                   }
                 }
               );
             } else {
-              res.status(300).redirect("/formEn");
+              res
+                .status(300)
+                .redirect("http://localhost:3000/RegisterCoEncadrant");
             }
           }
-        }
-      );
+        });
+      } else {
+        res.status(300).redirect("http://localhost:3000/RegisterEncadrant");
+      }
     }
   });
 });
-app.post("/encadrant", (req, res) => {
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+app.post("/RegisterEncadrant", (req, res) => {
   const Encadrant = {
-    Id_Encadreur: null,
     nom: req.body.nom,
     prenom: req.body.prenom,
     grade: req.body.grade,
@@ -127,28 +169,38 @@ app.post("/encadrant", (req, res) => {
     laboratoire: req.body.laboratoire,
     Sujets_interet: req.body.Sujet_interet,
   };
-  req.getConnection((err, connection) => {
-    if (err) {
-      console.log(err);
-    } else {
-      connection.query(
-        "INSERT INTO Encadrant SET ?",
-        Encadrant,
-        (error, results) => {
-          if (error) {
-            console.log(error);
-            res.status(500).send("Error saving encadrant to database");
-          } else {
-            res.redirect("/form");
-          }
-        }
-      );
+
+  connection.query(
+    "INSERT INTO Encadrant SET ?",
+    Encadrant,
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send("Error saving encadrant to database");
+      } else {
+        res.redirect("http://localhost:3000/RegisterEncadrant");
+      }
     }
-  });
+  );
 });
-app.post("/coencadrant", (req, res) => {
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+app.post("/RegisterCoEncadrant", (req, res) => {
   const CoEncadrant = {
-    Id_Encadreur: null,
     nom: req.body.nom,
     prenom: req.body.prenom,
     grade: req.body.grade,
@@ -160,24 +212,19 @@ app.post("/coencadrant", (req, res) => {
     laboratoire: req.body.laboratoire,
     Sujets_interet: req.body.Sujet_interet,
   };
-  req.getConnection((err, connection) => {
-    if (err) {
-      console.log(err);
-    } else {
-      connection.query(
-        "INSERT INTO Encadrant SET ?",
-        CoEncadrant,
-        (error, results) => {
-          if (error) {
-            console.log(error);
-            res.status(500).send("Error saving co_encadrant to database");
-          } else {
-            res.redirect("/form");
-          }
-        }
-      );
+
+  connection.query(
+    "INSERT INTO Encadrant SET ?",
+    CoEncadrant,
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send("Error saving co_encadrant to database");
+      } else {
+        res.redirect("/RegisterDoctorant2");
+      }
     }
-  });
+  );
 });
 
 app.listen(3000, () => {
