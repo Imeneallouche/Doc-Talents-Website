@@ -124,15 +124,15 @@ const DoctorantSearch = () => {
   };
 
   const genderOptions = [
-    { value: "H", label: "Male" },
+    { value: "M", label: "Male" },
     { value: "F", label: "Female" },
   ];
 
   const statuesOptions = [
     { value: "inscrit", label: "inscrit" },
-    { value: "radie", label: "radié" },
+    { value: "radié", label: "radié" },
     { value: "soutenu", label: "soutenu" },
-    { value: "differe", label: "différé" },
+    { value: "différé", label: "différé" },
   ];
 
   const yearsOption = [];
