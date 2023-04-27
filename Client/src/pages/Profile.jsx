@@ -1,7 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SideBar from "../components/Menu/SideBar";
-import Profilee from "../components/Profile/Profile";
+import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
 
 function Profile() {
   return (
@@ -10,7 +9,6 @@ function Profile() {
       <div className="grow flex flex-col justify-between">
         <div className="flex justify-end">
           <ProfileIcon />
-          <Profilee/>
         </div>
       </div>
     </div>

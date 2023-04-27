@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-//import "./DoctorantSearch.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -20,12 +19,13 @@ const DoctorantSearch = () => {
 
   const history = useHistory();
 
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/Doctorant";
+
   useEffect(() => {
     const fetchDoctorants = async () => {
-      const response = await axios.get(
-        //`http://localhost:5000/users?search_query=${keyword}&page=${page}&limit=${limit}`
-        `http://localhost:3000/Doctorant`
-      );
+      const response = await axios.get(RUNNING_URL + ENDPOINT);
+      console.log(response);
       setDoctorants(response.data);
     };
 
@@ -33,17 +33,19 @@ const DoctorantSearch = () => {
   }, []);
 
   useEffect(() => {
-    const results = Doctorants.filter(
-      (Doctorant) =>
-        Doctorant.nom.toLowerCase().includes(searchText.toLowerCase()) ||
-        Doctorant.prenom.toLowerCase().includes(searchText.toLowerCase())
+    const results = Doctorants.filter((Doctorant) =>
+      (
+        Doctorant.nom.toLowerCase() +
+        " " +
+        Doctorant.prenom.toLowerCase()
+      ).includes(searchText.toLowerCase())
     );
     setSearchResults(results);
   }, [searchText, Doctorants]);
 
   function handleOnClickUser(username) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
-    history.push(`/Users/${usernamerouter}`);
+    history.push(`/Doctorant/${usernamerouter}`);
   }
 
   const years = [];
@@ -130,7 +132,6 @@ const DoctorantSearch = () => {
     { value: "inscrit", label: "inscrit" },
     { value: "radie", label: "radié" },
     { value: "soutenu", label: "soutenu" },
-    { value: "abandon", label: "abandon" },
     { value: "differe", label: "différé" },
   ];
 
@@ -144,7 +145,10 @@ const DoctorantSearch = () => {
     <div className={`bg-white-bluish w-full flex flex-col`}>
       <div className="text-gray-600 flex items-center justify-evenly">
         <div className="m-2 flex-1">
-          <label htmlFor="Sexe" className="font-normal text-sm text-dark-purple">
+          <label
+            htmlFor="Sexe"
+            className="font-normal text-sm text-dark-purple"
+          >
             Sexe
           </label>
           <Select
@@ -158,7 +162,10 @@ const DoctorantSearch = () => {
           />
         </div>
         <div className="m-2 flex-1">
-          <label htmlFor="Statue" className="font-normal text-sm text-dark-purple">
+          <label
+            htmlFor="Statue"
+            className="font-normal text-sm text-dark-purple"
+          >
             Statut
           </label>
           <Select
@@ -172,7 +179,10 @@ const DoctorantSearch = () => {
           />
         </div>
         <div className="m-2 flex-1">
-          <label htmlFor="minYear" className=" font-nrormal text-sm text-dark-purple">
+          <label
+            htmlFor="minYear"
+            className="font-normal text-sm text-dark-purple"
+          >
             1st year register min
           </label>
           <Select
@@ -216,7 +226,7 @@ const DoctorantSearch = () => {
         </div>
       </div>
       <ul
-        className={`mx-8 grow overflow-y-auto`}
+        className={`mx-2 grow overflow-y-auto`}
         style={{ height: "calc(100vh - 14rem)" }}
       >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
@@ -233,28 +243,30 @@ const DoctorantSearch = () => {
               }.png`)}
               alt="profile"
             />
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 flex justify-start w-1/6">
               <span>
                 {Doctorant.nom} {Doctorant.prenom}
               </span>
             </div>
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 flex justify-start w-1/6">
               <span>{Doctorant.mail}</span>
             </div>
 
-            <div className="flex justify-start flex-1">
+            <div className="flex justify-start w-1/12">
               <span>{Doctorant.Specialite}</span>
             </div>
 
             <div className="mr-2 flex justify-start flex-1">
-              <span>{Doctorant.intitule_sujet}</span>
+              <span>
+                {Doctorant.intitule_sujet_bis
+                  ? Doctorant.intitule_sujet_bis
+                  : Doctorant.intitule_sujet}
+              </span>
             </div>
 
-            <div className="flex justify-start flex-1">
+            <div className="flex justify-start ml-2">
               <span>{Doctorant.statut}</span>
             </div>
-
-            <button>Details</button>
           </li>
         ))}
       </ul>

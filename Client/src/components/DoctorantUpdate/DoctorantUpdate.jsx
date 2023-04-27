@@ -23,12 +23,12 @@ const DoctorantUpdate = () => {
     history.push(`/Users/${usernamerouter}`);
   }
 
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/Update";
+
   useEffect(() => {
     const fetchDoctorants = async () => {
-      const response = await axios.get(
-        //`http://localhost:5000/users?search_query=${keyword}&page=${page}&limit=${limit}`
-        `http://localhost:3000/Doctorant`
-      );
+      const response = await axios.get(RUNNING_URL + ENDPOINT);
       setDoctorants(response.data);
     };
 
@@ -128,7 +128,6 @@ const DoctorantUpdate = () => {
     { value: "reinscrit", label: "inscrit" },
     { value: "radie", label: "radié" },
     { value: "soutenu", label: "soutenu" },
-    { value: "abandon", label: "abandon" },
   ];
 
   const yearsOption = [];
@@ -136,10 +135,6 @@ const DoctorantUpdate = () => {
     let obj = { value: i, label: i };
     yearsOption.push(obj);
   }
-
-  const handleAbondan = () => {
-    console.log("abondan");
-  };
 
   const handleRadiation = () => {
     console.log("raide");
@@ -156,7 +151,7 @@ const DoctorantUpdate = () => {
   return (
     <div className={`bg-white-bluish w-full flex flex-col flex-1`}>
       <div className="text-purple flex items-center justify-evenly">
-        <div className="flex items-center">
+        <div className="flex items-center justify-items-center">
           <input
             className="w-5 h-5"
             type="checkbox"
@@ -164,38 +159,30 @@ const DoctorantUpdate = () => {
             name="selectionner-tout"
             value="selectionner-tout"
           />
-          <label className="ml-2" for="selectionner-tout">
-            {" "}
+          <label className="ml-2 font-normal" htmlFor="selectionner-tout">
             Selectionner tout
           </label>
         </div>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleReinscription}
         >
           Reinscription
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleSoutenane}
         >
           Soutenance
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={handleRadiation}
         >
           Radiation
-        </button>
-
-        <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleAbondan}
-        >
-          Abandon
         </button>
 
         <div className="p-8 ">
@@ -213,31 +200,31 @@ const DoctorantUpdate = () => {
 
       <ul
         className="mx-8 overflow-y-scroll"
-        style={{ height: "calc(100vh - 14rem)" }}
+        style={{ height: "calc(100vh - 15rem)" }}
       >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center="
+            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center"
           >
-            <input type="checkbox" className="w-5 h-5 mr-5" />
+            <input type="checkbox" id={index} className="w-5 h-5 mr-5" />
             <img
-              className="w-12 mr-5"
+              className="w-12 mr-4"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
                 index % 5
               }.png`)}
               alt="profile"
             />
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 flex justify-start w-1/6">
               <span>
                 {Doctorant.nom} {Doctorant.prenom}
               </span>
             </div>
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 flex justify-start w-1/6">
               <span>{Doctorant.mail}</span>
             </div>
 
-            <div className="flex justify-start flex-1">
+            <div className="flex justify-start w-1/12">
               <span>{Doctorant.Specialite}</span>
             </div>
 
@@ -245,11 +232,11 @@ const DoctorantUpdate = () => {
               <span>{Doctorant.intitule_sujet}</span>
             </div>
 
-            <div className="flex justify-start flex-1">
+            <div className="flex justify-start">
               <span>{Doctorant.statut}</span>
             </div>
             <button
-              className={`m-2 p-2 bg-purple rounded-md text-white hover:bg-green`}
+              className={`ml-5 p-2 bg-purple rounded-md text-white hover:bg-green`}
               onClick={() =>
                 handleOnClickUser(Doctorant.nom + Doctorant.prenom)
               }

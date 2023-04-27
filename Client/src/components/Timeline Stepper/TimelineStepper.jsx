@@ -2,43 +2,55 @@ import React from "react";
 
 function TimelineStepper({ currentStep }) {
   const steps = [
-    { image: "../../assets/SideBar/control.png", alt: "Step 1" },
-    { image: "../../assets/SideBar/control.png", alt: "Step 2" },
-    { image: "../../assets/SideBar/control.png", alt: "Step 3" },
-    { image: "../../assets/SideBar/control.png", alt: "Step 4" },
-    { image: "../../assets/SideBar/control.png", alt: "Step 5" },
+    {
+      image: "Search",
+      alt: "générales",
+      explanation: "informations",
+    },
+
+    {
+      image: "Calendar",
+      alt: "de thèse",
+      explanation: "informations",
+    },
+
+    {
+      image: "Chart",
+      alt: "des encadrants",
+      explanation: "informations",
+    },
+
+    {
+      image: "Setting",
+      alt: "les encadrants",
+      explanation: "Confirmer",
+    },
   ];
 
   const progress = Math.floor((currentStep * 100) / steps.length);
-  const currentStepImage = steps[currentStep].image;
-  const currentStepAlt = steps[currentStep].alt;
 
   return (
-    <div className="w-full h-16 flex items-center justify-between">
+    <div className="ml-10 mb-20 flex flex-col items-start justify-between">
       {steps.map((step, index) => (
         <div
           key={index}
-          className={`w-full flex justify-center ${
-            index <= currentStep ? "text-purple" : "text-green"
+          className={`flex justify-center ${
+            index >= currentStep ? "text-purple" : "text-green"
           }`}
         >
-          <img src={step.image} alt={step.alt} className="h-8 w-8 mr-2" />
-          <div className="text-sm">{step.alt}</div>
+          <img
+            src={require(`../../assets/SideBar/${step.image}.png`)}
+            alt={step.alt}
+            className={`h-12 w-12 p-3 mr-2 rounded-full bg-dark-purple ${
+              index >= currentStep ? "bg-purple" : "bg-green"
+            }`}
+          />
+          <div className="text-sm flex flex-col">
+            <h1>{step.explanation}</h1>
+            <h2> {step.alt}</h2>
+          </div>
         </div>
       ))}
-      <div className="w-full h-4 bg-gray-300 rounded-full relative">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 absolute"
-          style={{ width: `${progress}%` }}
-        >
-          <span className="sr-only">{`${progress}%`}</span>
-        </div>
-        <img
-          src={currentStepImage}
-          alt={currentStepAlt}
-          className="h-8 w-8 rounded-full bg-white absolute -top-2"
-        />
-      </div>
     </div>
   );
 }

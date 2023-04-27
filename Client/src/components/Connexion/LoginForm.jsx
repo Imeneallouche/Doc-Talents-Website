@@ -1,14 +1,19 @@
 import React from "react";
 import "./Connexion.css";
 import axios from "axios";
-
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function LoginForm() {
   const [mail, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const history = useHistory();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    history.push("/Dashboard");
+    /*
     try {
       const response = await axios.post("../../../../Server/app/Controllers/Authentification/loginController", {
         mail,
@@ -20,10 +25,11 @@ export default function LoginForm() {
       console.error(error.response.data);
       // handle login failure
     }
+    */
   };
 
   return (
-    <div className="connexion flex flex-col items-center h-[100vh] w-[60%] p-16 bg-white-bluish">
+    <div className="connexion flex flex-col justify-center items-center h-[100vh] w-[60%] p-16 bg-white-bluish">
       <h1 className="text-dark-purple font-black text-[2.5em] mb-12">
         Content de vous revoir!
       </h1>
@@ -33,12 +39,12 @@ export default function LoginForm() {
             Nom Utilisateur
           </label>
           <input
-            className="border rounded-[7px] mb-12 p-4 opacity-75 w-[400px]"
+            className="border rounded-lg border-purple mb-12 p-4 opacity-75 w-[400px]"
             type="email"
             name="email"
             id="email"
             required
-            value={email}
+            value={mail}
             onChange={(e) => setEmail(e.target.value)}
           />
           <label
@@ -48,7 +54,7 @@ export default function LoginForm() {
             Mot de passe
           </label>
           <input
-            className="border rounded-[7px]  p-4 opacity-75 w-[400px]"
+            className="border rounded-[7px] border-purple  p-4 opacity-75 w-[400px]"
             type="password"
             name="password"
             id="password"
@@ -73,10 +79,3 @@ export default function LoginForm() {
     </div>
   );
 }
-
-
-
-
-
-
-
