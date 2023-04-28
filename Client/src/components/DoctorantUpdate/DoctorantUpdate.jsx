@@ -6,6 +6,10 @@ const DoctorantUpdate = () => {
   const [Doctorants, setDoctorants] = useState([]);
   const [searchText, setSearchText] = useState(""); //autocomplete search bar
   const [searchResults, setSearchResults] = useState([]);
+
+  const currentYear = new Date().getFullYear();
+  const FirstYearEver = 2012;
+  
   const [checkedIds, setCheckedIds] = useState([]);
 
   const history = useHistory();

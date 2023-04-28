@@ -1,0 +1,11 @@
+
+
+
+input{
+  background-color: transparent;
+}
+
+input:focus{
+  opacity: 100%;
+  color: #19202E;
+}

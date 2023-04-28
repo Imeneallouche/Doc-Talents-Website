@@ -1,0 +1,13 @@
+.input{
+  background-color: transparent;
+}
+
+.input:focus{
+input {
+  background-color: transparent;
+}
+
+input:focus {
+  opacity: 100%;
+  color: #19202e;
+}

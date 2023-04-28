@@ -1,5 +1,8 @@
 const express = require("express");
 const connection = require("./DB/db_config");
+const bodyParser = require('body-parser'); 
+const encoder = bodyParser.urlencoded(); 
+require("dotenv").config();
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
@@ -92,8 +95,49 @@ app.get("/Update", (req, res) => {
   });
 });
 
+app.get("/DPGR", (req,res) => {
+  const sql = `SELECT * FROM DPGR`;
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.log("ERROR");
+    }
+    res.send(results);
+  });
+});
 /*
 
+
+
+
+// app.get("/Connexion" , (req,res)=>{
+//     res.render('Connexion.ejs');
+// })
+
+
+// app.post('/Connexion',encoder,(req,res)=>{
+//   var email = req.body.email; 
+//   var password = req.body.password; 
+//   connection.query("SELECT * FROM DPGR where email = ? and password = ?" ,[email,password],function(error,results,fields){
+//     if(results.length>0){
+//         res.redirect("/Welcome"); 
+//     } else{
+//         res.redirect("/Connexion"); 
+//     }
+//     res.end(); 
+//   })
+// })
+
+
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/Connexion', async (req, res) => {
+  try {
+    await login(req, res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Server error' });
+  }
+});
 
 
 
