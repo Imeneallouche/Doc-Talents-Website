@@ -15,7 +15,7 @@ var sqlQuery = `INSERT INTO Doctorant (
      Specialite,
      intitule_sujet,
      intitule_sujet_bis,
-     PV_changement_these,
+     PV_changement_these, 
      Premiere_inscription,
      Nombre_inscriptions,
      Date_fichier_central,

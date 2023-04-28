@@ -14,7 +14,9 @@ const DoctorantUpdate = () => {
   const RADIATION_ENDPOINT = "/Radiation";
   const SOUTENANCE_ENDPOINT = "/Soutenance";
   const REINSCRIPTION_ENDPOINT = "/Reinscription";
+
   const PV_ID = "2021/12/30";
+  const PV_DATE = "2021-12-30";
 
   function handleOnClickUser(username) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
@@ -70,6 +72,7 @@ const DoctorantUpdate = () => {
         .post(RUNNING_URL + RADIATION_ENDPOINT, {
           ids: checkedIds,
           pv_id: PV_ID,
+          date_pv: PV_DATE,
         })
         .then((response) => {
           console.log(response.data);
@@ -87,6 +90,7 @@ const DoctorantUpdate = () => {
         .post(RUNNING_URL + REINSCRIPTION_ENDPOINT, {
           ids: checkedIds,
           pv_id: PV_ID,
+          date_pv: PV_DATE,
         })
         .then((response) => {
           console.log(response.data);
@@ -104,6 +108,7 @@ const DoctorantUpdate = () => {
         .post(RUNNING_URL + SOUTENANCE_ENDPOINT, {
           ids: checkedIds,
           pv_id: PV_ID,
+          pv_date: PV_DATE,
         })
         .then((response) => {
           console.log(response.data);

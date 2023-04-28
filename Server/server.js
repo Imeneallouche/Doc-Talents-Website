@@ -52,6 +52,10 @@ app.get("/", (req, res) => {
 
 
 
+
+
+
+
 */
 
 app.get("/Doctorant", (req, res) => {
@@ -65,6 +69,10 @@ app.get("/Doctorant", (req, res) => {
 });
 
 /*
+
+
+
+
 
 
 
@@ -92,6 +100,10 @@ app.get("/Update", (req, res) => {
 
 
 
+
+
+
+
 */
 
 app.post("/RegisterDoctorant", (req, res) => {
@@ -109,16 +121,21 @@ app.post("/RegisterDoctorant", (req, res) => {
 
 
 
+
+
+
+
 */
 
 app.post("/Radiation", (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
+  const PV_Date = req.body.pv_date;
 
   console.log("Received IDs:", ids, PV_Id);
-
+  //1ST: CHANGE STATUT AND RADIE IN DOCTORANT TABLE
   connection.query(
-    "UPDATE Doctorant SET statut = ?, radie = ? WHERE Id_Doctorant IN (?) AND soutenu = NULL and radie = NULL",
+    "UPDATE Doctorant SET statut = ?, radie = ? WHERE Id_Doctorant IN (?) AND soutenu IS NULL and radie IS NULL",
     ["radié", PV_Id, ids],
     (error, results, fields) => {
       if (error) {
@@ -127,6 +144,39 @@ app.post("/Radiation", (req, res) => {
       } else {
         console.log("Doctorant radié successfully");
         res.sendStatus(200);
+      }
+    }
+  );
+
+  //2ND: ADD THE DATE AND THE ID OF THE PV IN PV TABLE IF IT DOESN'T EXIT
+  connection.query(
+    "SELECT * FROM PV WHERE Id_PV = ?",
+    [PV_Id],
+    (error, results, fields) => {
+      if (error) {
+        console.log("Error fetching in PV table", error);
+        res.sendStatus(500);
+      } else {
+        console.log("the fetch has been done successfully");
+        res.sendStatus(200);
+      }
+      //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
+      if (results.length == 0) {
+        connection.query(
+          "INSERT INTO PV (Id_PV , Date_PV) VALUES ?",
+          [[PV_Id, PV_Date]],
+          (error, results, fields) => {
+            if (error) {
+              console.log("Error inserting the PV in PV table:", error);
+              res.sendStatus(500);
+            } else {
+              console.log("PV inserted successfully");
+              res.sendStatus(200);
+            }
+          }
+        );
+      } else {
+        console.log("PV already exists in the table");
       }
     }
   );
@@ -140,14 +190,20 @@ app.post("/Radiation", (req, res) => {
 
 
 
+
+
+
+
 */
 
 app.post("/Soutenance", (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
+  const PV_Date = req.body.pv_date;
 
   console.log("Received IDs:", ids, PV_Id);
 
+  //1ST : CHANGE THE STATUTE AND SOUTENU IN DOCTORANT TABLE
   connection.query(
     "UPDATE Doctorant SET statut = ?, soutenu = ? WHERE Id_Doctorant IN (?) AND soutenu IS NULL AND radie IS NULL",
     ["soutenu", PV_Id, ids],
@@ -158,6 +214,39 @@ app.post("/Soutenance", (req, res) => {
       } else {
         console.log("Doctorant soutenance updated successfully");
         res.sendStatus(200);
+      }
+    }
+  );
+
+  //2ND: ADD THE DATE AND THE ID OF THE PV IN PV TABLE IF IT DOESN'T EXIT
+  connection.query(
+    "SELECT * FROM PV WHERE Id_PV = ?",
+    [PV_Id],
+    (error, results, fields) => {
+      if (error) {
+        console.log("Error fetching in PV table", error);
+        res.sendStatus(500);
+      } else {
+        console.log("the fetch has been done successfully");
+        res.sendStatus(200);
+      }
+      //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
+      if (results.length == 0) {
+        connection.query(
+          "INSERT INTO PV (Id_PV , Date_PV) VALUES ?",
+          [[PV_Id, PV_Date]],
+          (error, results, fields) => {
+            if (error) {
+              console.log("Error inserting the PV in PV table:", error);
+              res.sendStatus(500);
+            } else {
+              console.log("PV inserted successfully");
+              res.sendStatus(200);
+            }
+          }
+        );
+      } else {
+        console.log("PV already exists in the table");
       }
     }
   );
@@ -176,6 +265,7 @@ app.post("/Soutenance", (req, res) => {
 app.post("/Reinscription", (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
+  const PV_Date = req.body.pv_date;
 
   console.log("Received IDs:", ids, PV_Id);
 
@@ -225,10 +315,13 @@ app.post("/Reinscription", (req, res) => {
   );
 
   //4TH : add all doctorants registered with the ID to the table Inscription
-  const values = ids.map((id) => [PV_Id, id]);
-  const query = "INSERT INTO Inscription (Id_PV, Id_Doctorant) VALUES (?, ?)";
+  let InscriptionValues = [];
+  ids.forEach((id) => {
+    InscriptionValues.push([PV_Id, id]);
+  });
+  const query = "INSERT INTO Inscription (Id_PV, Id_Doctorant) VALUES ?";
 
-  connection.query(query, values, (error, results, fields) => {
+  connection.query(query, InscriptionValues, (error, results, fields) => {
     if (error) {
       console.log("Error inserting all inscriptions:", error);
       res.sendStatus(500);
@@ -239,6 +332,37 @@ app.post("/Reinscription", (req, res) => {
   });
 
   //5TH : add the PV if it doesn't exist : the Id and the date for now and let the link empty
+  connection.query(
+    "SELECT * FROM PV WHERE Id_PV = ?",
+    [PV_Id],
+    (error, results, fields) => {
+      if (error) {
+        console.log("Error fetching in PV table", error);
+        res.sendStatus(500);
+      } else {
+        console.log("the fetch has been done successfully");
+        res.sendStatus(200);
+      }
+      //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
+      if (results.length == 0) {
+        connection.query(
+          "INSERT INTO PV (Id_PV , Date_PV) VALUES ?",
+          [[PV_Id, PV_Date]],
+          (error, results, fields) => {
+            if (error) {
+              console.log("Error inserting the PV in PV table:", error);
+              res.sendStatus(500);
+            } else {
+              console.log("PV inserted successfully");
+              res.sendStatus(200);
+            }
+          }
+        );
+      } else {
+        console.log("PV already exists in the table");
+      }
+    }
+  );
 });
 
 app.listen(PORT, console.log(`SERVER IS RUNNING ON PORT ${PORT}`));
