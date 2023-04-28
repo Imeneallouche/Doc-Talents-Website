@@ -1,4 +1,4 @@
-const connection = require("../../../DB/db_config");
+const connection = require("../DB/db_config");
 
 const deleteQuery = "DELETE FROM Doctorant";
 

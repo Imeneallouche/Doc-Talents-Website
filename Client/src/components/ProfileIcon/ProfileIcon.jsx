@@ -6,7 +6,7 @@ const ProfileIcon = () => {
     <a href="#" className="flex items-center justify-center m-5 p-2 rounded-xl ">
       <img
         className="border border-purple h-10 w-10 rounded-full object-cover mr-5"
-        src={require("../../assets/Avatars/H2.png")}
+        src={require("../../assets/Avatars/M2.png")}
         alt="Profile"
       />
 

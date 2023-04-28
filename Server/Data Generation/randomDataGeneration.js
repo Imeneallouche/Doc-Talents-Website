@@ -30,7 +30,6 @@ var sqlQuery = `INSERT INTO Doctorant (
     VALUES ?`;
 
 var values = [
-  /*
   [
     "21/0021",
     "Louni",
@@ -92,7 +91,7 @@ var values = [
     "Attia",
     "Oussama Abderraouf",
     "2002-10-03",
-    "H",
+    "M",
     "lo_attia@esi.dz",
     "0662601368",
     "Classique",
@@ -170,7 +169,6 @@ var values = [
     null,
     null,
   ],
-  */
 
   [
     "21/0700",

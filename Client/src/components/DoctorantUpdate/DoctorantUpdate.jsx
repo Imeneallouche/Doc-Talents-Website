@@ -4,27 +4,26 @@ import { useHistory } from "react-router-dom";
 
 const DoctorantUpdate = () => {
   const [Doctorants, setDoctorants] = useState([]);
-
-  const [selectedGender, setSelectedGender] = useState("all"); //Gender filter : dropdow list (Male/Female)
-  const [selectedStatues, setSelectedStatues] = useState("all"); //Statues filter: dropdown list (radié, abondan, soutenu, reinscri, differe)
-  const [selectedMinYear, setSelectedMinYear] = useState(null); //Min inscription year filter : dropdow list (2012 --> recent year)
-  const [selectedMaxYear, setSelectedMaxYear] = useState(null); //Max inscription year filter : dropdown list (2012 --> recent year)
-
   const [searchText, setSearchText] = useState(""); //autocomplete search bar
   const [searchResults, setSearchResults] = useState([]);
 
   const currentYear = new Date().getFullYear();
   const FirstYearEver = 2012;
   
+  const [checkedIds, setCheckedIds] = useState([]);
+
   const history = useHistory();
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/Update";
+  const RADIATION_ENDPOINT = "/Radiation";
+  const SOUTENANCE_ENDPOINT = "/Soutenance";
+  const REINSCRIPTION_ENDPOINT = "/Reinscription";
+  const PV_ID = "2021/12/30";
 
   function handleOnClickUser(username) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
-    history.push(`/Users/${usernamerouter}`);
+    history.push(`/Doctorant/${usernamerouter}`);
   }
-
-  const RUNNING_URL = "http://localhost:5000";
-  const ENDPOINT = "/Update";
 
   useEffect(() => {
     const fetchDoctorants = async () => {
@@ -44,109 +43,101 @@ const DoctorantUpdate = () => {
     setSearchResults(results);
   }, [searchText, Doctorants]);
 
-  const years = [];
-  for (let year = FirstYearEver; year <= currentYear; year++) {
-    years.push(year);
-  }
+  /*
 
-  const handleGenderChange = (selectedOption) => {
-    setSelectedGender(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
 
-  const handleStatuesChange = (selectedOption) => {
-    setSelectedStatues(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
 
-  const handleMinYearChange = (selectedOption) => {
-    setSelectedMinYear(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
 
-  const handleMaxYearChange = (selectedOption) => {
-    setSelectedMaxYear(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
+
+
+
+
+  */
 
   const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      event.target.value
-    );
   };
 
-  const filterDoctorants = (doctorant) => {
-    if (
-      (selectedGender === "all" || doctorant.sexe === selectedGender.value) &&
-      (selectedStatues === "all" ||
-        doctorant.statut === selectedStatues.value) &&
-      (!selectedMinYear ||
-        doctorant.Premiere_inscription >= selectedMinYear.value) &&
-      (!selectedMaxYear ||
-        doctorant.Premiere_inscription <= selectedMaxYear.value)
-    ) {
-      return true;
+  const handleCheck = (event) => {
+    const id = event.target.id;
+    console.log(id);
+    if (event.target.checked) {
+      setCheckedIds((prevIds) => [...prevIds, id]);
+    } else {
+      setCheckedIds((prevIds) => prevIds.filter((prevId) => prevId !== id));
     }
-    return false;
   };
-
-  const genderOptions = [
-    { value: "H", label: "Male" },
-    { value: "F", label: "Female" },
-  ];
-
-  const statuesOptions = [
-    { value: "reinscrit", label: "inscrit" },
-    { value: "radie", label: "radié" },
-    { value: "soutenu", label: "soutenu" },
-  ];
-
-  const yearsOption = [];
-  for (let i = FirstYearEver; i <= currentYear; i++) {
-    let obj = { value: i, label: i };
-    yearsOption.push(obj);
-  }
 
   const handleRadiation = () => {
-    console.log("raide");
+    if (checkedIds.length > 0) {
+      axios
+        .post(RUNNING_URL + RADIATION_ENDPOINT, {
+          ids: checkedIds,
+          pv_id: PV_ID,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      window.location.reload();
+    }
   };
 
   const handleReinscription = () => {
-    console.log("reinscrit");
+    if (checkedIds.length > 0) {
+      axios
+        .post(RUNNING_URL + REINSCRIPTION_ENDPOINT, {
+          ids: checkedIds,
+          pv_id: PV_ID,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      window.location.reload();
+    }
   };
 
   const handleSoutenane = () => {
-    console.log("soutenu");
+    if (checkedIds.length > 0) {
+      axios
+        .post(RUNNING_URL + SOUTENANCE_ENDPOINT, {
+          ids: checkedIds,
+          pv_id: PV_ID,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      window.location.reload();
+    }
   };
+
+  /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  */
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col flex-1`}>
@@ -202,12 +193,17 @@ const DoctorantUpdate = () => {
         className="mx-8 overflow-y-scroll"
         style={{ height: "calc(100vh - 15rem)" }}
       >
-        {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
+        {searchResults.map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
             className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center"
           >
-            <input type="checkbox" id={index} className="w-5 h-5 mr-5" />
+            <input
+              type="checkbox"
+              onChange={handleCheck}
+              id={Doctorant.Id_Doctorant}
+              className="w-5 h-5 mr-5"
+            />
             <img
               className="w-12 mr-4"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
@@ -229,7 +225,12 @@ const DoctorantUpdate = () => {
             </div>
 
             <div className="mr-2 flex justify-start flex-1">
-              <span>{Doctorant.intitule_sujet}</span>
+              <span>
+                {" "}
+                {Doctorant.intitule_sujet_bis
+                  ? Doctorant.intitule_sujet_bis
+                  : Doctorant.intitule_sujet}
+              </span>
             </div>
 
             <div className="flex justify-start">
