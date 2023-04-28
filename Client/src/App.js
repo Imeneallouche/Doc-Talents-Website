@@ -3,9 +3,8 @@ import "./App.css";
 
 import Inscription from "./pages/Inscription";
 import Doctorant from "./pages/Doctorant";
-import Acceuil from './pages/Acceuil';
+import Acceuil from "./pages/Acceuil";
 import Connexion from "./pages/Connexion";
-import Popuppage from "./pages/Popuppage";
 import Update from "./pages/Update";
 import PVs from "./pages/PVs";
 import Users from "./pages/Users";
@@ -20,21 +19,19 @@ import InscriptionStep3 from "./pages/InscriptionStep3";
 import ConfirmEndacrant from "./pages/ConfirmEndacrant";
 import SeminaireLirePlus from "./pages/SeminaireLirePlus";
 
-
-
 export default function App() {
   return (
     <div className="App w-screen h-screen">
       <Router>
         <Switch>
           <Route path="/" exact>
-          <Acceuil/>    
+            <Acceuil />
           </Route>
           <Route path="/Connexion" exact>
             <Connexion />
           </Route>
           <Route path="/Popuppage" exact>
-            <Popuppage/>
+            <Popuppage />
           </Route>
           <Route path="/Doctorant" exact>
             <Doctorant />
@@ -71,14 +68,19 @@ export default function App() {
           </Route>
           <Route path="/Profile" exact>
             <Profile />
-          </Route>  
+          </Route>
           <Route path="/Editprofile" exact>
             <Editprofile />
           </Route>
           <Route path="/Seminaire" exact>
             <Seminaire />
           </Route>
-          <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} /> 
+
+          <Route
+            path="/SeminaireLirePlus/:title"
+            exact
+            component={SeminaireLirePlus}
+          />
         </Switch>
       </Router>
     </div>
