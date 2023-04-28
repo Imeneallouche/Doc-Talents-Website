@@ -1,7 +1,7 @@
 const express = require("express");
 const connection = require("./DB/db_config");
-const bodyParser = require('body-parser'); 
-const encoder = bodyParser.urlencoded(); 
+const bodyParser = require("body-parser");
+const encoder = bodyParser.urlencoded();
 require("dotenv").config();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -95,7 +95,7 @@ app.get("/Update", (req, res) => {
   });
 });
 
-app.get("/DPGR", (req,res) => {
+app.get("/DPGR", (req, res) => {
   const sql = `SELECT * FROM DPGR`;
   connection.query(sql, (error, results) => {
     if (error) {
@@ -174,7 +174,7 @@ app.post("/RegisterDoctorant", (req, res) => {
 app.post("/Radiation", (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
-  const PV_Date = req.body.pv_date;
+  const PV_Date = req.body.date_pv;
 
   console.log("Received IDs:", ids, PV_Id);
   //1ST: CHANGE STATUT AND RADIE IN DOCTORANT TABLE
@@ -187,40 +187,40 @@ app.post("/Radiation", (req, res) => {
         res.sendStatus(500);
       } else {
         console.log("Doctorant radié successfully");
-        res.sendStatus(200);
-      }
-    }
-  );
 
-  //2ND: ADD THE DATE AND THE ID OF THE PV IN PV TABLE IF IT DOESN'T EXIT
-  connection.query(
-    "SELECT * FROM PV WHERE Id_PV = ?",
-    [PV_Id],
-    (error, results, fields) => {
-      if (error) {
-        console.log("Error fetching in PV table", error);
-        res.sendStatus(500);
-      } else {
-        console.log("the fetch has been done successfully");
-        res.sendStatus(200);
-      }
-      //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
-      if (results.length == 0) {
+        //2ND: ADD THE DATE AND THE ID OF THE PV IN PV TABLE IF IT DOESN'T EXIT
         connection.query(
-          "INSERT INTO PV (Id_PV , Date_PV) VALUES ?",
-          [[PV_Id, PV_Date]],
+          "SELECT * FROM PV WHERE Id_PV = ?",
+          [PV_Id],
           (error, results, fields) => {
             if (error) {
-              console.log("Error inserting the PV in PV table:", error);
+              console.log("Error fetching in PV table", error);
               res.sendStatus(500);
             } else {
-              console.log("PV inserted successfully");
-              res.sendStatus(200);
+              console.log("the fetch has been done successfully");
+
+              //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
+              if (results.length == 0) {
+                connection.query(
+                  "INSERT INTO PV (Id_PV , Date_PV) VALUES (? , ?)",
+                  [PV_Id, PV_Date],
+                  (error, results, fields) => {
+                    if (error) {
+                      console.log("Error inserting the PV in PV table:", error);
+                      res.sendStatus(500);
+                    } else {
+                      console.log("PV inserted successfully");
+                      res.sendStatus(200);
+                    }
+                  }
+                );
+              } else {
+                console.log("PV already exists in the table");
+                res.sendStatus(200);
+              }
             }
           }
         );
-      } else {
-        console.log("PV already exists in the table");
       }
     }
   );
@@ -243,7 +243,7 @@ app.post("/Radiation", (req, res) => {
 app.post("/Soutenance", (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
-  const PV_Date = req.body.pv_date;
+  const PV_Date = req.body.date_pv;
 
   console.log("Received IDs:", ids, PV_Id);
 
@@ -257,40 +257,41 @@ app.post("/Soutenance", (req, res) => {
         res.sendStatus(500);
       } else {
         console.log("Doctorant soutenance updated successfully");
-        res.sendStatus(200);
-      }
-    }
-  );
 
-  //2ND: ADD THE DATE AND THE ID OF THE PV IN PV TABLE IF IT DOESN'T EXIT
-  connection.query(
-    "SELECT * FROM PV WHERE Id_PV = ?",
-    [PV_Id],
-    (error, results, fields) => {
-      if (error) {
-        console.log("Error fetching in PV table", error);
-        res.sendStatus(500);
-      } else {
-        console.log("the fetch has been done successfully");
-        res.sendStatus(200);
-      }
-      //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
-      if (results.length == 0) {
+        //2ND: ADD THE DATE AND THE ID OF THE PV IN PV TABLE IF IT DOESN'T EXIT
         connection.query(
-          "INSERT INTO PV (Id_PV , Date_PV) VALUES ?",
-          [[PV_Id, PV_Date]],
+          "SELECT * FROM PV WHERE Id_PV = ?",
+          [PV_Id],
           (error, results, fields) => {
             if (error) {
-              console.log("Error inserting the PV in PV table:", error);
+              console.log("Error fetching in PV table", error);
               res.sendStatus(500);
             } else {
-              console.log("PV inserted successfully");
-              res.sendStatus(200);
+              console.log("the fetch has been done successfully");
+
+              //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
+              if (results.length == 0) {
+                console.log("PV doesn't exist, it will be inserted now");
+                connection.query(
+                  "INSERT INTO PV (Id_PV , Date_PV) VALUES (? , ?)",
+                  [PV_Id, PV_Date],
+                  (error, results, fields) => {
+                    if (error) {
+                      console.log("Error inserting the PV in PV table:", error);
+                      res.sendStatus(500);
+                    } else {
+                      console.log("PV inserted successfully");
+                      res.sendStatus(200);
+                    }
+                  }
+                );
+              } else {
+                console.log("PV already exists in the table");
+                res.sendStatus(200);
+              }
             }
           }
         );
-      } else {
-        console.log("PV already exists in the table");
       }
     }
   );
@@ -309,7 +310,7 @@ app.post("/Soutenance", (req, res) => {
 app.post("/Reinscription", (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
-  const PV_Date = req.body.pv_date;
+  const PV_Date = req.body.date_pv;
 
   console.log("Received IDs:", ids, PV_Id);
 
@@ -323,7 +324,6 @@ app.post("/Reinscription", (req, res) => {
         res.sendStatus(500);
       } else {
         console.log("statut updated to differe succesfully successfully");
-        res.sendStatus(200);
       }
     }
   );
@@ -338,7 +338,6 @@ app.post("/Reinscription", (req, res) => {
         res.sendStatus(500);
       } else {
         console.log("statut updated to inscrit succesfully successfully");
-        res.sendStatus(200);
       }
     }
   );
@@ -353,7 +352,6 @@ app.post("/Reinscription", (req, res) => {
         res.sendStatus(500);
       } else {
         console.log("registration years incremented successfully");
-        res.sendStatus(200);
       }
     }
   );
@@ -363,15 +361,16 @@ app.post("/Reinscription", (req, res) => {
   ids.forEach((id) => {
     InscriptionValues.push([PV_Id, id]);
   });
+
+  console.log(InscriptionValues);
   const query = "INSERT INTO Inscription (Id_PV, Id_Doctorant) VALUES ?";
 
-  connection.query(query, InscriptionValues, (error, results, fields) => {
+  connection.query(query, [InscriptionValues], (error, results, fields) => {
     if (error) {
       console.log("Error inserting all inscriptions:", error);
       res.sendStatus(500);
     } else {
       console.log("inscriptions registered successfully");
-      res.sendStatus(200);
     }
   });
 
@@ -385,25 +384,26 @@ app.post("/Reinscription", (req, res) => {
         res.sendStatus(500);
       } else {
         console.log("the fetch has been done successfully");
-        res.sendStatus(200);
-      }
-      //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
-      if (results.length == 0) {
-        connection.query(
-          "INSERT INTO PV (Id_PV , Date_PV) VALUES ?",
-          [[PV_Id, PV_Date]],
-          (error, results, fields) => {
-            if (error) {
-              console.log("Error inserting the PV in PV table:", error);
-              res.sendStatus(500);
-            } else {
-              console.log("PV inserted successfully");
-              res.sendStatus(200);
+
+        //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
+        if (results.length == 0) {
+          connection.query(
+            "INSERT INTO PV (Id_PV , Date_PV) VALUES (? , ?)",
+            [PV_Id, PV_Date],
+            (error, results, fields) => {
+              if (error) {
+                console.log("Error inserting the PV in PV table:", error);
+                res.sendStatus(500);
+              } else {
+                console.log("PV inserted successfully");
+                res.sendStatus(200);
+              }
             }
-          }
-        );
-      } else {
-        console.log("PV already exists in the table");
+          );
+        } else {
+          console.log("PV already exists in the table");
+          res.sendStatus(200);
+        }
       }
     }
   );
