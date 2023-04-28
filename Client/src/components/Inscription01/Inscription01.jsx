@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Select from "react-select";
-
-//import { TextField, Typography } from "@material-ui/core";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 function Inscription01() {
   const [Nom, setNom] = useState("");
@@ -21,8 +20,15 @@ function Inscription01() {
     endDate: new Date().setMonth(11),
   });
 
-  const [isDatePickerFilled, setisDatePickerFilled] = useState(false);
   const [Sex, setSex] = useState([]);
+
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/RegisterDoctorant1";
+  /*
+
+
+
+  */
 
   const genderOptions = [
     { value: "M", label: "Male" },
@@ -30,11 +36,6 @@ function Inscription01() {
   ];
 
   const history = useHistory();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    history.push("/Inscription/Step2");
-  };
 
   const customStyles = {
     control: (provided, state) => ({
@@ -60,6 +61,26 @@ function Inscription01() {
     }),
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      Nom,
+      Prenom,
+      Id_Doctorant,
+      Id_PV,
+      Numero_tel,
+      Email,
+      Birthday,
+      Sex,
+    };
+    console.log(`here it is ${RUNNING_URL + ENDPOINT}`);
+    const response = await axios.post(RUNNING_URL + ENDPOINT, data);
+
+    console.log(response.data);
+
+    history.push("/Inscription/Step2");
+  };
   /*
 
 
@@ -83,7 +104,7 @@ function Inscription01() {
 
   return (
     <form
-      className="m-10 grow flex flex-col justify-center items-center"
+      className="mx-10 grow flex flex-col justify-center items-center"
       onSubmit={handleSubmit}
     >
       <section className="flex w-full">
