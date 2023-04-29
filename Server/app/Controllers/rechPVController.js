@@ -1,4 +1,4 @@
-const connects = require('../../../DB/db_config')
+const connects = require('../../DB/db_config')
 
 function recherchePV(Id_PV) {
 

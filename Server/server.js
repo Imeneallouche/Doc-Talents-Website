@@ -11,9 +11,13 @@ const DocotrantFilteredSearch = require("./app/Controllers/DoctorantFilteredSear
 const RadiationController = require("./app/Controllers/RadiationController");
 const SoutenanceController = require("./app/Controllers/SoutenanceController");
 const ReinscriptionController = require("./app/Controllers/ReinscriptionController");
+
+//NOT YET IMPLEMENTED
 const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
+const RecherchePVController = require("./app/Controllers/rechPVController");
 
 /*
+
 
 
 
@@ -34,12 +38,18 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("API is running on the root");
 });
+
+//app.use("/api/user", userRoutes);
+
 app.get("/Doctorant", DoctorantSearchController);
 app.get("/Update", DocotrantFilteredSearch);
-app.get("/DPGR", DPGRSearchController);
 app.post("/Radiation", RadiationController);
 app.post("/Soutenance", SoutenanceController);
 app.post("/Reinscription", ReinscriptionController);
+
+//NOT YET USED IN FRONTEND
+app.get("/DPGR", DPGRSearchController);
+app.get("/PV", RecherchePVController);
 
 /*
 // app.get("/Connexion" , (req,res)=>{

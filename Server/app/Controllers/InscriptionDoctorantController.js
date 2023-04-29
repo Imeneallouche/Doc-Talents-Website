@@ -1,17 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const session = require("express-session");
-const connection = require("../../../DB/db_config");
+const connection = require("../../DB/db_config");
 
-const app = express();
-app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-// In-memory mock database
 let users = [];
 
 // Register step 1 endpoint
-app.post("/RegisterDoctorant1", (req, res) => {
+const registerStep1 = (req, res) => {
   const { Nom, Prenom, Id_Doctorant, Id_PV, Numero_tel, Email, Birthday, Sex } =
     req.body;
 
@@ -29,7 +21,7 @@ app.post("/RegisterDoctorant1", (req, res) => {
 
   console.log("Registration step 1 successful");
   res.status(200).json({ message: "Registration step 1 successful" });
-});
+};
 
 let doctorant;
 let PV;
