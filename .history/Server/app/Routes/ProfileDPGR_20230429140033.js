@@ -18,7 +18,7 @@ function ProfileDPGR(nom) {
       });
     });
   }
-  ProfileDPGR("Derbal")
+  ProfileDPGR('BENDOU')
   .then((user) => {
     console.log(user);
   })
