@@ -1,34 +1,51 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
+import axios, { all } from "axios";
 import { useHistory } from "react-router-dom";
+import Popup from "../Popup/Popup";
 
 const DoctorantUpdate = () => {
   const [Doctorants, setDoctorants] = useState([]);
-
-  const [selectedGender, setSelectedGender] = useState("all"); //Gender filter : dropdow list (Male/Female)
-  const [selectedStatues, setSelectedStatues] = useState("all"); //Statues filter: dropdown list (radié, abondan, soutenu, reinscri, differe)
-  const [selectedMinYear, setSelectedMinYear] = useState(null); //Min inscription year filter : dropdow list (2012 --> recent year)
-  const [selectedMaxYear, setSelectedMaxYear] = useState(null); //Max inscription year filter : dropdown list (2012 --> recent year)
-
   const [searchText, setSearchText] = useState(""); //autocomplete search bar
   const [searchResults, setSearchResults] = useState([]);
 
-  const currentYear = new Date().getFullYear();
-  const FirstYearEver = 2012;
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [checkedIds, setCheckedIds] = useState([]);
+
+  const [action, setAction] = useState(null);
 
   const history = useHistory();
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/Update";
+  const RADIATION_ENDPOINT = "/Radiation";
+  const SOUTENANCE_ENDPOINT = "/Soutenance";
+  const REINSCRIPTION_ENDPOINT = "/Reinscription";
+
+  let PV_ID;
+  let PV_DATE;
+
+  const handleSubmitPopup = (FormData) => {
+    PV_ID = FormData.text;
+    PV_DATE = FormData.date;
+    setShowPopup(false);
+
+    if (action == 1) {
+      handleAction(SOUTENANCE_ENDPOINT);
+    } else if (action == 2) {
+      handleAction(REINSCRIPTION_ENDPOINT);
+    } else if (action == 3) {
+      handleAction(RADIATION_ENDPOINT);
+    }
+  };
 
   function handleOnClickUser(username) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
-    history.push(`/Users/${usernamerouter}`);
+    history.push(`/Doctorant/${usernamerouter}`);
   }
 
   useEffect(() => {
     const fetchDoctorants = async () => {
-      const response = await axios.get(
-        //`http://localhost:5000/users?search_query=${keyword}&page=${page}&limit=${limit}`
-        `http://localhost:3000/Doctorant`
-      );
+      const response = await axios.get(RUNNING_URL + ENDPOINT);
       setDoctorants(response.data);
     };
 
@@ -44,158 +61,130 @@ const DoctorantUpdate = () => {
     setSearchResults(results);
   }, [searchText, Doctorants]);
 
-  const years = [];
-  for (let year = FirstYearEver; year <= currentYear; year++) {
-    years.push(year);
-  }
+  /*
 
-  const handleGenderChange = (selectedOption) => {
-    setSelectedGender(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
 
-  const handleStatuesChange = (selectedOption) => {
-    setSelectedStatues(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
 
-  const handleMinYearChange = (selectedOption) => {
-    setSelectedMinYear(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
 
-  const handleMaxYearChange = (selectedOption) => {
-    setSelectedMaxYear(selectedOption);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      searchText
-    );
-  };
+
+
+
+
+  */
 
   const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
-    filterDoctorants(
-      selectedGender,
-      selectedStatues,
-      selectedMinYear,
-      selectedMaxYear,
-      event.target.value
-    );
   };
 
-  const filterDoctorants = (doctorant) => {
-    if (
-      (selectedGender === "all" || doctorant.sexe === selectedGender.value) &&
-      (selectedStatues === "all" ||
-        doctorant.statut === selectedStatues.value) &&
-      (!selectedMinYear ||
-        doctorant.Premiere_inscription >= selectedMinYear.value) &&
-      (!selectedMaxYear ||
-        doctorant.Premiere_inscription <= selectedMaxYear.value)
-    ) {
-      return true;
+  const handleCheck = (event) => {
+    const id = event.target.id;
+    console.log(id);
+    if (event.target.checked) {
+      setCheckedIds((prevIds) => [...prevIds, id]);
+    } else {
+      setCheckedIds((prevIds) => prevIds.filter((prevId) => prevId !== id));
     }
-    return false;
   };
 
-  const genderOptions = [
-    { value: "H", label: "Male" },
-    { value: "F", label: "Female" },
-  ];
-
-  const statuesOptions = [
-    { value: "reinscrit", label: "inscrit" },
-    { value: "radie", label: "radié" },
-    { value: "soutenu", label: "soutenu" },
-    { value: "abandon", label: "abandon" },
-  ];
-
-  const yearsOption = [];
-  for (let i = FirstYearEver; i <= currentYear; i++) {
-    let obj = { value: i, label: i };
-    yearsOption.push(obj);
-  }
-
-  const handleAbondan = () => {
-    console.log("abondan");
+  const handleCheckAll = (event) => {
+    if (event.target.checked) {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = true;
+        if (!checkedIds.includes(checkbox.id)) {
+          setCheckedIds((prevState) => [...prevState, checkbox.id]);
+        }
+      });
+    }
   };
 
-  const handleRadiation = () => {
-    console.log("raide");
+  const handleAction = (ACTION_ENDPOINT) => {
+    axios
+      .post(RUNNING_URL + ACTION_ENDPOINT, {
+        ids: checkedIds,
+        pv_id: PV_ID,
+        date_pv: PV_DATE,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    window.location.reload();
   };
 
-  const handleReinscription = () => {
-    console.log("reinscrit");
-  };
+  /*
 
-  const handleSoutenane = () => {
-    console.log("soutenu");
-  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  */
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col flex-1`}>
       <div className="text-purple flex items-center justify-evenly">
-        <div className="flex items-center">
+        <div className="flex items-center justify-items-center">
           <input
             className="w-5 h-5"
             type="checkbox"
             id="selectionner-tout"
             name="selectionner-tout"
             value="selectionner-tout"
+            onChange={handleCheckAll}
           />
-          <label className="ml-2" for="selectionner-tout">
-            {" "}
+          <label className="ml-2 font-normal" htmlFor="selectionner-tout">
             Selectionner tout
           </label>
         </div>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleReinscription}
+          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(2);
+              setShowPopup(true);
+            }
+          }}
         >
           Reinscription
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleSoutenane}
+          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(1);
+              setShowPopup(true);
+            }
+          }}
         >
           Soutenance
         </button>
 
         <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleRadiation}
+          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(3);
+              setShowPopup(true);
+            }
+          }}
         >
           Radiation
-        </button>
-
-        <button
-          className="m-2 p-3 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleAbondan}
-        >
-          Abandon
         </button>
 
         <div className="p-8 ">
@@ -213,43 +202,53 @@ const DoctorantUpdate = () => {
 
       <ul
         className="mx-8 overflow-y-scroll"
-        style={{ height: "calc(100vh - 14rem)" }}
+        style={{ height: "calc(100vh - 15rem)" }}
       >
-        {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
+        {searchResults.map((Doctorant, index) => (
           <li
             key={Doctorant.Id_Doctorant}
-            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center="
+            className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center"
           >
-            <input type="checkbox" className="w-5 h-5 mr-5" />
+            <input
+              type="checkbox"
+              onChange={handleCheck}
+              id={Doctorant.Id_Doctorant}
+              className="w-5 h-5 mr-5"
+            />
             <img
-              className="w-12 mr-5"
+              className="w-12 mr-4"
               src={require(`../../assets/Avatars/${Doctorant.sexe.toUpperCase()}${
                 index % 5
               }.png`)}
               alt="profile"
             />
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 flex justify-start w-1/6">
               <span>
                 {Doctorant.nom} {Doctorant.prenom}
               </span>
             </div>
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 flex justify-start w-1/6">
               <span>{Doctorant.mail}</span>
             </div>
 
-            <div className="flex justify-start flex-1">
+            <div className="flex justify-start w-1/12">
               <span>{Doctorant.Specialite}</span>
             </div>
 
             <div className="mr-2 flex justify-start flex-1">
-              <span>{Doctorant.intitule_sujet}</span>
+              <span>
+                {" "}
+                {Doctorant.intitule_sujet_bis
+                  ? Doctorant.intitule_sujet_bis
+                  : Doctorant.intitule_sujet}
+              </span>
             </div>
 
-            <div className="flex justify-start flex-1">
+            <div className="flex justify-start">
               <span>{Doctorant.statut}</span>
             </div>
             <button
-              className={`m-2 p-2 bg-purple rounded-md text-white hover:bg-green`}
+              className={`ml-5 p-2 bg-purple rounded-md text-white hover:bg-green`}
               onClick={() =>
                 handleOnClickUser(Doctorant.nom + Doctorant.prenom)
               }
@@ -260,6 +259,8 @@ const DoctorantUpdate = () => {
           </li>
         ))}
       </ul>
+
+      {showPopup && <Popup onSubmit={handleSubmitPopup} />}
     </div>
   );
 };

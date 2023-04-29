@@ -1,28 +1,58 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 
-function TimelineStepper() {
-  const data = [
+function TimelineStepper({ currentStep }) {
+  const steps = [
     {
-      svg: "http://www.w3.org/2000/svg",
+      image: "Search",
+      alt: "générales",
+      explanation: "informations",
     },
-    { svg: "http://www.w3.org/2000/svg" },
-    { svg: "http://www.w3.org/2000/svg" },
-    {},
+
+    {
+      image: "Calendar",
+      alt: "de thèse",
+      explanation: "informations",
+    },
+
+    {
+      image: "Chart",
+      alt: "des encadrants",
+      explanation: "informations",
+    },
+
+    {
+      image: "Setting",
+      alt: "les encadrants",
+      explanation: "Confirmer",
+    },
   ];
 
-  return <div></div>;
+  const progress = Math.floor((currentStep * 100) / steps.length);
+
+  return (
+    <div className="ml-10 mb-20 flex flex-col items-start justify-between">
+      {steps.map((step, index) => (
+        <div
+          key={index}
+          className={`flex justify-center ${
+            index >= currentStep ? "text-purple" : "text-green"
+          }`}
+        >
+          <img
+            src={require(`../../assets/SideBar/${step.image}.png`)}
+            alt={step.alt}
+            className={`h-12 w-12 p-3 mr-2 rounded-full bg-dark-purple ${
+              index >= currentStep ? "bg-purple" : "bg-green"
+            }`}
+          />
+          <div className="text-sm flex flex-col">
+            <h1>{step.explanation}</h1>
+            <h2> {step.alt}</h2>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default TimelineStepper;
-function PersonalInfoForm({ goToNextStep }) {
-  // implement personal info form
-}
-
-function AccountInfoForm({ goToNextStep, goToPreviousStep }) {
-  // implement account info form
-}
-
-function ReviewForm({ goToPreviousStep }) {
-  // implement review form
-}

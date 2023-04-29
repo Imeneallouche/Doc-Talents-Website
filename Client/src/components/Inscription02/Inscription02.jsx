@@ -20,24 +20,60 @@ function Inscription02() {
   const [EtablissementIngeniorat, setEtablissementIngeniorat] = useState("");
   const [EtablissementMagestere, setEtablissementMagestere] = useState("");
 
-  const [PremiereInscription, setPremiereInscription] = useState({
+  const [PremiereInscription, setPremiereInscription] = useState(null);
+
+  const [DateFichierCentral, setDateFichierCentral] = useState({
     startDate: new Date(),
     endDate: new Date().setMonth(11),
   });
+
+  const currentYear = new Date().getFullYear();
+  const FirstYearEver = 2012;
+
+  const years = [];
+  for (let year = FirstYearEver; year <= currentYear; year++) {
+    years.push(year);
+  }
+
+  const yearsOption = [];
+  for (let i = FirstYearEver; i <= currentYear; i++) {
+    let obj = { value: i, label: i };
+    yearsOption.push(obj);
+  }
 
   const TypeDoctorantoptions = [
     { value: "LMD", label: "LMD" },
     { value: "Classique", label: "Classique" },
   ];
-  const handleNext = (event) => {
-    event.preventDefault();
-    //console.log(`Email: ${email}, Password: ${password}`);
-    history.push("/Inscription/Step3");
-  };
 
   const handlePrevious = (event) => {
     event.preventDefault();
     history.push("/Inscription/Step1");
+  };
+
+  const handleNext = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      DirecteurThese,
+      CoDirecteurThese,
+      Laboratoire,
+      Option,
+      TypeDoctorant,
+      IntituleSujet,
+      EtablissementMagestere,
+      EtablissementIngeniorat,
+      EtablissementMaster,
+      PremiereInscription,
+      DateFichierCentral,
+    };
+    const response = await axios.post(
+      "http://localhost:3000/RegisterDoctorant",
+      data
+    );
+    console.log(response.data);
+
+    history.push("/Inscription/Step3");
   };
 
   const history = useHistory();
@@ -89,14 +125,57 @@ function Inscription02() {
 
   return (
     <form
-      className="m-10 grow flex flex-col justify-center items-center"
+      className="mx-10 grow flex flex-col justify-center items-center"
       onSubmit={handleNext}
     >
+      <section className={`flex w-full items-center`}>
+        <div className="m-4 flex flex-col flex-1">
+          <label
+            htmlFor="DateFichierCentral"
+            className={`font-medium text-dark-purple m-2`}
+          >
+            Date du fichier central
+          </label>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            id="DateFichierCentral"
+            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
+          >
+            <DatePicker
+              label="select date"
+              className="bg-white border"
+              value={DateFichierCentral}
+              onChange={(event) => setDateFichierCentral(event)}
+              renderInput={(params) => <TextField {...params} required />}
+            />
+          </LocalizationProvider>
+        </div>
+
+        <div className="m-4 flex flex-col flex-1">
+          <label
+            htmlFor="PremiereInscription"
+            className={`font-medium text-dark-purple m-2`}
+          >
+            Date de première inscription
+          </label>
+          <Select
+            className="mt-1"
+            placeholder={FirstYearEver}
+            id="PremiereInscription"
+            value={PremiereInscription}
+            onChange={(event) => setPremiereInscription(event)}
+            isClearable
+            styles={customStyles}
+            options={yearsOption}
+          ></Select>
+        </div>
+      </section>
+
       <section className="flex w-full">
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="DirecteurThese"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Directeur de thèse
           </label>
@@ -115,7 +194,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="CoDirecteurThese"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Co directeur de thèse
           </label>
@@ -127,13 +206,15 @@ function Inscription02() {
             placeholder="ex : Khellouat Boualem"
             value={CoDirecteurThese}
             onChange={(event) => setCoDirecteurThese(event.target.value)}
-            required
           />
         </div>
 
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Laboratoire" className={`font-bold text-dark-purple`}>
+          <label
+            htmlFor="Laboratoire"
+            className={`font-medium text-dark-purple`}
+          >
             Laboratoire
           </label>
           <input
@@ -144,7 +225,6 @@ function Inscription02() {
             value={Laboratoire}
             placeholder="ex : FabLab"
             onChange={(event) => setLaboratoire(event.target.value)}
-            required
           />
         </div>
       </section>
@@ -153,7 +233,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Option"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Option
           </label>
@@ -172,7 +252,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="TypeDoctorant"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Type Doctorant
           </label>
@@ -192,7 +272,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="IntituleSujet"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Intitulé sujet
           </label>
@@ -213,7 +293,7 @@ function Inscription02() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="EtablissementMaster"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={`font-medium text-dark-purple focus:text-green`}
           >
             Etablissement d'origine Master
           </label>
@@ -231,7 +311,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="EtablissementMagestere"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Etablissement d'origine Magestere
           </label>
@@ -250,7 +330,7 @@ function Inscription02() {
           {" "}
           <label
             htmlFor="EtablissementIngeniorat"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Etablissement d'origine Ingéniorat
           </label>
@@ -263,30 +343,6 @@ function Inscription02() {
             placeholder="ex : ESI Alger"
             onChange={(event) => setEtablissementIngeniorat(event.target.value)}
           />
-        </div>
-      </section>
-
-      <section className={`flex m-2 w-full items-center`}>
-        <div className="m-4 flex flex-col flex-1">
-          <label
-            htmlFor="PremiereInscription"
-            className={`font-bold text-dark-purple m-2`}
-          >
-            Date de première inscription
-          </label>
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            id="PremiereInscription"
-            className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
-          >
-            <DatePicker
-              label="select date"
-              className="bg-white border"
-              value={PremiereInscription}
-              onChange={(event) => setPremiereInscription(event)}
-              renderInput={(params) => <TextField {...params} required />}
-            />
-          </LocalizationProvider>
         </div>
       </section>
 

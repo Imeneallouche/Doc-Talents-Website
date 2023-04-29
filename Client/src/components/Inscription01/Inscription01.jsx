@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Select from "react-select";
-
-//import { TextField, Typography } from "@material-ui/core";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 function Inscription01() {
   const [Nom, setNom] = useState("");
@@ -21,8 +20,15 @@ function Inscription01() {
     endDate: new Date().setMonth(11),
   });
 
-  const [isDatePickerFilled, setisDatePickerFilled] = useState(false);
   const [Sex, setSex] = useState([]);
+
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/RegisterDoctorant1";
+  /*
+
+
+
+  */
 
   const genderOptions = [
     { value: "M", label: "Male" },
@@ -30,11 +36,6 @@ function Inscription01() {
   ];
 
   const history = useHistory();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    history.push("/Inscription/Step2");
-  };
 
   const customStyles = {
     control: (provided, state) => ({
@@ -60,6 +61,26 @@ function Inscription01() {
     }),
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      Nom,
+      Prenom,
+      Id_Doctorant,
+      Id_PV,
+      Numero_tel,
+      Email,
+      Birthday,
+      Sex,
+    };
+    console.log(`here it is ${RUNNING_URL + ENDPOINT}`);
+    const response = await axios.post(RUNNING_URL + ENDPOINT, data);
+
+    console.log(response.data);
+
+    history.push("/Inscription/Step2");
+  };
   /*
 
 
@@ -83,14 +104,14 @@ function Inscription01() {
 
   return (
     <form
-      className="m-10 grow flex flex-col justify-center items-center"
+      className="mx-10 grow flex flex-col justify-center items-center"
       onSubmit={handleSubmit}
     >
       <section className="flex w-full">
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Nom"
-            className={`font-bold text-dark-purple focus:text-green`}
+            className={` font-medium text-dark-purple focus:text-green`}
           >
             Nom
           </label>
@@ -107,7 +128,7 @@ function Inscription01() {
         </div>
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Prenom" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Prenom" className={`font-medium text-dark-purple`}>
             Prénom
           </label>
           <input
@@ -126,7 +147,7 @@ function Inscription01() {
           {" "}
           <label
             htmlFor="Id_Doctorant"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             ID du doctorant
           </label>
@@ -147,7 +168,7 @@ function Inscription01() {
         <div className="m-4 flex flex-col flex-1">
           <label
             htmlFor="Birthday"
-            className={`font-bold text-dark-purple m-2`}
+            className={`font-medium text-dark-purple m-2`}
           >
             Date de naissance
           </label>
@@ -172,7 +193,7 @@ function Inscription01() {
         </div>
 
         <div className="m-4 flex flex-col flex-1">
-          <label htmlFor="Sexe" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Sexe" className={`font-medium text-dark-purple`}>
             Sexe
           </label>
           <Select
@@ -191,7 +212,7 @@ function Inscription01() {
       <section className="flex w-full">
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Id_PV" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Id_PV" className={`font-medium text-dark-purple`}>
             ID du PV
           </label>
           <input
@@ -210,7 +231,7 @@ function Inscription01() {
           {" "}
           <label
             htmlFor="Numero_telephone"
-            className={`font-bold text-dark-purple`}
+            className={`font-medium text-dark-purple`}
           >
             Numero du telephone
           </label>
@@ -228,7 +249,7 @@ function Inscription01() {
 
         <div className="m-4 flex flex-col flex-1">
           {" "}
-          <label htmlFor="Email" className={`font-bold text-dark-purple`}>
+          <label htmlFor="Email" className={`font-medium text-dark-purple`}>
             Email du doctorant
           </label>
           <input
@@ -248,7 +269,7 @@ function Inscription01() {
       </section>
       <div>
         <button
-          className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
+          className="m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
           type="submit"
         >
           Suivant
