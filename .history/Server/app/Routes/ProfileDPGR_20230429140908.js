@@ -18,7 +18,7 @@ function ProfileDPGR(nom) {
       });
     });
   }
-  ProfileDPGR("Derbal")
+  ProfileDPGR('Derbal")
   .then((user) => {
     console.log(user);
   })

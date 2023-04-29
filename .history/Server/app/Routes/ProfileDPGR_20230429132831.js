@@ -5,7 +5,7 @@ const connection = require("../../DB/db_config");
 function ProfileDPGR(nom) {
     return new Promise((resolve, reject) => {
       // Construct the SQL query to retrieve user information
-      const sql = `SELECT * FROM Doctorant WHERE nom = ${nom}`;
+      const sql = `SELECT * FROM DPGR WHERE nom = ${nom}`;
   
       // Execute the query
       connection.query(sql, (error, results) => {
@@ -18,7 +18,7 @@ function ProfileDPGR(nom) {
       });
     });
   }
-  ProfileDPGR("Derbal")
+  ProfileDPGR('LOUNI')
   .then((user) => {
     console.log(user);
   })

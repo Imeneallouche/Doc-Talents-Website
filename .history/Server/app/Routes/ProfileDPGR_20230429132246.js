@@ -1,11 +1,11 @@
 const express = require('express');
 const connection = require("../../DB/db_config");
+const ProfileDPGR = express();
 
-
-function ProfileDPGR(nom) {
+function getUserInformation(userId) {
     return new Promise((resolve, reject) => {
       // Construct the SQL query to retrieve user information
-      const sql = `SELECT * FROM Doctorant WHERE nom = ${nom}`;
+      const sql = `SELECT * FROM DPGR WHERE ID = ${userId}`;
   
       // Execute the query
       connection.query(sql, (error, results) => {
@@ -18,10 +18,3 @@ function ProfileDPGR(nom) {
       });
     });
   }
-  ProfileDPGR("Derbal")
-  .then((user) => {
-    console.log(user);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
