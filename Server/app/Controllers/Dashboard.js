@@ -45,8 +45,7 @@ app.get("/dashboard",(req,res)=>{
                       }
                       lisDoctorants[i-2012] = cpt;
                     }
-                    console.log(1,nbDoctorants);
-                    console.log(lisDoctorants);
+
                 }
             });
             connection.query("SELECT * FROM Doctorant where sexe = 'M'",[],(err,res2)=>{
@@ -64,9 +63,7 @@ app.get("/dashboard",(req,res)=>{
                       }
                       lisDoctorantsHomme[i-2012] = cpt;
                     }
-                    console.log(2,nbDoctorantsHomme);
-                    console.log(moyDoctorantsHomme)
-                    console.log(lisDoctorantsHomme);
+
                 }
             });
             connection.query("SELECT * FROM Doctorant where sexe = 'F'",[],(err,res3)=>{
@@ -84,9 +81,7 @@ app.get("/dashboard",(req,res)=>{
                       }
                       lisDoctorantsFemme[i-2012] = cpt;
                     }
-                    console.log(3,nbDoctorantsFemme);
-                    console.log(moyDoctorantsFemme)
-                    console.log(lisDoctorantsFemme);
+
                 }
             });
 
