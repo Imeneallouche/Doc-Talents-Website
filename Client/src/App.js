@@ -30,9 +30,6 @@ export default function App() {
           <Route path="/Connexion" exact>
             <Connexion />
           </Route>
-          <Route path="/Popuppage" exact>
-            <Popuppage />
-          </Route>
           <Route path="/Doctorant" exact>
             <Doctorant />
           </Route>
