@@ -89,7 +89,7 @@ app.post("/RegisterDoctorant2", (req, res) => {
   };
 
   const fullnameEncadreur = doctorant.Encadreur.toLowerCase();
-  const fullnameCoEncadreur = doctorant.Encadreur.toLowerCase();
+  const fullnameCoEncadreur = doctorant.CoEncadreur.toLowerCase();
 
   const query1 = `SELECT * FROM Encadrant WHERE LOWER(CONCAT(nom, prenom)) = '${fullnameEncadreur}'`;
   const query2 = `SELECT * FROM Encadrant WHERE LOWER(CONCAT(nom, prenom)) = '${fullnameCoEncadreur}'`;
@@ -103,7 +103,7 @@ app.post("/RegisterDoctorant2", (req, res) => {
           if (error) {
             console.log(error);
           } else {
-            if (results2.length !== 0) {
+            if ((results2.length !== 0)||(fullnameCoEncadreur="")) {
               connection.query(
                 "INSERT INTO Doctorant SET ?",
                 doctorant,
@@ -129,9 +129,7 @@ app.post("/RegisterDoctorant2", (req, res) => {
                 }
               );
             } else {
-              res
-                .status(300)
-                .redirect("http://localhost:3000/RegisterCoEncadrant");
+              res.status(300).redirect("http://localhost:3000/RegisterCoEncadrant");
             }
           }
         });
@@ -178,7 +176,35 @@ app.post("/RegisterEncadrant", (req, res) => {
         console.log(error);
         res.status(500).send("Error saving encadrant to database");
       } else {
-        res.redirect("http://localhost:3000/RegisterEncadrant");
+        if ((results2.length !== 0)||(fullnameCoEncadreur="")) {
+          connection.query(
+            "INSERT INTO Doctorant SET ?",
+            doctorant,
+            (error, results) => {
+              if (error) {
+                console.log(error);
+                res.status(500).send("Error saving doctorant to database");
+              } else {
+                res.status(200).send("Doctorant saved successfully");
+              }
+            }
+          );
+          connection.query( 
+            "INSERT INTO Inscription SET ?",
+           PV,
+            (error, results) => {
+              if (error) {
+                console.log(error);
+                res.status(500).send("Error saving PV to database");
+              } else {
+                res.status(200).send("PV saved successfully");
+              }
+            }
+          );
+          res.redirect("http://localhost:3000/RegisterEncadrant");
+        } else {
+          res .status(300).redirect("http://localhost:3000/RegisterCoEncadrant");
+        }
       }
     }
   );
