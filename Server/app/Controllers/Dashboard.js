@@ -95,8 +95,9 @@ app.get("/dashboard", (req, res) => {
                 }
               }
               lisDoctorantsFemme[i - 2012] = cpt;
-              res.send({nbDoctorants,lisDoctorants,nbDoctorantsHomme,moyDoctorantsHomme,lisDoctorantsHomme,nbDoctorantsFemme,moyDoctorantsFemme,lisDoctorantsFemme,});
+             
             }
+             res.send({nbDoctorants,lisDoctorants,nbDoctorantsHomme,moyDoctorantsHomme,lisDoctorantsHomme,nbDoctorantsFemme,moyDoctorantsFemme,lisDoctorantsFemme,});
           }
         }
       );
