@@ -163,7 +163,7 @@ function Profile({ DoctorantId }) {
             Date de premiere inscription:
           </label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="date"
             id="date-inputt"
             value={dateee}
@@ -176,7 +176,7 @@ function Profile({ DoctorantId }) {
           className="mr-5 mt-5 text-black font-bold"
            htmlFor="Nombre d'inscriptions">Nombre d'inscriptions:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="1"
             name="Nombre_inscriptions"
@@ -187,7 +187,7 @@ function Profile({ DoctorantId }) {
           className="mr-5 mt-5 text-black font-bold"
           htmlFor="Encadreur">Encadreur:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="Id_Encadreur"
@@ -197,7 +197,7 @@ function Profile({ DoctorantId }) {
           <label className="mr-5 mt-5 text-black font-bold"
           htmlFor="Co-encadreur">Co-encadreur:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="Id_CoEncadreur"
@@ -206,7 +206,7 @@ function Profile({ DoctorantId }) {
           />
           <label className="mr-5 mt-5 text-black font-bold" htmlFor="Intitulé de thèse">Intitulé de thèse:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="intitule_sujet"
@@ -215,7 +215,7 @@ function Profile({ DoctorantId }) {
           />
           <label className="mr-5 mt-5 text-black font-bold" htmlFor="Intitulé sujet bis">Intitulé sujet bis:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="intitule_sujet_bis"

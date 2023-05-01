@@ -215,7 +215,7 @@ function Profile({ DoctorantId }) {
           />
           <label className="mr-5 mt-5 text-black font-bold" htmlFor="Intitulé sujet bis">Intitulé sujet bis:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="intitule_sujet_bis"

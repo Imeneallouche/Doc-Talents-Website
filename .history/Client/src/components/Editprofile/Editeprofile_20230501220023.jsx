@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link,  useParams } from 'react-router-dom';
 
-function Profile({ DoctorantId }) {
+function Edituser({ DoctorantId }) {
   
  
   const [date, setDate] = useState("");
@@ -54,11 +54,11 @@ function Profile({ DoctorantId }) {
          htmlFor="Matricule">Matricule:</label>
         <input class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black" type="text" placeholder="20/0046" name="Matricule" defaultValue={Doctorant.matricule} onChange={handleInputChange}/>
           <button class="text-white bg-teal-500 p-5 mb-5 rounded-lg" type="submit">
-            <Link to="/Editprofile">
-            Modifier
+            <Link to="/ProfileDoc">
+            Enregistrer
             </Link>
             </button>
-          <button class="text-white bg-teal-500 p-5  rounded-lg" type="submit">Séminaire</button>
+         
          
         
         </div>
@@ -80,7 +80,7 @@ function Profile({ DoctorantId }) {
           className="ml-5 mt-5 text-black font-bold"
           htmlFor="sexe">Sexe:</label>
           <input
-          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="Femme"
             name="sexe"
@@ -91,7 +91,7 @@ function Profile({ DoctorantId }) {
           className="ml-5 mt-5 text-black font-bold"
            htmlFor="Option">Option:</label>
           <input
-          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="SIL"
             name="Specialite"
@@ -102,7 +102,7 @@ function Profile({ DoctorantId }) {
           className="ml-5 mt-5 text-black font-bold"
            htmlFor="Numero de telephone">Numero de telephone:</label>
           <input
-          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="tel"
             placeholder="0568134937"
             name="telephone"
@@ -113,7 +113,7 @@ function Profile({ DoctorantId }) {
           className="ml-5 mt-5 text-black font-bold"
           htmlFor="Situation">Situation:</label>
           <input
-          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="Soutenu"
             name="statut"
@@ -124,7 +124,7 @@ function Profile({ DoctorantId }) {
           className="ml-5 mt-5 text-black font-bold"
           htmlFor="Laboratoire">Laboratoire:</label>
           <input
-          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="idk"
             name="laboratoire"
@@ -135,7 +135,7 @@ function Profile({ DoctorantId }) {
           className="ml-5 mt-5 text-black font-bold"
            htmlFor="Date de soutenance">Date de soutenance:</label>
           <input
-          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="date"
             id="date-inputtt"
             value={datee}
@@ -150,7 +150,7 @@ function Profile({ DoctorantId }) {
           className="mr-5 mt-5 text-black font-bold"
           htmlFor="etablissement">Etablissement:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="Etablissement_origine_Master"
@@ -163,7 +163,7 @@ function Profile({ DoctorantId }) {
             Date de premiere inscription:
           </label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="date"
             id="date-inputt"
             value={dateee}
@@ -176,7 +176,7 @@ function Profile({ DoctorantId }) {
           className="mr-5 mt-5 text-black font-bold"
            htmlFor="Nombre d'inscriptions">Nombre d'inscriptions:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="1"
             name="Nombre_inscriptions"
@@ -187,7 +187,7 @@ function Profile({ DoctorantId }) {
           className="mr-5 mt-5 text-black font-bold"
           htmlFor="Encadreur">Encadreur:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="Id_Encadreur"
@@ -197,7 +197,7 @@ function Profile({ DoctorantId }) {
           <label className="mr-5 mt-5 text-black font-bold"
           htmlFor="Co-encadreur">Co-encadreur:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="Id_CoEncadreur"
@@ -206,7 +206,7 @@ function Profile({ DoctorantId }) {
           />
           <label className="mr-5 mt-5 text-black font-bold" htmlFor="Intitulé de thèse">Intitulé de thèse:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="intitule_sujet"
@@ -215,7 +215,7 @@ function Profile({ DoctorantId }) {
           />
           <label className="mr-5 mt-5 text-black font-bold" htmlFor="Intitulé sujet bis">Intitulé sujet bis:</label>
           <input
-          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
             type="text"
             placeholder="mn3ref"
             name="intitule_sujet_bis"
@@ -228,4 +228,4 @@ function Profile({ DoctorantId }) {
   );
 }
 
-export default Profile;
+export default Edituser;
