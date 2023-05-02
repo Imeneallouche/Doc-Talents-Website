@@ -83,6 +83,39 @@ app.post('/Connexion', async (req, res) => {
 });
 */
 
+// Define the route for Doctorant/:doc/Seminaire
+app.get("/Doctorant/Seminaire", async (req, res) => {
+  const { ID_DOCTORANT } = req.query;
+  try {
+    const [rows, fields] = await connection.query(
+      `SELECT * FROM Seminaire WHERE Id_Doctorant = ?`,
+      [ID_DOCTORANT]
+    );
+    if (!rows || rows.length === 0) throw new Error("No seminaire data");
+    res.status(200).json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+app.post("/Doctorant/AjouterSeminaire", async (req, res) => {
+  const { titre, resume } = req.body;
+  const { ID_DOCTORANT } = req.query;
+  try {
+    const [result] = await connection.execute(
+      "INSERT INTO Seminaire (Id_Doctorant, titre, resume) VALUES (?, ?, ?)",
+      [ID_DOCTORANT, titre, resume]
+    );
+    console.log(result);
+    res.status(201).send("Seminaire added successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to add seminaire");
+  }
+});
+
+
 app.get("/PV", (req, res) => {
   const sql = `SELECT * FROM PV`;
   connection.query(sql, (error, results) => {
