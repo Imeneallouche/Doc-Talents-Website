@@ -82,7 +82,8 @@ export default function App() {
           <Route path="/profile/LOUNI" exact>
             <dpgr nom="LOUNI"/>
           </Route>
-    <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} /> */}
+          <Route exact path={`/Doctorant/:doc/Seminaire`} component={Seminaire} />
+          <Route path={`/Doctorant/:doc/Seminaire/SeminaireLirePlus/:title`} exact component={SeminaireLirePlus} /> */}
           <Route path="/PV" exact>
             <PVs />
           </Route>
