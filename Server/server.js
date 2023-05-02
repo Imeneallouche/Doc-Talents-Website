@@ -32,4 +32,45 @@ app.get("/Update", (req, res) => {
   });
 });
 
+app.get("/PV", (req, res) => {
+  const sql = `SELECT * FROM PV`;
+  connection.query(sql, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    res.send(results);
+  });
+});
+
+app.get("/PV/:search_term", (req, res) => {
+  const search_term = req.params.search_term;
+  //const search_term = 2012;
+  const sql = `SELECT * FROM PV WHERE Date_PV LIKE ?`;
+  const Value = [`%${search_term}%`];
+  connection.query(sql, Value, (error, results) => {
+    if (error) {
+      throw error;
+    }
+    res.send(results);
+  });
+});
+
+app.post("/PV/Ajouter", (req, res) => {
+  const { Id_PV, Date_PV, Link_PV } = req.body;
+  const sql = `INSERT INTO PV (Id_PV, Date_PV, Link_PV) VALUES (?, ?, ?)`;
+  const values = [Id_PV, Date_PV, Link_PV];
+  connection.query(sql, values, (error, result) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send({ error: "Failed to insert PV" });
+      return;
+    }
+    res.send({ message: "PV inserted successfully", result });
+  });
+});
+
+
+
+
+
 app.listen(PORT, console.log(`SERVER IS RUNNING ON PORT ${PORT}`));

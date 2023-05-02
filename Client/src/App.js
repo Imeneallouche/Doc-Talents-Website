@@ -1,25 +1,26 @@
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 
-import HomePage from "./pages/Home";
-import Doctorant from "./pages/Doctorant";
-import Inscription from "./pages/Inscription";
-import popup from "./pages/popup";
+//import HomePage from "./pages/Home";
+//import Doctorant from "./pages/Doctorant";
+//import Inscription from "./pages/Inscription";
+//import popup from "./pages/popup";
 import Acceuil from './pages/Acceuil';
-import Connexion from "./pages/Connexion";
-import Update from "./pages/Update";
+//import Connexion from "./pages/Connexion";
+//import Update from "./pages/Update";
+import PVformulaire from "./pages/PVformulaire";
 import PVs from "./pages/PVs";
-import Users from "./pages/Users";
-import Profile from "./pages/Profile";
-import Editprofile from "./pages/Editprofile";
-import Dashboard from "./pages/Dashboard";
-import Statistics from "./pages/Statistics";
-import Seminaire from "./pages/Seminaire";
-import InscriptionStep1 from "./pages/InscriptionStep1";
-import InscriptionStep2 from "./pages/InscriptionStep2";
-import InscriptionStep3 from "./pages/InscriptionStep3";
-import ConfirmEndacrant from "./pages/ConfirmEndacrant";
-import SeminaireLirePlus from "./pages/SeminaireLirePlus";
+//import Users from "./pages/Users";
+//import Profile from "./pages/Profile";
+//import Editprofile from "./pages/Editprofile";
+//import Dashboard from "./pages/Dashboard";
+//import Statistics from "./pages/Statistics";
+//import Seminaire from "./pages/Seminaire";
+//import InscriptionStep1 from "./pages/InscriptionStep1";
+//import InscriptionStep2 from "./pages/InscriptionStep2";
+//import InscriptionStep3 from "./pages/InscriptionStep3";
+//import ConfirmEndacrant from "./pages/ConfirmEndacrant";
+//import SeminaireLirePlus from "./pages/SeminaireLirePlus";
 
 
 
@@ -27,8 +28,20 @@ export default function App() {
   return (
     <div className="App w-screen h-screen">
       <Router>
+        {/*
+       <PVs />
+       </Router>
+
+       <Router>
+      <PVformulaire />
+      <Route path="/PVs" exact>
+  <PVs /> */}
+
         <Switch>
-          <Route path="/" exact>
+        <Route path="/" exact>
+          <Acceuil/>    
+          </Route>
+         {/* <Route path="/" exact>
           <Acceuil/>    
           </Route>
           <Route path="/Connexion" exact>
@@ -74,9 +87,19 @@ export default function App() {
           <Route path="/Seminaire" exact>
             <Seminaire />
           </Route>
-          <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} />
-        </Switch>
-      </Router>
+<Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} /> */}
+          <Route path="/PV" exact>
+            <PVs />
+          </Route>
+
+          <Route path="/PV/ajouter" exact>
+            <PVformulaire />
+          </Route>
+
+  </Switch>
+  </Router>
+
+      
     </div>
   );
 }
