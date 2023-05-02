@@ -2,7 +2,7 @@
   "name": "doctalents",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:3001",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -29,6 +29,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-paginate": "^8.2.0",
+    "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.2",
@@ -54,7 +55,6 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3",
     "tailwindcss": "^3.2.7"
   }
 }
