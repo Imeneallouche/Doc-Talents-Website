@@ -22,21 +22,15 @@ import PVs from "./pages/PVs";
 //import ConfirmEndacrant from "./pages/ConfirmEndacrant";
 //import SeminaireLirePlus from "./pages/SeminaireLirePlus";
 
+import ProfileDoc from "./pages/Profile";
+import Editprofile from "./pages/Editprofile";
+import dpgr from "./pages/ProfileDPGR";
 
 
 export default function App() {
   return (
     <div className="App w-screen h-screen">
       <Router>
-        {/*
-       <PVs />
-       </Router>
-
-       <Router>
-      <PVformulaire />
-      <Route path="/PVs" exact>
-  <PVs /> */}
-
         <Switch>
         <Route path="/" exact>
           <Acceuil/>    
@@ -79,15 +73,16 @@ export default function App() {
           </Route>
           <Route path="/Profile" exact>
             <Profile />
+          <Route path="/ProfileDoc" exact>
+            <ProfileDoc />
           </Route>
-            
           <Route path="/Editprofile" exact>
-            <Editprofile />
+            <Editprofile/>
           </Route>
-          <Route path="/Seminaire" exact>
-            <Seminaire />
+          <Route path="/profile/LOUNI" exact>
+            <dpgr nom="LOUNI"/>
           </Route>
-<Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} /> */}
+    <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} /> */}
           <Route path="/PV" exact>
             <PVs />
           </Route>
@@ -99,7 +94,6 @@ export default function App() {
   </Switch>
   </Router>
 
-      
-    </div>
+</div>
   );
 }

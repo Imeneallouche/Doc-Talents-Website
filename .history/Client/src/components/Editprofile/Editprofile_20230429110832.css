@@ -1,0 +1,39 @@
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1%;
+    padding: 50px;
+    margin-left: 20px;
+    transform: scale(0.9); /* Apply scale transform */
+  }
+  
+  .form-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+  }
+  input {
+    margin-bottom: 20px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background-color: none;
+  }
+ 
+  .button{
+    color: white;
+    background-color: #52BCA2;
+    padding: 10px;
+    align-self: ;
+    margin: 5px;
+    border-radius: 10px;
+
+  }

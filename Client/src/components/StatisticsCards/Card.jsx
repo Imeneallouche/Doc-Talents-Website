@@ -56,7 +56,7 @@ function CompactCard({ param, setExpanded }) {
 function ExpandedCard({ param, setExpanded }) {
   return (
     <motion.div
-      className="ExpandedCard"
+      className="ExpandedCard absolute w-3/5 rounded-lg flex flex-col items-center justify-around p-4"
       style={{
         background: param.color.backGround,
         boxShadow: param.color.boxShadow,
