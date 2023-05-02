@@ -1,0 +1,6 @@
+.Card{ /* subtract height of SeminaireButton from viewport height */
+  margin-bottom: 0%;
+  margin-top: 130px;
+  font-family: sans-serif;
+  text-align: center;
+}
