@@ -14,12 +14,9 @@
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.2.3",
     "nodemon": "^2.0.21",
-<<<<<<< HEAD
     "react-icons": "^4.8.0",
-=======
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
->>>>>>> d1eab7c06bc745b006e6d9b7527dd982679ff255
     "react-router-dom": "^6.10.0"
   }
 }
