@@ -1,0 +1,18 @@
+
+.form-cont{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    padding: 50px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.buttonn{
+    background-color: #52BCA2;
+    margin-left: 750px;
+    margin-top: 0px;
+  }
+.selected{
+         margin-bottom: 12px;
+         margin-top: 10px;
+}
