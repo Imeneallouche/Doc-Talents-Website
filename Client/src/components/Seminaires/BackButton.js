@@ -1,15 +1,16 @@
 import React from "react";
 import "./BackButtonstyles.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const BackButton = () => {
+  const { doc, title } = useParams(); // extract both parameters from the URL
   const history = useHistory();
 
-  const handleBackClick = () => {
-    history.push({
-      pathname: `/Seminaire`,
-    });
-  };
+const handleBackClick = () => {
+  history.push({
+    pathname: `/Doctorant/${doc}/Seminaire`, // specify the path including the Id_doctorant parameter
+  });
+};
 
   return (
     <button onClick={handleBackClick}>

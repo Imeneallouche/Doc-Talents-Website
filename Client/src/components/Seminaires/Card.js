@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "./Cardstyles.css";
 import map from "lodash/map";
-import seminaireData from "../../Data/seminaireData.json";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
 
 const CardContainer = ({ title, paragraph }) => {
   const history = useHistory();
+const { doc } = useParams();
 
-  const handleReadMoreClick = () => {
-    history.push({
-      pathname: `/SeminaireLirePlus/${title}`,
-      state: {
-        title: title,
-      },
-    });
-  };
+const handleReadMoreClick = () => {
+  history.push({
+    pathname: `/Doctorant/${doc}/Seminaire/SeminaireLirePlus/${title}`,
+    state: {
+      title: title,
+    },
+  });
+};
+
 
   return (
     <div
@@ -22,7 +24,6 @@ const CardContainer = ({ title, paragraph }) => {
         height: "220px",
         width: "320px",
         margin: "10px 20px",
-        marginLeft: "60px",
         position: "relative",
         borderRadius: "18px",
         backgroundColor: "#fdfdff",
@@ -70,7 +71,28 @@ const CardContainer = ({ title, paragraph }) => {
   );
 };
 
-function Card() {
+function Card( ) {
+  
+  const [seminaireData, setSeminareData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/Doctorant/Seminaire", {
+        params: {
+          ID_DOCTORANT: "21/0010",
+        },
+      })
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setSeminareData(res.data);
+        } else {
+          throw new Error("Unexpected response data format");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="Card">
       <div
@@ -78,12 +100,13 @@ function Card() {
           width: "100%",
           overflow: "auto",
           display: "flex",
-          justifyContent: "center",
+          color: "black",
+          justifyContent: "left",
         }}
       >
         {map(seminaireData, (data, index) => (
           <div key={index}>
-            <CardContainer title={data.title} paragraph={data.paragraph} />
+            <CardContainer title={data.titre} paragraph={data.resume} />
           </div>
         ))}
       </div>
