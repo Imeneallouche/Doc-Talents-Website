@@ -124,8 +124,8 @@ const DoctorantSearch = () => {
   };
 
   const genderOptions = [
-    { value: "M", label: "Male" },
-    { value: "F", label: "Female" },
+    { value: "M", label: "Homme" },
+    { value: "F", label: "Femme" },
   ];
 
   const statuesOptions = [
@@ -141,6 +141,42 @@ const DoctorantSearch = () => {
     yearsOption.push(obj);
   }
 
+  /*
+
+
+
+
+
+
+
+
+
+
+  */
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: "white",
+      borderColor: "#19202E",
+      color: "#1E2959",
+      placeholderColor: "#35468E",
+      fontSize: "1rem",
+      borderRadius: "0.375rem",
+      padding: "0.4rem",
+
+      "&:focus": {
+        outline: "none",
+        boxShadow: "none",
+        borderColor: "#51BCA2",
+        placeholderColor: "#51BCA2",
+      },
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      color: "#35468E",
+    }),
+  };
+
   return (
     <div className={`bg-white-bluish w-full flex flex-col`}>
       <div className="text-gray-600 flex items-center justify-evenly">
@@ -153,12 +189,13 @@ const DoctorantSearch = () => {
           </label>
           <Select
             className="mt-1"
-            placeholder="Male"
+            placeholder="Homme"
             id="Sexe"
             options={genderOptions}
             value={selectedGender}
             onChange={handleGenderChange}
             isClearable
+            styles={customStyles}
           />
         </div>
         <div className="m-2 flex-1">
@@ -176,6 +213,7 @@ const DoctorantSearch = () => {
             value={selectedStatues}
             onChange={handleStatuesChange}
             isClearable
+            styles={customStyles}
           />
         </div>
         <div className="m-2 flex-1">
@@ -193,6 +231,7 @@ const DoctorantSearch = () => {
             onChange={handleMinYearChange}
             isClearable
             options={yearsOption}
+            styles={customStyles}
           ></Select>
         </div>
 
@@ -211,12 +250,17 @@ const DoctorantSearch = () => {
             onChange={handleMaxYearChange}
             options={yearsOption}
             isClearable
+            styles={customStyles}
           ></Select>
         </div>
 
         <div className="flex-1 p-8">
+          <label
+            htmlFor="searchBar"
+            className="font-normal text-sm text-dark-purple"
+          > Recherche par nom et prnom</label>
           <input
-            className="text-purple font-normal drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
+            className="text-purple font-normal drop-shadow-[2px_2px_2px_#00000043] rounded p-4 mt-1 w-96 border border-purple focus:border focus:border-green focus:outline-none"
             id="searchBar"
             type="text"
             placeholder="Rechercher"

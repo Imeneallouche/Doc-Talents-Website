@@ -14,7 +14,7 @@ function InscriptionStep1() {
         </div>
 
         <div className="flex grow">
-          <TimelineStepper currentStep={0} />
+          <TimelineStepper currentStep={1} />
           <div className="flex flex-col flex-1 justify-center">
             <h1 className=" text-purple font-semibold text-2xl text-center">
               Step 01 : Les information personels du doctorant

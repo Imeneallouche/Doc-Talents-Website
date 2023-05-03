@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -11,7 +12,10 @@ const DocotrantFilteredSearch = require("./app/Controllers/DoctorantFilteredSear
 const RadiationController = require("./app/Controllers/RadiationController");
 const SoutenanceController = require("./app/Controllers/SoutenanceController");
 const ReinscriptionController = require("./app/Controllers/ReinscriptionController");
-
+const DashboardStatisticsController = require("./app/Controllers/DashboardStatisticsController");
+const RegisterDoctorantController = require("./app/Controllers/RegisterDoctorantController");
+const RegisterEncadrantController = require("./app/Controllers/RegisterEncadrantController");
+const EncadrantSearchController = require("./app/Controllers/EncadrantSearchController");
 //NOT YET IMPLEMENTED
 const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
 const RecherchePVController = require("./app/Controllers/rechPVController");
@@ -26,6 +30,7 @@ const RecherchePVController = require("./app/Controllers/rechPVController");
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use("/api/user", userRoutes);
 
 /*
@@ -39,13 +44,15 @@ app.get("/", (req, res) => {
   res.send("API is running on the root");
 });
 
-//app.use("/api/user", userRoutes);
-
 app.get("/Doctorant", DoctorantSearchController);
+app.get("/Encadrant", EncadrantSearchController);
 app.get("/Update", DocotrantFilteredSearch);
 app.post("/Radiation", RadiationController);
 app.post("/Soutenance", SoutenanceController);
 app.post("/Reinscription", ReinscriptionController);
+app.get("/Dashboard", DashboardStatisticsController);
+app.post("/RegisterDoctorant", RegisterDoctorantController);
+app.post("/RegisterEncadrant", RegisterEncadrantController);
 
 //NOT YET USED IN FRONTEND
 app.get("/DPGR", DPGRSearchController);

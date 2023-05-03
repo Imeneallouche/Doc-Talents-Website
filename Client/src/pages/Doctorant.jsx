@@ -11,7 +11,7 @@ function Doctorant() {
         <div className="flex justify-end">
           <ProfileIcon />
         </div>
-        <DoctorantSearch/>
+        <DoctorantSearch />
       </div>
     </div>
   );

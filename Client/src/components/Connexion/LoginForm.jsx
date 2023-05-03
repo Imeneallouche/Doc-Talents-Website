@@ -40,7 +40,7 @@ export default function LoginForm() {
             Nom Utilisateur
           </label>
           <input
-            className="input rounded-[7px] mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"
+            className="input mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"
             type="email"
             name="email"
             id="email"
@@ -55,7 +55,7 @@ export default function LoginForm() {
             Mot de passe
           </label>
           <input
-            className="input rounded-[7px] mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"           
+            className="input mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"           
             type="password"
             name="password"
             id="password"

@@ -1,7 +1,6 @@
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 
-
 import Profile from "./pages/Profile";
 import Editprofile from "./pages/Editprofile";
 import Prodpgr from "./pages/ProfileDPGR";
@@ -17,6 +16,9 @@ import InscriptionStep2 from "./pages/InscriptionStep2";
 import InscriptionStep3 from "./pages/InscriptionStep3";
 import ConfirmEndacrant from "./pages/ConfirmEndacrant";
 
+import Inscription03 from "./components/Inscription03/Inscription03";
+
+import { FormDataProvider } from "./components/Store";
 
 export default function App() {
   return (
@@ -38,18 +40,21 @@ export default function App() {
           <Route path="/Dashboard" exact>
             <Dashboard />
           </Route>
-          <Route path="/Inscription/Step1">
-            <InscriptionStep1 />
-          </Route>
-          <Route path="/Inscription/Step2">
-            <InscriptionStep2 />
-          </Route>
-          <Route path="/Inscription/Step3">
-            <InscriptionStep3 />
-          </Route>
-          <Route path="/Inscription/ConfirmEncadrant">
-            <ConfirmEndacrant />
-          </Route>
+          <FormDataProvider>
+            <Route path="/Inscription/Step1">
+              <InscriptionStep1 />
+            </Route>
+            <Route path="/Inscription/Step2">
+              <InscriptionStep2 />
+            </Route>
+
+            <Route path="/Inscription/Step3">
+              <InscriptionStep3 />
+            </Route>
+            <Route path="/Inscription/ConfirmEncadrant">
+              <ConfirmEndacrant />
+            </Route>
+          </FormDataProvider>
           <Route path="/Update" exact>
             <Update />
           </Route>
@@ -63,10 +68,10 @@ export default function App() {
             <Profile />
           </Route>
           <Route path="/Editprofile" exact>
-            <Editprofile/>
+            <Editprofile />
           </Route>
           <Route path="/ProfileDPGR" exact>
-            <Prodpgr/>
+            <Prodpgr />
           </Route>
         </Switch>
       </Router>

@@ -8,10 +8,9 @@ export default function Seminaire() {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <SideBar />
       <div style={{ flex: 1, overflowY: "auto" }}>
-        <SeminaireButton style={{ marginTop: '20px', margin: "20px" }} />
+        <SeminaireButton style={{ marginTop: "20px", margin: "20px" }} />
         <Card style={{ position: "relative", top: 0, left: 0 }} />
       </div>
-      
     </div>
   );
-};
+}

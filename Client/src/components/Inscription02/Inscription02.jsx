@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import Select from "react-select";
+import dayjs from "dayjs";
 
 import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router-dom";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { FormDataContext } from "../Store";
+import axios from "axios";
 
 function Inscription02() {
   const [DirecteurThese, setDirecteurThese] = useState("");
@@ -30,6 +33,12 @@ function Inscription02() {
   const currentYear = new Date().getFullYear();
   const FirstYearEver = 2012;
 
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/RegisterDoctorant";
+
+  const history = useHistory();
+  //const { formData } = useContext(FormDataContext);
+
   const years = [];
   for (let year = FirstYearEver; year <= currentYear; year++) {
     years.push(year);
@@ -48,35 +57,108 @@ function Inscription02() {
 
   const handlePrevious = (event) => {
     event.preventDefault();
-    history.push("/Inscription/Step1");
+    history.goBack();
   };
+
+  const { formData: formData1 } = useContext(FormDataContext);
+
+  /*
+
+
+
+
+
+
+
+
+
+
+  */
 
   const handleNext = async (e) => {
     e.preventDefault();
 
     const data = {
+      ...formData1,
       DirecteurThese,
       CoDirecteurThese,
       Laboratoire,
       Option,
-      TypeDoctorant,
+      TypeDoctorant: TypeDoctorant.value,
       IntituleSujet,
       EtablissementMagestere,
       EtablissementIngeniorat,
       EtablissementMaster,
-      PremiereInscription,
-      DateFichierCentral,
+      PremiereInscription: PremiereInscription.value,
+      DateFichierCentral: dayjs(DateFichierCentral).format("YYYY-MM-DD"),
     };
-    const response = await axios.post(
-      "http://localhost:3000/RegisterDoctorant",
-      data
-    );
-    console.log(response.data);
 
-    history.push("/Inscription/Step3");
+    const response = await axios.post(RUNNING_URL + ENDPOINT, data);
+    const { state1, state2 } = response.data;
+
+    /*
+
+
+
+
+    */
+
+    if (state1 == 0 && state2 == 0) {
+      console.log("both are here");
+
+      let { encadreur, coencadreur } = response.data;
+      history.push({
+        pathname: "/Inscription/ConfirmEncadrant",
+        state: { encadreur, coencadreur },
+      });
+
+      /*
+
+
+
+      */
+    } else if (state1 == 0 && state2 == 1) {
+      console.log("got to register co encadreur");
+
+      let { encadreur } = response.data;
+      let info = { type: 1, name: CoDirecteurThese };
+
+      history.push({
+        pathname: "/Inscription/Step3",
+        state: { encadreur, info },
+      });
+
+      /*
+
+
+
+      */
+    } else if (state1 == 1 && state2 == 0) {
+      console.log("got to register encadreur");
+
+      let { coencadreur } = response.data;
+      let info = { type: 0, name: DirecteurThese };
+
+      history.push({
+        pathname: "/Inscription/Step3",
+        state: { coencadreur, info },
+      });
+
+      /*
+
+
+
+      */
+    } else {
+      console.log("got to register both");
+      let info = { type: 2, name1: DirecteurThese, name2: CoDirecteurThese };
+
+      history.push({
+        pathname: "/Inscription/Step3",
+        state: { info },
+      });
+    }
   };
-
-  const history = useHistory();
 
   const customStyles = {
     control: (provided, state) => ({
@@ -103,25 +185,25 @@ function Inscription02() {
   };
 
   /*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    */
 
   return (
     <form
@@ -146,6 +228,7 @@ function Inscription02() {
               className="bg-white border"
               value={DateFichierCentral}
               onChange={(event) => setDateFichierCentral(event)}
+              format="YYYY-MM-DD"
               renderInput={(params) => <TextField {...params} required />}
             />
           </LocalizationProvider>
