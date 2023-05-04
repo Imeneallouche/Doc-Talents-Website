@@ -1,0 +1,43 @@
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    transform: scale(0.8); /* Apply scale transform */
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1%;
+    padding: 50px;
+    margin-left: 200px;
+  }
+  
+  .form-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+  }
+  input {
+    margin-bottom: 20px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background-color: none;
+  }
+  .zoom-out {
+    transform: scale(0.5); /* Apply scale transform */
+  }
+  .button{
+    color: white;
+    background-color: #52BCA2;
+    padding: 5px;
+    margin: 5px;
+  }
+  .color{
+    color: black;
+  }
+  
+  

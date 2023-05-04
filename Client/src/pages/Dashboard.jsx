@@ -21,8 +21,8 @@ function Dashboard() {
           <ProfileIcon />
         </div>
         <Cards />
-        <div className="flex justify-center grow">
-          <ShowCaseCard />
+        <div className="flex justify-center grow flex-1">
+          <ShowCaseCard className="flex-1"/>
         </div>
       </div>
     </div>

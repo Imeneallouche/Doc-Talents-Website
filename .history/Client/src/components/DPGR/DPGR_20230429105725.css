@@ -1,0 +1,27 @@
+.Title{
+    background: linear-gradient(to left, #19202E, #35468E);
+        width: 350px;
+        height: 55px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #ffffff;
+        font-size: 20px;
+        margin-top: 80px;
+        margin-left: 60px;
+        font-weight: bold;
+        font-family:'Poppins';
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        padding-left: 30px; 
+}
+.form-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1%;
+    padding: 50px;
+    margin-left: 20px;
+}

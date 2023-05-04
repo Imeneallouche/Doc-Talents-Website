@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
+import axios, { all } from "axios";
 import { useHistory } from "react-router-dom";
+import Popup from "../Popup/Popup";
 
 const DoctorantUpdate = () => {
   const [Doctorants, setDoctorants] = useState([]);
   const [searchText, setSearchText] = useState(""); //autocomplete search bar
   const [searchResults, setSearchResults] = useState([]);
 
-  const currentYear = new Date().getFullYear();
-  const FirstYearEver = 2012;
-  
+  const [showPopup, setShowPopup] = useState(false);
+
   const [checkedIds, setCheckedIds] = useState([]);
+
+  const [action, setAction] = useState(null);
 
   const history = useHistory();
   const RUNNING_URL = "http://localhost:5000";
@@ -18,7 +20,23 @@ const DoctorantUpdate = () => {
   const RADIATION_ENDPOINT = "/Radiation";
   const SOUTENANCE_ENDPOINT = "/Soutenance";
   const REINSCRIPTION_ENDPOINT = "/Reinscription";
-  const PV_ID = "2021/12/30";
+
+  let PV_ID;
+  let PV_DATE;
+
+  const handleSubmitPopup = (FormData) => {
+    PV_ID = FormData.text;
+    PV_DATE = FormData.date;
+    setShowPopup(false);
+
+    if (action == 1) {
+      handleAction(SOUTENANCE_ENDPOINT);
+    } else if (action == 2) {
+      handleAction(REINSCRIPTION_ENDPOINT);
+    } else if (action == 3) {
+      handleAction(RADIATION_ENDPOINT);
+    }
+  };
 
   function handleOnClickUser(username) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
@@ -68,55 +86,32 @@ const DoctorantUpdate = () => {
     }
   };
 
-  const handleRadiation = () => {
-    if (checkedIds.length > 0) {
-      axios
-        .post(RUNNING_URL + RADIATION_ENDPOINT, {
-          ids: checkedIds,
-          pv_id: PV_ID,
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      window.location.reload();
+  const handleCheckAll = (event) => {
+    if (event.target.checked) {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = true;
+        if (!checkedIds.includes(checkbox.id)) {
+          setCheckedIds((prevState) => [...prevState, checkbox.id]);
+        }
+      });
     }
   };
 
-  const handleReinscription = () => {
-    if (checkedIds.length > 0) {
-      axios
-        .post(RUNNING_URL + REINSCRIPTION_ENDPOINT, {
-          ids: checkedIds,
-          pv_id: PV_ID,
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      window.location.reload();
-    }
-  };
-
-  const handleSoutenane = () => {
-    if (checkedIds.length > 0) {
-      axios
-        .post(RUNNING_URL + SOUTENANCE_ENDPOINT, {
-          ids: checkedIds,
-          pv_id: PV_ID,
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      window.location.reload();
-    }
+  const handleAction = (ACTION_ENDPOINT) => {
+    axios
+      .post(RUNNING_URL + ACTION_ENDPOINT, {
+        ids: checkedIds,
+        pv_id: PV_ID,
+        date_pv: PV_DATE,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    window.location.reload();
   };
 
   /*
@@ -149,6 +144,7 @@ const DoctorantUpdate = () => {
             id="selectionner-tout"
             name="selectionner-tout"
             value="selectionner-tout"
+            onChange={handleCheckAll}
           />
           <label className="ml-2 font-normal" htmlFor="selectionner-tout">
             Selectionner tout
@@ -157,21 +153,36 @@ const DoctorantUpdate = () => {
 
         <button
           className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleReinscription}
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(2);
+              setShowPopup(true);
+            }
+          }}
         >
           Reinscription
         </button>
 
         <button
           className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleSoutenane}
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(1);
+              setShowPopup(true);
+            }
+          }}
         >
           Soutenance
         </button>
 
         <button
           className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
-          onClick={handleRadiation}
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(3);
+              setShowPopup(true);
+            }
+          }}
         >
           Radiation
         </button>
@@ -248,6 +259,8 @@ const DoctorantUpdate = () => {
           </li>
         ))}
       </ul>
+
+      {showPopup && <Popup onSubmit={handleSubmitPopup} />}
     </div>
   );
 };

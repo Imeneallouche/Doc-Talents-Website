@@ -1,25 +1,52 @@
 import React from "react";
-import "./Popup.css"
+import "./Popup.css";
+import { useState } from "react";
 
+export default function Popup({ onSubmit, action }) {
+  const [date, setDate] = useState("");
+  const [text, setText] = useState("");
 
-export default function Popup(){
-    return(
-        <div className="popup bg-white-bluish h-[55%] w-[35%] rounded-[10px] absolute flex flex-col items-center justify-center p-4 border-3 border-dark-purple">
-            <h3 className="text-dark-purple font-semibold text-[1.7em] text-center">Veuillez insérer le numéro du pv d'inscription</h3>
-            <form className="mt-12 w-[100%] flex justify-between pl-12 pr-12">
-                <input 
-                type="number"
-                required 
-                placeholder="Numéro du PV inscription (ex: 20181112)"
-                className="w-[70%] rounded p-4 text-[0.8em] focus:outline-dark-purple"
-                />
-                <button 
-                className="confirm bg-dark-purple p-4 rounded"
-                type="submit"
-                >
-                    Confirmer
-                </button>
-            </form>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (date && text) {
+      onSubmit({ text, date });
+    }
+  };
+
+  return (
+    <div className="popup bg-white-bluish rounded-lg absolute flex flex-col items-center justify-center p-10 border-3 border-dark-purple">
+      <h3 className="text-dark-purple font-semibold text-2xl text-center m-5">
+        Veuillez insérer le numéro du PV
+      </h3>
+      <form
+        className=" w-full flex justify-center items-center"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-col flex-1 m-5">
+          <input
+            type="Text"
+            required
+            placeholder="Numéro du PV (ex: 20181112)"
+            className="rounded p-4 text-base text-purple focus:outline-dark-purple"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <input
+            type="date"
+            required
+            placeholder="Date du PV (ex: 2018-11-12)"
+            className="rounded p-4 text-base text-purple focus:outline-dark-purple"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
         </div>
-    )
+        <button
+          className="confirm bg-dark-purple rounded m-5 px-10 py-5 h-fit"
+          type="submit"
+        >
+          Confirmer
+        </button>
+      </form>
+    </div>
+  );
 }

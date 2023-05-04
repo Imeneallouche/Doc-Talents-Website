@@ -8,8 +8,8 @@ import Connexion from "./pages/Connexion";
 import Popuppage from "./pages/Popuppage";
 import Update from "./pages/Update";
 import PrivateRoute from "./components/ProtectedRoute/PrivateRoute"
-import ConnexionNotSuccessfull from "./pages/ConnexionNotSuccessfull";
-// import PVs from "./pages/PVs";
+import PVformulaire from "./pages/PVformulaire";
+import PVs from "./pages/PVs";
 // import Users from "./pages/Users";
 // import Profile from "./pages/Profile";
 // import Editprofile from "./pages/Editprofile";
@@ -21,7 +21,15 @@ import ConnexionNotSuccessfull from "./pages/ConnexionNotSuccessfull";
 // import InscriptionStep3 from "./pages/InscriptionStep3";
 // import ConfirmEndacrant from "./pages/ConfirmEndacrant";
 // import SeminaireLirePlus from "./pages/SeminaireLirePlus";
+//import HomePage from "./pages/Home";
+//import popup from "./pages/popup";
 
+
+
+
+import ProfileDoc from "./pages/Profile";
+import Editprofile from "./pages/Editprofile";
+import dpgr from "./pages/ProfileDPGR";
 
 
 export default function App(){
@@ -36,6 +44,19 @@ export default function App(){
           <PrivateRoute path="/Update" component={Update} />
           <PrivateRoute path="/Doctorant" component={Doctorant} />
           {/* <Route path="/Dashboard" exact>
+        <Route path="/" exact>
+          <Acceuil/>    
+          </Route>
+         {/* <Route path="/" exact>
+          <Acceuil/>    
+          </Route>
+          <Route path="/Connexion" exact>
+            <Connexion />
+          </Route>
+          <Route path="/Doctorant" exact>
+            <Doctorant />
+          </Route>
+          <Route path="/Dashboard" exact>
             <Dashboard />
           </Route>
           <Route path="/Inscription/Step1">
@@ -64,12 +85,14 @@ export default function App(){
           </Route>
           <Route path="/Profile" exact>
             <Profile />
-          </Route>  
-          <Route path="/Editprofile" exact>
-            <Editprofile />
+          <Route path="/ProfileDoc" exact>
+            <ProfileDoc />
           </Route>
-          <Route path="/Seminaire" exact>
-            <Seminaire />
+          <Route path="/Editprofile" exact>
+            <Editprofile/>
+          </Route>
+          <Route path="/profile/LOUNI" exact>
+            <dpgr nom="LOUNI"/>
           </Route>
           <Route path="/SeminaireLirePlus/:title" exact component={SeminaireLirePlus} /> 
         */}</Switch> 
@@ -77,8 +100,5 @@ export default function App(){
     </div>
   );
 }
-
-
-
 
 
