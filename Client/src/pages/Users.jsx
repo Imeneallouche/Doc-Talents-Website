@@ -1,8 +1,9 @@
 import React from "react";
 import SideBar from "../components/Menu/SideBar";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
+import Users from "../components/Users/Users";
 
-function Users() {
+function users() {
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
@@ -10,9 +11,10 @@ function Users() {
         <div className="flex justify-end">
           <ProfileIcon />
         </div>
+         <Users/>
       </div>
     </div>
   );
 }
 
-export default Users;
+export default users;

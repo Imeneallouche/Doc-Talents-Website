@@ -1,108 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-function ProfileDPGR() {
-  const [user, setUser] = useState(null);
-  const [nom, setnom] = useState('');
-
-  useEffect(() => {
-    // Retrieve the user data from the backend
-    axios.get(`/profile/${nom}`).then(response => {
-      setUser(response.data);
-    }).catch(error => {
-      console.error(error);
-      setUser(null);
-    });
-  }, [nom]);
-
-  const handleIdChange = (event) => {
-    setId(event.target.value);
-  };
-
-  return (
-    <div>
-      <label htmlFor="nom">User name:</label>
-      <input type="text" id="nom" name="nom" value={nom} onChange={handleIdChange} />
-      <button onClick={() => setnom(nom)}>Retrieve User</button>
-      {user ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Prenom</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.prenom}</td>
-            </tr>
-          </tbody>
-        </table>
-      ) : (
-        <p>User not found</p>
-      )}
-    </div>
-  );
-}
-
-export default ProfileDPGR;
-
-/*
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from "react-select";
-import "./DPGR.css";
+import { Link,  useParams } from 'react-router-dom';
+import Image from "../ProfileIcon/ProfileIcon"
 
-function ProfileDPGR({ nom }) {
-  const [data, setData] = useState(null);
+function DPGR() {
+    const [userName, setUserName] = useState('');
+    const [userData, setUserData] = useState(null);
+   
+
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/PDPGR";
 
   useEffect(() => {
-    const fetchData = async () => {
-  
-      const result = await axios.get(`http://localhost:5000/profile/${nom}`);
-      setData(result.data);
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`/PDPGR/user?name=${userName}`);
+        setUserData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    fetchData();
-  }, [nom]);
-
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div>
-      <h1>{data.nom}</h1>
-      <p>{data.prenom}</p>
-    </div>
-  );
-}
-
-export default ProfileDPGR;
-
-
-/*
-function DPGR() {
-  const [nom, setName] = useState('');
-  const [userInformation, setUserInformation] = useState(null);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      // Send a GET request to the Node.js backend to retrieve user information by name
-      const response = await axios.get(`/DPGR?nom=${nom}`);
-
-      // Update the state with the user information
-      setUserInformation(response.data);
-    } catch (error) {
-      console.error(error);
+    if (userName) {
+      fetchUserData();
     }
+  }, [userName]);
+  
+  const handleInputChange = (event) => {
+    setUserName(event.target.value);
   };
-   
     const [Sex, setSex] = useState([]);
     const genderOptions = [
       { value: "M", label: "Male" },
@@ -131,132 +58,151 @@ function DPGR() {
           color: "#35468E",
         }),
       };
+    
       return (
         <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Name:
-              <input type="text" value={nom} onChange={(event) => setName(event.target.value)} />
-            </label>
-            <button type="submit">Submit</button>
-          </form>
-    
-          {userInformation && (
-            <div>
-              <h2>User Information</h2>
-              <ul>
-              <li>Name: {userInformation.nom}</li>
-            <li>Email: {userInformation.email}</li>
-            <li>Prenom: {userInformation.prenom}</li>
-          </ul>
+      <label>
+        Name:
+        <input type="text" value={userName} onChange={handleInputChange} />
+      </label>
+      {userData && (
+        <div>
+          <p>Name: {userData.name}</p>
+          <p>Email: {userData.email}</p>
         </div>
       )}
     </div>
-  );
+     /*
+     <div>
+     <div style={{
+        background: "linear-gradient(to left, #19202E, #35468E)",
+        width: "350px",
+        height: "55px",
+        borderRadius: "10px",
+        display: "flex",
+        justifyContent: "flex-start", // align text to the center left
+        alignItems: "center",
+        color: "#ffffff",
+        fontSize: "20px",
+        marginTop: '10px', 
+        marginLeft: "60px",
+        fontWeight: "bold",
+        fontFamily: "sans-serif",
+        boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)", // Add box shadow CSS property
+        paddingLeft: "30px", // Add left padding to align text with left edge of button
+      }}>
+        Profile DPGR</div>
+     <div>
+        <form className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 ">
+           <div className="m-4 flex flex-col flex-1">
+           <label htmlFor="Nom"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Nom :
+            </label>
+            <input className={`bg-white border border-dark-purple mb-5 text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="Nom"
+                name="Nom"
+                placeholder="ex : DERBAL" 
+                disabled
+                
+            />
+                <label htmlFor="Role"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Role :
+            </label>
+            <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="Role"
+                name="Role"
+                placeholder="ex : ADMIN"
+                disabled />
+            
+                <label htmlFor="telephone"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Numero de telephone :
+            </label>
+            <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="teL"
+                id="telephone"
+                name="telephone"
+                placeholder="ex : 0798502217" 
+                disabled/>
+                 <label htmlFor="password"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Password :
+            </label>
+            <input className={`bg-white border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="password"
+                id="password"
+                name="password"
+                placeholder="ex : ******** " 
+                disabled/>
+           </div>
+           <div className="m-4 flex flex-col flex-1">
+           <label htmlFor="Prenom"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Prenom : 
+            </label>
+            <input className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="Prenom"
+                name="Prenom"
+                placeholder="ex : RAYHANE" 
+                disabled/>
+                <label htmlFor="Sexe" className={`font-bold text-dark-purple mb-5`}>
+                Sexe :
+              </label>
+              <Select
+                placeholder="Male"
+                id="Sexe"
+                className="mb-5 placeholder-black"
+                styles={customStyles}
+                options={genderOptions}
+                value={Sex}
+                onChange={(event) => setSex(event)}
+                isClearable
+                required
+                />
+                <label htmlFor="Email"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Email :  
+            </label>
+            <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="email"
+                id="Email"
+                name="Email"
+                placeholder="ex : DPGR@esi.dz"
+                disabled />
+                 <label htmlFor="confirmepassword"
+           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+             Password confirmation :
+            </label>
+            <input className={`bg-white border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="password"
+                id="confirmepassword"
+                name="confirmepassword"
+                placeholder="ex : ********" 
+                disabled/>
+           
+           </div>
+        </form>
+        <div>
+            <button className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-5"
+              type="submit">
+                <Link to="/EditprofileDPGR">
+              Mettre à Jour
+              </Link></button>
+        </div>
+       </div>
+        </div>
+        */
+       
+      
+       
+        
+      );
 }
 
 export default DPGR;
-      /*
-      
-  return (
-    <div>
- <div className="Title">Profile DPGR</div>
- <div>
-    <form className="m-10 grow flex flex-col justify-center items-center form-cont">
-       <div className="m-4 flex flex-col flex-1">
-       <label htmlFor="Nom"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Nom :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="text"
-            id="Nom"
-            name="Nom"
-            placeholder="ex : DERBAL" 
-            
-        />
-            <label htmlFor="Role"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Role :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="text"
-            id="Role"
-            name="Role"
-            placeholder="ex : ADMIN" />
-        
-            <label htmlFor="telephone"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Numero de telephone :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="teL"
-            id="telephone"
-            name="telephone"
-            placeholder="ex : 0798502217" />
-             <label htmlFor="password"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Password :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="password"
-            id="password"
-            name="password"
-            placeholder="ex : ******** " />
-       </div>
-       <div className="m-4 flex flex-col flex-1">
-       <label htmlFor="Prenom"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Prenom :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="text"
-            id="Prenom"
-            name="Prenom"
-            placeholder="ex : RAYHANE" />
-            <label htmlFor="Sexe" className={`font-bold text-dark-purple`}>
-            Sexe :
-          </label>
-          <Select
-            placeholder="Male"
-            className="selected"
-            id="Sexe"
-            styles={customStyles}
-            options={genderOptions}
-            value={Sex}
-            onChange={(event) => setSex(event)}
-            isClearable
-            required
-            />
-            <label htmlFor="Email"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Email :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="email"
-            id="Email"
-            name="Email"
-            placeholder="ex : DPGR@esi.dz" />
-             <label htmlFor="confirmepassword"
-       className={`font-bold text-dark-purple focus:text-green`}>
-         Password confirmation :
-        </label>
-        <input className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-            type="password"
-            id="confirmepassword"
-            name="confirmepassword"
-            placeholder="ex : ********" />
-       
-       </div>
-    </form>
-    <div>
-        <button className="submit-form suivant m-5 px-8 py-4 w-fit rounded-md text-white buttonn"
-          type="submit">Mettre a jour</button>
-    </div>
-   </div>
-    </div>
-   
     
-  )
-  */
-  

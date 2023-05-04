@@ -2,21 +2,21 @@ import React from "react";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
 import SideBar from "../components/Menu/SideBar";
 import EncadrantCard from "../components/EncadrantCard/EncadrantCard";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { CardsData } from "../Data/Data";
 
-function ConfirmEndacrant({ username1, username2 }) {
+function ConfirmEndacrant() {
   const history = useHistory();
+  const location = useLocation();
+  const { encadreur, coencadreur } = location.state;
+  console.log(encadreur, coencadreur);
 
   const handlePrevious = (event) => {
     event.preventDefault();
-    history.push("/Inscription/Step3");
+    history.push("/Inscription/Step1");
   };
 
-  const PopUp = (event) => {
-    //oumbe3d
-  };
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
@@ -33,12 +33,12 @@ function ConfirmEndacrant({ username1, username2 }) {
         <div className="flex items-center justify-center">
           <EncadrantCard
             type="Encadreur"
-            username={username1}
+            username={encadreur}
             color={CardsData[0].color}
           />
           <EncadrantCard
             type="Co Encadreur"
-            username={username2}
+            username={coencadreur}
             color={CardsData[1].color}
           />
         </div>
@@ -54,7 +54,6 @@ function ConfirmEndacrant({ username1, username2 }) {
           <button
             className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
             type="button"
-            onClick={PopUp}
           >
             Confirmer
           </button>

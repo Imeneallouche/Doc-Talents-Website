@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
@@ -112,3 +113,17 @@ export default function Connexion() {
 
 
 
+=======
+import React from "react";
+import SideBarConnexion from "../components/sideBarConnexion/sideBarConnexion";
+import LoginForm from "../components/Connexion/LoginForm";
+
+export default function Connexion() {
+  return (
+    <div className="flex">
+      <SideBarConnexion />
+      <LoginForm />
+    </div>
+  );
+}
+>>>>>>> e0a9b2ca8c7ba2fa7706b2e43596b40d3436adba

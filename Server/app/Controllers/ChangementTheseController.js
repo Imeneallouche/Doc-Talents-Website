@@ -6,6 +6,8 @@ function changementThese(
   pvChgmtThese,
   linkPv
 ) {
+
+  
   const sql1 = `UPDATE Doctorant SET intitule_sujet_bis = ?, PV_Changement_These = ? WHERE Id_Doctorant = ?`;
 
   const selectSql = "SELECT * FROM Pvs WHERE Id_PV = ?";

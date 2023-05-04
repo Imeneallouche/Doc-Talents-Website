@@ -1,5 +1,9 @@
 const express = require("express");
+<<<<<<< HEAD
 const connection = require("./DB/db_config");
+=======
+const bodyParser = require("body-parser");
+>>>>>>> e0a9b2ca8c7ba2fa7706b2e43596b40d3436adba
 require("dotenv").config();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -12,7 +16,11 @@ const DocotrantFilteredSearch = require("./app/Controllers/DoctorantFilteredSear
 const RadiationController = require("./app/Controllers/RadiationController");
 const SoutenanceController = require("./app/Controllers/SoutenanceController");
 const ReinscriptionController = require("./app/Controllers/ReinscriptionController");
-
+const DashboardStatisticsController = require("./app/Controllers/DashboardStatisticsController");
+const RegisterDoctorantController = require("./app/Controllers/RegisterDoctorantController");
+const RegisterEncadrantController = require("./app/Controllers/RegisterEncadrantController");
+const EncadrantSearchController = require("./app/Controllers/EncadrantSearchController");
+const ProfiledpgrController = require("./app/Controllers/ProfiledpgrController");
 //NOT YET IMPLEMENTED
 const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
 const RecherchePVController = require("./app/Controllers/rechPVController");
@@ -27,6 +35,7 @@ const RecherchePVController = require("./app/Controllers/rechPVController");
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use("/api/user", userRoutes);
 
 /*
@@ -40,13 +49,15 @@ app.get("/", (req, res) => {
   res.send("API is running on the root");
 });
 
-//app.use("/api/user", userRoutes);
-
 app.get("/Doctorant", DoctorantSearchController);
+app.get("/Encadrant", EncadrantSearchController);
 app.get("/Update", DocotrantFilteredSearch);
 app.post("/Radiation", RadiationController);
 app.post("/Soutenance", SoutenanceController);
 app.post("/Reinscription", ReinscriptionController);
+app.get("/Dashboard", DashboardStatisticsController);
+app.post("/RegisterDoctorant", RegisterDoctorantController);
+app.post("/RegisterEncadrant", RegisterEncadrantController);
 
 
 
@@ -98,6 +109,7 @@ app.get("/Update", (req, res) => {
 //NOT YET USED IN FRONTEND
 app.get("/DPGR", DPGRSearchController);
 app.get("/PV", RecherchePVController);
+app.get("/PDPGR", ProfiledpgrController);
 
 
 
@@ -279,6 +291,39 @@ app.post('/connexion', (req,res)=>{
 //   //5TH : add the PV if it doesn't exist : the Id and the date for now and let the link empty
 // });
 
+
+
+// Define the route for Doctorant/:doc/Seminaire
+app.get("/Doctorant/Seminaire", async (req, res) => {
+  const { ID_DOCTORANT } = req.query;
+  try {
+    const [rows, fields] = await connection.query(
+      `SELECT * FROM Seminaire WHERE Id_Doctorant = ?`,
+      [ID_DOCTORANT]
+    );
+    if (!rows || rows.length === 0) throw new Error("No seminaire data");
+    res.status(200).json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
+});
+
+app.post("/Doctorant/AjouterSeminaire", async (req, res) => {
+  const { titre, resume } = req.body;
+  const { ID_DOCTORANT } = req.query;
+  try {
+    const [result] = await connection.execute(
+      "INSERT INTO Seminaire (Id_Doctorant, titre, resume) VALUES (?, ?, ?)",
+      [ID_DOCTORANT, titre, resume]
+    );
+    console.log(result);
+    res.status(201).send("Seminaire added successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to add seminaire");
+  }
+});
 
 
 app.get("/PV", (req, res) => {
