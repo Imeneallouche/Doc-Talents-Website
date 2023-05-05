@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import axios from "axios";
 
 function Inscription03() {
   const [Nom, setNom] = useState("");
@@ -15,16 +16,63 @@ function Inscription03() {
   const [SujetInteret, setSujetInteret] = useState("");
 
   const history = useHistory();
+  const location = useLocation();
+  let { info } = location.state;
+  console.log(info);
 
-  const handleNext = (event) => {
+  const RUNNING_URL = "http://localhost:5000";
+  const ENDPOINT = "/RegisterEncadrant";
+
+  const handleNext = async (event) => {
     event.preventDefault();
-    history.push("/Inscription/ConfirmEncadrant");
-    //send name of the 2 encadrants to the next page
+    const EncadrantData = {
+      Nom,
+      Prenom,
+      Etablissement,
+      Diplome,
+      Grade,
+      Telephone,
+      Email,
+      Specialite,
+      SujetInteret,
+    };
+
+    const response = await axios.post(RUNNING_URL + ENDPOINT, EncadrantData);
+    console.log(response);
+
+    if (info.type == 2) {
+      console.log(`again to register : ${info.name2}`); //co encadreur
+
+      let name = info.name2;
+      info = { type: 1, name };
+      let encadreur = EncadrantData;
+
+      history.push({
+        pathname: "/Inscription/Step3",
+        state: { encadreur, info }, //not defined yet
+      });
+    } else {
+      if (info.type == 0) {
+        const encadreur = EncadrantData;
+        const { coencadreur } = location.state;
+        history.push({
+          pathname: "/Inscription/ConfirmEncadrant",
+          state: { encadreur, coencadreur }, //not defined yet
+        });
+      } else {
+        let coencadreur = EncadrantData;
+        let { encadreur } = location.state;
+        history.push({
+          pathname: "/Inscription/ConfirmEncadrant",
+          state: { encadreur, coencadreur }, //not defined yet
+        });
+      }
+    }
   };
 
   const handlePrevious = (event) => {
     event.preventDefault();
-    history.push("/Inscription/Step2");
+    history.goBack();
   };
 
   /*

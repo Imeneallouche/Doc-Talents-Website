@@ -7,6 +7,7 @@ const SeminairesButton = () => {
         background: "linear-gradient(to left, #19202E, #35468E)",
         width: "350px",
         height: "55px",
+        letterSpacing: "1px",
         borderRadius: "10px",
         display: "flex",
         justifyContent: "flex-start", // align text to the center left

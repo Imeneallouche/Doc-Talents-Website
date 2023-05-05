@@ -22,7 +22,7 @@ function Dashboard() {
         </div>
         <Cards />
         <div className="flex justify-center grow flex-1">
-          <ShowCaseCard className="flex-1"/>
+          <ShowCaseCard className="flex-1" />
         </div>
       </div>
     </div>

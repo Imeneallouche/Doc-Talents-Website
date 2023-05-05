@@ -1,27 +1,31 @@
 import React, {useState} from "react";
 import "./Connexion.css";
 import axios from "axios";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
+    // setIsLoading(true);
+
     try {
       const response = await axios.post(
-        `http://localhost:3000/Connexion`,
+        "http://localhost:5000/Connexion",
         { email, password }
       );
 
       if (response.status === 200) {
-        history.push("/Connexion");
+        history.push("/Update");
+        console.log(response.data); 
       }
     } catch (err) {
       console.log(err);
@@ -34,13 +38,13 @@ export default function LoginForm() {
       <h1 className="text-dark-purple font-black text-[2.5em] mb-12">
         Content de vous revoir!
       </h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} action="/" method="POST">
         <div className="flex flex-col relative pb-8">
           <label className="mb-4 text-dark-purple font-normal" htmlFor="email">
             Nom Utilisateur
           </label>
           <input
-            className="input rounded-[7px] mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"
+            className="input mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"
             type="email"
             name="email"
             id="email"
@@ -55,7 +59,7 @@ export default function LoginForm() {
             Mot de passe
           </label>
           <input
-            className="input rounded-[7px] mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"           
+            className="input mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple"           
             type="password"
             name="password"
             id="password"
@@ -73,9 +77,10 @@ export default function LoginForm() {
         <button
           type="submit"
           className="bg-purple text-white font-semibold pt-4 pb-4 mt-20 w-[400px] rounded-[8px] cursor-pointer"
-          disabled={isLoading}
+          // disabled={isLoading}
         >
-          {isLoading ? "Connexion en cours..." : "Connexion"}
+          Connexion
+          {/* {isLoading ? "Connexion en cours..." : "Connexion"} */}
         </button>
       </form>
     </div>

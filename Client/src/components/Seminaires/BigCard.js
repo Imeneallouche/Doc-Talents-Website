@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import seminaireData from "../../Data/seminaireData.json";
 import "./BigCardstyles.css";
+import axios from 'axios';
 
 const BigCard = ({ match }) => {
-  const { title } = useParams();
-  const data = seminaireData.find((item) => item.title === title);
+  const { doc, title } = useParams();
+  const [seminaireData, setSeminareData] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/Doctorant/Seminaire", {
+        params: {
+          ID_DOCTORANT: "21/0010",
+        },
+      })
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setSeminareData(res.data);
+        } else {
+          throw new Error("Unexpected response data format");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const data = seminaireData?.find((item) => item.titre === title);
 
   return (
     <div
@@ -19,9 +39,9 @@ const BigCard = ({ match }) => {
         marginTop: "60px",
         marginLeft: "120px",
         backgroundColor: "#fdfdff",
-        border: "2px solid #ffffff", // Add border CSS property
+        border: "2px solid #ffffff",
         boxShadow:
-          "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)", // Add boxShadow CSS property
+          "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)",
       }}
     >
       <div
@@ -34,7 +54,7 @@ const BigCard = ({ match }) => {
           fontWeight: "bold",
         }}
       >
-        {data.title}
+        {data?.titre}
       </div>
       <div
         style={{
@@ -43,10 +63,11 @@ const BigCard = ({ match }) => {
           left: "20px",
           right: "20px",
           fontSize: "18px",
+          color: "black",
           textAlign: "left",
         }}
       >
-        {data.paragraph}
+        {data?.resume}
       </div>
     </div>
   );

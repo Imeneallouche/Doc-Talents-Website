@@ -1,8 +1,6 @@
-.Card{
-  height: calc(80vh - 55px); /* subtract height of SeminaireButton from viewport height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.Card{ /* subtract height of SeminaireButton from viewport height */
+  margin-bottom: 0%;
+  margin-top: 130px;
   font-family: sans-serif;
   text-align: center;
 }

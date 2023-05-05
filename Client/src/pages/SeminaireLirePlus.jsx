@@ -8,12 +8,9 @@ export default function Seminaire() {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <SideBar />
       <div style={{ flex: 1, overflowY: "auto" }}>
-      <BackButton style={{ marginTop: '20px', margin: "20px" }} />
+        <BackButton style={{ marginTop: "20px", margin: "20px" }} />
         <BigCard />
       </div>
-      
     </div>
   );
-};
-
-
+}
