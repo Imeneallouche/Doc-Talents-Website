@@ -1,23 +1,25 @@
+/*
 button {
-    background: linear-gradient(to left, #19202e, #35468e);
-    border-radius: 10px;
-    width: 350px;
-    height: 55px;
-    padding: 0.8em 1.2em 0.8em 1em;
-    transition: all ease-in-out 0.2s;
-    font-size: 16px;
-    margin-top: 100px;
-    margin-left: 800px;
-   }
-   
-   button span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: 600;
-   }
-   
-   button:hover {
-    background-color: #0071e2;
-   }
+  background: linear-gradient(to left, #19202e, #35468e);
+  border-radius: 10px;
+  width: 350px;
+  height: 55px;
+  padding: 0.8em 1.2em 0.8em 1em;
+  transition: all ease-in-out 0.2s;
+  font-size: 16px;
+  margin-top: 100px;
+  margin-left: 800px;
+}
+
+button span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #0071e2;
+}
+*/

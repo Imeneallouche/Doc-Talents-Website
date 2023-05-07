@@ -4,6 +4,7 @@ const RadiationController = (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
   const PV_Date = req.body.date_pv;
+  const PV_Link = req.body.lien_pv;
 
   console.log("Received IDs:", ids, PV_Id);
   //1ST: CHANGE STATUT AND RADIE IN DOCTORANT TABLE
@@ -31,8 +32,8 @@ const RadiationController = (req, res) => {
               //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
               if (results.length == 0) {
                 connection.query(
-                  "INSERT INTO PV (Id_PV , Date_PV) VALUES (? , ?)",
-                  [PV_Id, PV_Date],
+                  "INSERT INTO PV (Id_PV , Date_PV , Link_PV) VALUES (? , ? , ?)",
+                  [PV_Id, PV_Date, PV_Link],
                   (error, results, fields) => {
                     if (error) {
                       console.log("Error inserting the PV in PV table:", error);

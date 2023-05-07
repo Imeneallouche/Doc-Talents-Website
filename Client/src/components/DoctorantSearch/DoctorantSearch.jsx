@@ -43,9 +43,12 @@ const DoctorantSearch = () => {
     setSearchResults(results);
   }, [searchText, Doctorants]);
 
-  function handleOnClickUser(username) {
+  function handleOnClickUser(username, usernameId) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
-    history.push(`/Doctorant/${usernamerouter}`);
+    history.push({
+      pathname: `/Doctorant/${usernamerouter}`,
+      state: { usernameId },
+    });
   }
 
   const years = [];
@@ -258,7 +261,10 @@ const DoctorantSearch = () => {
           <label
             htmlFor="searchBar"
             className="font-normal text-sm text-dark-purple"
-          > Recherche par nom et prnom</label>
+          >
+            {" "}
+            Recherche par nom et prnom
+          </label>
           <input
             className="text-purple font-normal drop-shadow-[2px_2px_2px_#00000043] rounded p-4 mt-1 w-96 border border-purple focus:border focus:border-green focus:outline-none"
             id="searchBar"
