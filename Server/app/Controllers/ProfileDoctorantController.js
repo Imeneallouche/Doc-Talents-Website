@@ -4,7 +4,7 @@ const ProfileDoctorantController = (req, res) => {
   let { username } = req.params;
   username = username.replace(" ", "").toLowerCase();
 
-  const sqlQuery = `SELECT * FROM Doctorant WHERE TRIM(LOWER(CONCAT(nom, prenom))) = '${username}'`;
+  const sqlQuery = `SELECT * FROM Doctorant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))) , ' ','') = '${username}'`;
   //const values = [username];
 
   connection.query(sqlQuery, (error, results, fields) => {

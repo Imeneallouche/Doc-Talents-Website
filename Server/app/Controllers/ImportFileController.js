@@ -41,6 +41,18 @@ const ImportFileController = (req, res) => {
     };
 
     console.log(doctorant);
+      connection.query(
+        "INSERT INTO Doctorant SET ?",
+        doctorant,
+        (error, results) => {
+          if (error) {
+            console.log(`Error saving doctorant ${error}`);
+            res.status(500).send("Error saving doctorant to database");
+          } else {
+            console.log("Doctorant registered successfully");
+          }
+        }
+      );
   });
 };
 module.exports = ImportFileController;

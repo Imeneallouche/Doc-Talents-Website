@@ -41,6 +41,8 @@ function Profile() {
         // optionally redirect to a success page or refresh the user data
       })
       .catch((error) => console.log(error));
+    
+    
   };
 
   /*
