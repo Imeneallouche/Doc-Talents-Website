@@ -17,14 +17,6 @@
     "react-icons": "^4.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "react-router-dom": "^6.11.0"
-=======
->>>>>>> d1eab7c06bc745b006e6d9b7527dd982679ff255
-=======
->>>>>>> e0a9b2ca8c7ba2fa7706b2e43596b40d3436adba
-    "react-router-dom": "^6.10.0"
->>>>>>> 6e7270f2890f88127eda4afad7725104064a96b9
   }
 }
