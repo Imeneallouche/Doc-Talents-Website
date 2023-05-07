@@ -87,12 +87,46 @@ app.post("/ImportFile", ImportFileController);
 
 
 
-
-
-
-
-
 */
+
+
+
+/*
+app.get("/DPGR", (req, res) => {
+  const sql = `SELECT * FROM DPGR`;
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.log("ERROR");
+    }
+  })
+});
+
+
+
+app.get("/connexion" , (req,res)=>{
+  res.send("The connexion"); 
+})
+
+app.post('/connexion', (req,res)=>{
+  var email = req.body.email; 
+  var password = req.body.password; 
+  connection.query("SELECT * FROM DPGR where email = ? and password = ?" ,[email,password],function(error,results,fields){
+    if(results.length>0){
+        res.send(results); 
+        console.log("There is a match"); 
+    } else{
+        res.status(401).send("Invalid email or password");
+        console.log("No match"); 
+    }
+  })
+})
+*/
+
+
+
+
+
+
 
 // Define the route for Doctorant/:doc/Seminaire
 app.get("/Doctorant/Seminaire", async (req, res) => {
