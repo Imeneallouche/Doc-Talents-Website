@@ -1,9 +1,6 @@
 const express = require("express");
-<<<<<<< HEAD
 const connection = require("./DB/db_config");
-=======
 const bodyParser = require("body-parser");
->>>>>>> e0a9b2ca8c7ba2fa7706b2e43596b40d3436adba
 require("dotenv").config();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -21,6 +18,7 @@ const RegisterDoctorantController = require("./app/Controllers/RegisterDoctorant
 const RegisterEncadrantController = require("./app/Controllers/RegisterEncadrantController");
 const EncadrantSearchController = require("./app/Controllers/EncadrantSearchController");
 const ProfiledpgrController = require("./app/Controllers/ProfiledpgrController");
+const EditprofiledpgrController = require("./app/Controllers/EditprofiledpgrController");
 //NOT YET IMPLEMENTED
 const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
 const RecherchePVController = require("./app/Controllers/rechPVController");
@@ -34,6 +32,7 @@ const RecherchePVController = require("./app/Controllers/rechPVController");
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use("/api/user", userRoutes);
@@ -49,15 +48,18 @@ app.get("/", (req, res) => {
   res.send("API is running on the root");
 });
 
-app.get("/Doctorant", DoctorantSearchController);
-app.get("/Encadrant", EncadrantSearchController);
-app.get("/Update", DocotrantFilteredSearch);
-app.post("/Radiation", RadiationController);
-app.post("/Soutenance", SoutenanceController);
-app.post("/Reinscription", ReinscriptionController);
-app.get("/Dashboard", DashboardStatisticsController);
-app.post("/RegisterDoctorant", RegisterDoctorantController);
-app.post("/RegisterEncadrant", RegisterEncadrantController);
+
+
+app.post("/EditDPGR/:useremail",EditprofiledpgrController);
+//app.get("/Doctorant", DoctorantSearchController);
+//app.get("/Encadrant", EncadrantSearchController);
+//app.get("/Update", DocotrantFilteredSearch);
+//app.post("/Radiation", RadiationController);
+//app.post("/Soutenance", SoutenanceController);
+//app.post("/Reinscription", ReinscriptionController);
+//app.get("/Dashboard", DashboardStatisticsController);
+//app.post("/RegisterDoctorant", RegisterDoctorantController);
+//app.post("/RegisterEncadrant", RegisterEncadrantController);
 
 
 
@@ -108,8 +110,9 @@ app.get("/Update", (req, res) => {
 //       console.log("ERROR");
 //NOT YET USED IN FRONTEND
 app.get("/DPGR", DPGRSearchController);
-app.get("/PV", RecherchePVController);
-app.get("/PDPGR", ProfiledpgrController);
+//app.get("/PV", RecherchePVController);
+app.get("/PDPGR/:useremail", ProfiledpgrController);
+
 
 
 
