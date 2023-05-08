@@ -1,6 +1,9 @@
 const express = require("express");
+
 const connection = require("./DB/db_config");
+
 const bodyParser = require("body-parser");
+
 require("dotenv").config();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -10,19 +13,37 @@ const PORT = process.env.PORT || 5000;
 
 const DoctorantSearchController = require("./app/Controllers/DoctorantSearchController");
 const DocotrantFilteredSearch = require("./app/Controllers/DoctorantFilteredSearchController");
+
 const RadiationController = require("./app/Controllers/RadiationController");
 const SoutenanceController = require("./app/Controllers/SoutenanceController");
+
 const ReinscriptionController = require("./app/Controllers/ReinscriptionController");
-const DashboardStatisticsController = require("./app/Controllers/DashboardStatisticsController");
 const RegisterDoctorantController = require("./app/Controllers/RegisterDoctorantController");
+const RegisterDiffereDoctorantController = require("./app/Controllers/RegisterDiffereDoctorantController");
+
+const ProfileDoctorantController = require("./app/Controllers/ProfileDoctorantController");
+
 const RegisterEncadrantController = require("./app/Controllers/RegisterEncadrantController");
 const EncadrantSearchController = require("./app/Controllers/EncadrantSearchController");
+
+//const AddPVController = require("./app/Controllers/AddPVController");
+//const PVSearchController = require("./app/Controllers/PVSearchFilterController");
+
 const ProfiledpgrController = require("./app/Controllers/ProfiledpgrController");
 const EditprofiledpgrController = require("./app/Controllers/EditprofiledpgrController");
 //NOT YET IMPLEMENTED
 const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
-const RecherchePVController = require("./app/Controllers/rechPVController");
 
+
+//const AddPVController = require("./app/Controllers/AddPVController");
+//const PVSearchController = require("./app/Controllers/PVSearchFilterController");
+
+
+
+
+const DashboardStatisticsController = require("./app/Controllers/DashboardStatisticsController");
+
+const ImportFileController = require("./app/Controllers/ImportFileController");
 /*
 
 
@@ -34,8 +55,9 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-//app.use("/api/user", userRoutes);
+
+app.use(bodyParser.json({ limit: "500mb" }));
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: true }));
 
 /*
 
@@ -51,35 +73,26 @@ app.get("/", (req, res) => {
 
 
 app.post("/EditDPGR/:useremail",EditprofiledpgrController);
-//app.get("/Doctorant", DoctorantSearchController);
+app.get("/Doctorant", DoctorantSearchController);
 //app.get("/Encadrant", EncadrantSearchController);
-//app.get("/Update", DocotrantFilteredSearch);
-//app.post("/Radiation", RadiationController);
-//app.post("/Soutenance", SoutenanceController);
-//app.post("/Reinscription", ReinscriptionController);
-//app.get("/Dashboard", DashboardStatisticsController);
+app.get("/Update", DocotrantFilteredSearch);
+app.post("/Radiation", RadiationController);
+app.post("/Soutenance", SoutenanceController);
+app.post("/Reinscription", ReinscriptionController);
+app.get("/Dashboard", DashboardStatisticsController);
 //app.post("/RegisterDoctorant", RegisterDoctorantController);
 //app.post("/RegisterEncadrant", RegisterEncadrantController);
 
+//app.post("/PV/Ajouter", AddPVController);
+//app.get("/PV", PVSearchController);
+//app.get("/PV/:search_term", PVSearchController);
 
+app.get("/DPGR", DPGRSearchController);
+app.get("/PDPGR", ProfiledpgrController);
 
+app.get("/Doctorant/:username", ProfileDoctorantController);
 
-
-
-
-
-app.get("/Doctorant", (req, res) => {
-  //authenticate method: get(jwt token) validate(jwt token)
-  //Redirection(if not valid) 
-  //Cookies 
-  const sql = `SELECT * FROM Doctorant ORDER BY nom, prenom ASC`;
-  connection.query(sql, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    res.send(results);
-  });
-});
+app.post("/ImportFile", ImportFileController);
 
 /*
 
@@ -89,16 +102,18 @@ app.get("/Doctorant", (req, res) => {
 
 
 
-// */
+*/
 
-app.get("/Update", (req, res) => {
-  const sql = `SELECT * FROM Doctorant WHERE radie IS NULL AND soutenu IS NULL ORDER BY nom, prenom ASC`;
+
+
+
+app.get("/DPGR", (req, res) => {
+  const sql = `SELECT * FROM DPGR`;
   connection.query(sql, (error, results) => {
     if (error) {
-      throw error;
+      console.log("ERROR");
     }
-    res.send(results);
-  });
+  })
 });
 
 
@@ -295,7 +310,7 @@ app.post('/connexion', (req,res)=>{
 // });
 
 
-
+/*
 // Define the route for Doctorant/:doc/Seminaire
 app.get("/Doctorant/Seminaire", async (req, res) => {
   const { ID_DOCTORANT } = req.query;
@@ -327,47 +342,6 @@ app.post("/Doctorant/AjouterSeminaire", async (req, res) => {
     res.status(500).send("Failed to add seminaire");
   }
 });
-
-
-app.get("/PV", (req, res) => {
-  const sql = `SELECT * FROM PV`;
-  connection.query(sql, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    res.send(results);
-  });
-});
-
-app.get("/PV/:search_term", (req, res) => {
-  const search_term = req.params.search_term;
-  //const search_term = 2012;
-  const sql = `SELECT * FROM PV WHERE Date_PV LIKE ?`;
-  const Value = [`%${search_term}%`];
-  connection.query(sql, Value, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    res.send(results);
-  });
-});
-
-app.post("/PV/Ajouter", (req, res) => {
-  const { Id_PV, Date_PV, Link_PV } = req.body;
-  const sql = `INSERT INTO PV (Id_PV, Date_PV, Link_PV) VALUES (?, ?, ?)`;
-  const values = [Id_PV, Date_PV, Link_PV];
-  connection.query(sql, values, (error, result) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send({ error: "Failed to insert PV" });
-      return;
-    }
-    res.send({ message: "PV inserted successfully", result });
-  });
-});
-
-
-
-
+*/
 
 app.listen(PORT, console.log(`SERVER IS RUNNING ON PORT ${PORT}`));

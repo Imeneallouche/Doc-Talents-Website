@@ -1,6 +1,6 @@
 const connection = require("../../DB/db_config");
 
-const ReinscriptionController = (req, res) => {
+const RegisterDiffereDoctorantController = (req, res) => {
   const ids = req.body.ids;
   const PV_Id = req.body.pv_id;
   const PV_Date = req.body.date_pv;
@@ -8,21 +8,7 @@ const ReinscriptionController = (req, res) => {
 
   console.log("Received IDs:", ids, PV_Id);
 
-  //1ST : all the doctorants that are not radié ou soutenu : their statute will be set to differe
-  connection.query(
-    "UPDATE Doctorant SET statut = ? WHERE soutenu IS NULL AND radie IS NULL",
-    ["différé"],
-    (error, results, fields) => {
-      if (error) {
-        console.log("Error putting statut to differe:", error);
-        res.sendStatus(500);
-      } else {
-        console.log("statut updated to differe succesfully successfully");
-      }
-    }
-  );
-
-  //2ND : update the selected doctorants statut to inscrit
+  //1ST : update the selected doctorants statut to inscrit
   connection.query(
     "UPDATE Doctorant SET statut = ? WHERE Id_Doctorant IN (?) AND soutenu IS NULL AND radie IS NULL",
     ["inscrit", ids],
@@ -36,7 +22,7 @@ const ReinscriptionController = (req, res) => {
     }
   );
 
-  //3RD : increment the number of registration years
+  //2ND : increment the number of registration years
   connection.query(
     "UPDATE Doctorant SET Nombre_inscriptions = Nombre_inscriptions + 1 WHERE Id_Doctorant IN (?)",
     [ids],
@@ -50,7 +36,7 @@ const ReinscriptionController = (req, res) => {
     }
   );
 
-  //4TH : add all doctorants registered with the ID to the table Inscription
+  //3RD : add all doctorants registered with the ID to the table Inscription
   let InscriptionValues = [];
   ids.forEach((id) => {
     InscriptionValues.push([PV_Id, id]);
@@ -68,7 +54,7 @@ const ReinscriptionController = (req, res) => {
     }
   });
 
-  //5TH : add the PV if it doesn't exist : the Id and the date and the link (if the link exists of course)
+  //4TH : add the PV if it doesn't exist : the Id and the date and the link (if the link exists of course)
   connection.query(
     "SELECT * FROM PV WHERE Id_PV = ?",
     [PV_Id],
@@ -103,4 +89,4 @@ const ReinscriptionController = (req, res) => {
   );
 };
 
-module.exports = ReinscriptionController;
+module.exports = RegisterDiffereDoctorantController;

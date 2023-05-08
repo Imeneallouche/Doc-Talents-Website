@@ -6,25 +6,27 @@ const SideBar = () => {
 
   const Menus = [
     { title: "Dashboard", src: "Chart_fill", Path: "/Dashboard" },
+    { title: "Encadrants", src: "Encadrant", Path: "/Encadrant" },
 
-    { title: "Search", src: "Search", Path: "/Doctorant", gap: true },
-    { title: "Register", src: "Chat", Path: "/Inscription/Step1" },
-    { title: "Update", src: "Calendar", Path: "/Update" },
-    { title: "Statistics", src: "Chart", Path: "/Statistics" },
-    { title: "PVs ", src: "Folder", Path: "/PVs" },
+    { title: "Doctorants", src: "Search", Path: "/Doctorant", gap: true },
+    { title: "Inscription", src: "Chat", Path: "/Inscription/Step1" },
+    { title: "Mise à jour", src: "Calendar", Path: "/Update" },
+    { title: "Statistiques", src: "Chart", Path: "/Statistics" },
+    { title: "PVs", src: "Folder", Path: "/PVs" },
 
-    { title: "Users", src: "User", Path: "/Users", gap: true },
-    { title: "Settings", src: "Setting", Path: "/Profile" },
+    { title: "Utilisateurs", src: "User", Path: "/Users", gap: true },
+    { title: "Aide", src: "Setting", Path: "/Profile" },
+    { title: "Importer fichier", src: "importfile", Path: "/ImportFile" },
 
-    { title: "Logout", src: "Setting", Path: "/", gap: true },
+    { title: "Déconnexion", src: "logout", Path: "/", gap: true },
   ];
 
   return (
     <div className="flex">
       <div
-        className={` ${
+        className={` bg-gradient-to-b from-dark-purple to-purple h-screen p-5  pt-8 relative duration-300 SideBar ${
           open ? "w-64" : "w-20 "
-        } bg-purple h-screen p-5  pt-8 relative duration-300 SideBar`}
+        }`}
       >
         <img
           src={require("../../assets/SideBar/control.png")}
@@ -37,13 +39,13 @@ const SideBar = () => {
           <img
             src={require("../../assets/SideBar/Logo.png")}
             alt="Logo"
-            className={`cursor-pointer duration-500 ${
+            className={`cursor-pointer duration-500  ${
               open && "rotate-[360deg]"
             }`}
           />
         </div>
 
-        <ul className="pt-10">
+        <ul className="pt-10 flex flex-col justify-between">
           {Menus.map((Menu, index) => (
             <li
               key={index}
@@ -59,6 +61,7 @@ const SideBar = () => {
                 <img
                   src={require(`../../assets/SideBar/${Menu.src}.png`)}
                   alt="icon"
+                  className="w-6 h-6"
                 />
                 <span
                   className={`${

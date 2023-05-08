@@ -20,6 +20,9 @@ function DPGR() {
   const [sexe, setsexe] = useState('');
   const [role, setrole] = useState('');
   const [password, setpass] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  
   
 
 
@@ -29,6 +32,7 @@ function DPGR() {
     .then(response => response.json())
     .then(userData => {
       setUser(userData);
+      
     })
     .catch(error => {
       console.error(error);
@@ -40,13 +44,18 @@ const handleEdit = () => {
 };
 
 const handlenomChange = (event) => {
-  setnom(event.target.value);
+
+      setnom(event.target.value); 
 };
 const handleprenomChange = (event) => {
+
   setprenom(event.target.value);
+  
 };
 const handletelChange = (event) => {
-  settelephone(event.target.value);
+
+      settelephone(event.target.value); // set the name to the new value
+    
 };
 const handlesexChange = (event) => {
   setsexe(event.target.value);
@@ -66,6 +75,10 @@ const handleSaveChanges = (event) => {
   event.preventDefault();
   setEditable(false);
 
+  if (nom.trim() === '' || email.trim() === '' || prenom.trim() === '' || telephone.trim() === '' || sexe.trim() === '' || role.trim() === '' || email.trim() === '' || password.trim() === '') {
+    setErrorMessage('Name and email are required fields.');
+    return;
+  }
   axios.post(`http://localhost:5000/EditDPGR/${useremail}`, {
     nom : nom,
     prenom : prenom,
@@ -104,6 +117,7 @@ const handleSaveChanges = (event) => {
         Profile DPGR</div>
      <div>
         <form onSubmit={handleSaveChanges} className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 ">
+           {errorMessage && <p>{errorMessage}</p>}
            <div className="m-4 mb-0 flex flex-col flex-1">
            <label htmlFor="Nom"
            className={`font-bold text-dark-purple focus:text-green mb-3`}>
@@ -115,9 +129,11 @@ const handleSaveChanges = (event) => {
              type="text"
              id="nom"
              name="nom"
-             placeholder='ex : Derbal'
+             placeholder={user.nom}
              value={nom}
              onChange={handlenomChange}
+             required
+             
            />
            :
             <input className={`bg-white border border-dark-purple mb-5 text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
@@ -139,9 +155,10 @@ const handleSaveChanges = (event) => {
              type="text"
              id="role"
              name="role"
-             placeholder='ex : ADMIN'
+             placeholder={user.Role}
              value={role}
           onChange={handlerolChange}
+          required
          
            />
            :
@@ -162,9 +179,10 @@ const handleSaveChanges = (event) => {
              type="text"
              id="telephone"
              name="telephone"
-             placeholder='ex : 0676180978'
+             placeholder={telephone}
              value={telephone}
           onChange={handletelChange}
+          required
          
            />
            :
@@ -188,7 +206,7 @@ const handleSaveChanges = (event) => {
              type="text"
              id="prenom"
              name="prenom"
-             placeholder='ex : Rayhane'
+             placeholder={user.prenom}
              value={prenom}
           onChange={handleprenomChange}
           required
@@ -210,9 +228,10 @@ const handleSaveChanges = (event) => {
              type="text"
              id="sexe"
              name="sexe"
-             placeholder='ex : H'
+             placeholder={user.sexe}
              value={sexe}
           onChange={handlesexChange}
+          required
           
            />
            :
@@ -233,9 +252,10 @@ const handleSaveChanges = (event) => {
              type="text"
              id="Email"
              name="Email"
-             placeholder='ex : lr_derbal@esi.dz'
+             placeholder={user.email}
              value={email}
           onChange={handleemailChange}
+          required
          
            />
            :
@@ -260,9 +280,10 @@ const handleSaveChanges = (event) => {
              type="password"
                 id="password"
                 name="password"
-                placeholder="ex : imene2004"
+                placeholder={user.password}
              value={password}
           onChange={handlepassChange}
+          required
          
            />
            :

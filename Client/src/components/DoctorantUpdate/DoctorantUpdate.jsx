@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios, { all } from "axios";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Popup from "../Popup/Popup";
 
@@ -17,16 +17,21 @@ const DoctorantUpdate = () => {
   const history = useHistory();
   const RUNNING_URL = "http://localhost:5000";
   const ENDPOINT = "/Update";
+
   const RADIATION_ENDPOINT = "/Radiation";
   const SOUTENANCE_ENDPOINT = "/Soutenance";
   const REINSCRIPTION_ENDPOINT = "/Reinscription";
+  const REINSCRIPTIONDIFFERE = "/RegisterDiffere";
 
   let PV_ID;
   let PV_DATE;
+  let PV_LINK;
 
   const handleSubmitPopup = (FormData) => {
     PV_ID = FormData.text;
     PV_DATE = FormData.date;
+    PV_LINK = FormData.Link;
+
     setShowPopup(false);
 
     if (action == 1) {
@@ -35,12 +40,18 @@ const DoctorantUpdate = () => {
       handleAction(REINSCRIPTION_ENDPOINT);
     } else if (action == 3) {
       handleAction(RADIATION_ENDPOINT);
+    } else if (action == 4) {
+      handleAction(REINSCRIPTIONDIFFERE);
     }
   };
 
-  function handleOnClickUser(username) {
+  function handleOnClickUser(username, usernameId) {
     const usernamerouter = username.toLowerCase().replace(" ", "");
-    history.push(`/Doctorant/${usernamerouter}`);
+
+    history.push({
+      pathname: `/Doctorant/${usernamerouter}`,
+      state: { usernameId },
+    });
   }
 
   useEffect(() => {
@@ -104,6 +115,7 @@ const DoctorantUpdate = () => {
         ids: checkedIds,
         pv_id: PV_ID,
         date_pv: PV_DATE,
+        lien_pv: PV_LINK,
       })
       .then((response) => {
         console.log(response.data);
@@ -152,7 +164,7 @@ const DoctorantUpdate = () => {
         </div>
 
         <button
-          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          className="py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={(e) => {
             if (checkedIds.length > 0) {
               setAction(2);
@@ -164,7 +176,19 @@ const DoctorantUpdate = () => {
         </button>
 
         <button
-          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          className="py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          onClick={(e) => {
+            if (checkedIds.length > 0) {
+              setAction(4);
+              setShowPopup(true);
+            }
+          }}
+        >
+          Reinscription Différé
+        </button>
+
+        <button
+          className="py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={(e) => {
             if (checkedIds.length > 0) {
               setAction(1);
@@ -176,7 +200,7 @@ const DoctorantUpdate = () => {
         </button>
 
         <button
-          className="m-2 py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
+          className="py-3 px-5 bg-dark-purple rounded-md text-white hover:bg-light-purple"
           onClick={(e) => {
             if (checkedIds.length > 0) {
               setAction(3);
@@ -187,7 +211,7 @@ const DoctorantUpdate = () => {
           Radiation
         </button>
 
-        <div className="p-8 ">
+        <div className="p-2 ">
           <label htmlFor="searchBar"></label>
           <input
             className="drop-shadow-[2px_2px_2px_#00000043] rounded p-3 w-80 border border-purple focus:border focus:border-green focus:outline-none"
@@ -250,7 +274,10 @@ const DoctorantUpdate = () => {
             <button
               className={`ml-5 p-2 bg-purple rounded-md text-white hover:bg-green`}
               onClick={() =>
-                handleOnClickUser(Doctorant.nom + Doctorant.prenom)
+                handleOnClickUser(
+                  Doctorant.nom + Doctorant.prenom,
+                  Doctorant.Id_Doctorant
+                )
               }
               role="button"
             >
