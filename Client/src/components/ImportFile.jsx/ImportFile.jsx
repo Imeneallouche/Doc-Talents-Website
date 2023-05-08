@@ -45,6 +45,7 @@ function ImportFile() {
 
       // Check if the required headers exist
       const headers = sheetData[0].map((header) => header.trim().toLowerCase());
+      /*
       const requiredHeadersLowerCase = requiredHeaders.map((header) =>
         header.trim().toLowerCase()
       );
@@ -54,39 +55,18 @@ function ImportFile() {
       if (missingHeaders.length > 0) {
         setNecessaryHeadersMissing(true);
         console.log(`Missing headers: ${missingHeaders}`);
-      }
+      }*/
 
-      // Extract data for the required headers
-      /*
-      const dataObj = {};
-      headers.forEach((header) => {
-        const columnIndex = requiredHeaders.indexOf(
-          header.trim().toLowerCase()
-        );
-        const columnData = sheetData.slice(1).map((row) => row[columnIndex]);
-        dataObj[header] = columnData;
-      });
-      setData(dataObj);
-      console.log(`heraaaaa:`, dataObj);
-*/
       axios
         .post(RUNNING_URL + ENDPOINT, rows.slice(1))
         .then((response) => {
-          console.log("Data sent successfully");
+          console.log("Data sent successfully", rows.slice(1));
         })
         .catch((error) => {
           console.error("Error sending data", error);
         });
     };
     reader.readAsArrayBuffer(file);
-
-    // Send data to backend
-    /*
-      
-    };
-    reader.readAsArrayBuffer(file);
-    setFile(file);
-    */
   };
 
   return (

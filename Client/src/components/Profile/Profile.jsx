@@ -73,7 +73,7 @@ function Profile() {
             Nom du doctorant:
           </label>
           <input
-            class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
+            class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
             type="text"
             placeholder="/"
             name="nom"
