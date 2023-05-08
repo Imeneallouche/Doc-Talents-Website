@@ -26,9 +26,9 @@ const CriteriaBar = (props) => {
         {/* Render the Select inputs for criteria */}
         <div  className="flex items-center gap-24    ">
         <div>
-        <label for="critere1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark-green">1ere critère</label>
+        <label for="critere1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">1ere critère</label>
         <select
-             id="critere1" class="bg-dark-black border  text-black text-sm rounded-lg focus:ring-dark-green focus:border-green-500 block w-full p-2.5 dark:bg-dark-green dark:border-black dark:placeholder-blackdark:text-black dark:focus:ring-black dark:focus:border-black"
+             id="critere1" class="bg-dark-black border  text-black text-sm rounded-lg focus:ring-dark-green focus:border-black block w-full p-2.5 dark:bg-dark-green dark:border-black dark:placeholder-blackdark:text-black dark:focus:ring-black dark:focus:border-black"
              onChange={handleCriteria1Change}
         >
         <optgroup label="Sexe" >
@@ -48,7 +48,7 @@ const CriteriaBar = (props) => {
         </select>
         </div>
         <div>
-        <label for="critere2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-dark-green">2ème critère</label>
+        <label for="critere2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">2ème critère</label>
         <select
              id="critere2" class="bg-dark-green border border-black text-gray-900 text-sm rounded-lg focus:ring-dark-green focus:border-dark-green block w-full p-2.5 dark:bg-dark-green dark:border-black dark:placeholder-black dark:text-black dark:focus:ring-blackdark:focus:border-black"
              onChange={handleCriteria2Change}
