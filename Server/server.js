@@ -32,6 +32,10 @@ const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
 const DashboardStatisticsController = require("./app/Controllers/DashboardStatisticsController");
 
 const ImportFileController = require("./app/Controllers/ImportFileController");
+
+
+
+const StatisticsController = require("./app/Controllers/StatisticsController");
 /*
 
 
@@ -78,7 +82,7 @@ app.get("/PDPGR", ProfiledpgrController);
 app.get("/Doctorant/:username", ProfileDoctorantController);
 
 app.post("/ImportFile", ImportFileController);
-
+app.get("/Statistics", StatisticsController);
 /*
 
 
