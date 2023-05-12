@@ -6,8 +6,8 @@ import { useHistory } from "react-router-dom";
 const DoctorantSearch = () => {
   const [Doctorants, setDoctorants] = useState([]);
 
-  const [selectedGender, setSelectedGender] = useState("all"); //Gender filter : dropdow list (Male/Female)
-  const [selectedStatues, setSelectedStatues] = useState("all"); //Statues filter: dropdown list (radié, abondan, soutenu, reinscri, differe)
+  const [selectedGender, setSelectedGender] = useState(null); //Gender filter : dropdow list (Male/Female)
+  const [selectedStatues, setSelectedStatues] = useState(null); //Statues filter: dropdown list (radié, abondan, soutenu, reinscri, differe)
   const [selectedMinYear, setSelectedMinYear] = useState(null); //Min inscription year filter : dropdow list (2012 --> recent year)
   const [selectedMaxYear, setSelectedMaxYear] = useState(null); //Max inscription year filter : dropdown list (2012 --> recent year)
 
@@ -113,9 +113,8 @@ const DoctorantSearch = () => {
 
   const filterDoctorants = (doctorant) => {
     if (
-      (selectedGender === "all" || doctorant.sexe === selectedGender.value) &&
-      (selectedStatues === "all" ||
-        doctorant.statut === selectedStatues.value) &&
+      (!selectedGender || doctorant.sexe === selectedGender.value) &&
+      (!selectedStatues || doctorant.statut === selectedStatues.value) &&
       (!selectedMinYear ||
         doctorant.Premiere_inscription >= selectedMinYear.value) &&
       (!selectedMaxYear ||
@@ -277,7 +276,7 @@ const DoctorantSearch = () => {
       </div>
       <ul
         className={`mx-2 grow overflow-y-auto`}
-        style={{ height: "calc(100vh - 14rem)" }}
+        style={{ height: "calc(100vh - 16rem)" }}
       >
         {searchResults.filter(filterDoctorants).map((Doctorant, index) => (
           <li
@@ -306,7 +305,7 @@ const DoctorantSearch = () => {
               <span>{Doctorant.Specialite}</span>
             </div>
 
-            <div className="mr-2 flex justify-start flex-1">
+            <div className="mr-2 text-sm flex justify-start flex-1">
               <span>
                 {Doctorant.intitule_sujet_bis
                   ? Doctorant.intitule_sujet_bis

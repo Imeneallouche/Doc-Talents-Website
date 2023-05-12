@@ -13,7 +13,7 @@ const ProfileIcon = () => {
         alt="Profile"
       />
       <span className="text-purple font-medium">
-        <Link to="/ProfileDPGR">
+        <Link to="/PDPGR">
         DPGR member</Link>
         </span>
     </a>

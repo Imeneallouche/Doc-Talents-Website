@@ -1,10 +1,10 @@
 const connection = require("../../DB/db_config");
 
-const ProfileDoctorantController = (req, res) => {
-  let { username } = req.params;
-  username = username.replace(" ", "").toLowerCase();
+const ProfileEncadrant = (req, res) => {
+  let { usernamee } = req.params;
+  usernamee = usernamee.replace(" ", "").toLowerCase();
 
-  const sqlQuery = `SELECT * FROM Doctorant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))) , ' ','') = '${username}'`;
+  const sqlQuery = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))) , ' ','') = '${usernamee}'`;
   //const values = [username];
 
   connection.query(sqlQuery, (error, results, fields) => {
@@ -16,4 +16,4 @@ const ProfileDoctorantController = (req, res) => {
     }
   });
 };
-module.exports = ProfileDoctorantController;
+module.exports = ProfileEncadrant;

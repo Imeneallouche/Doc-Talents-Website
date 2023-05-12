@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-const Users = () => {
-  const [DPGR, setDPGR] = useState([]);
+const Encadreurs = () => {
+  const [Encadreur, setEncadreur] = useState([]);
   const RUNNING_URL = "http://localhost:5000";
-  const ENDPOINT = "/DPGR";
-
+  const ENDPOINT = "/Encadreurs";
+  const history = useHistory();
 
   useEffect(() => {
-    const fetchDPGR = async () => {
+    const fetchEncadreur = async () => {
       const response = await axios.get(RUNNING_URL + ENDPOINT);
       console.log(response);
-      setDPGR(response.data);
+      setEncadreur(response.data);
     };
 
-    fetchDPGR();
+    fetchEncadreur();
   }, []);
+
+  function handleOnClickUser(username, usernameId) {
+    const usernamerouter = username.toLowerCase().replace(" ", "");
+    history.push({
+      pathname: `/Encadreurs/${usernamerouter}`,
+      state: { usernameId },
+    });
+  }
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col`}>
@@ -23,36 +32,37 @@ const Users = () => {
         className={`mx-2 grow overflow-y-auto`}
         style={{ height: "calc(100vh - 14rem)" }}
       >
-        {DPGR.map((DPGRmember, index) => (
+        {Encadreur.map((Encadreur, index) => (
           <li
-            key={DPGRmember.email}
+            key={Encadreur.Id_Encadreur}
             className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center hover:cursor-pointer hover:bg-white-bluish"
-            onClick={() =>
-              handleOnClickUser(DPGRmember.nom + DPGRmember.prenom)
-            }
+            onClick={() => handleOnClickUser(Encadreur.nom + Encadreur.prenom)}
             role="button"
           >
             <img
               className="w-12 mr-5"
-              src={require(`../../assets/Avatars/M${index % 5}.png`)}
+              src={require(`../../assets/Avatars/F${index % 5}.png`)}
               alt="profile"
             />
             <div className="mr-2 flex justify-start w-1/6">
               <span>
-                {DPGRmember.nom} {DPGRmember.prenom}
+                {Encadreur.nom} {Encadreur.prenom}
               </span>
             </div>
             <div className="flex justify-start w-1/12">
-              <span>{DPGRmember.Role}</span>
+              <span>{Encadreur.grade}</span>
             </div>
             <div className="flex justify-start w-1/12">
-              <span>{DPGRmember.sexe}</span>
+              <span>{Encadreur.mail}</span>
             </div>
             <div className="mr-2 flex justify-start w-1/6">
-              <span>{DPGRmember.email}</span>
+              <span>{Encadreur.specialite}</span>
             </div>
             <div className="flex justify-start w-1/12">
-              <span>{DPGRmember.telephone}</span>
+              <span>{Encadreur.telephone}</span>
+            </div>
+            <div className="flex justify-start w-1/12">
+              <span>{Encadreur.laboratoire}</span>
             </div>
           </li>
         ))}
@@ -61,4 +71,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Encadreurs;

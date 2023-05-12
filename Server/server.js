@@ -22,6 +22,7 @@ const RegisterDoctorantController = require("./app/Controllers/RegisterDoctorant
 const RegisterDiffereDoctorantController = require("./app/Controllers/RegisterDiffereDoctorantController");
 
 const ProfileDoctorantController = require("./app/Controllers/ProfileDoctorantController");
+const ProfileEncadrant = require ("./app/Controllers/ProfileEncadrant");
 
 const RegisterEncadrantController = require("./app/Controllers/RegisterEncadrantController");
 const EncadrantSearchController = require("./app/Controllers/EncadrantSearchController");
@@ -31,8 +32,11 @@ const EncadrantSearchController = require("./app/Controllers/EncadrantSearchCont
 
 const ProfiledpgrController = require("./app/Controllers/ProfiledpgrController");
 const EditprofiledpgrController = require("./app/Controllers/EditprofiledpgrController");
+const EditprofileDoctorantController  = require("./app/Controllers/EditprofileDoctorantController");
 //NOT YET IMPLEMENTED
 const DPGRSearchController = require("./app/Controllers/DPGRSearchController");
+const Encadreurs = require("./app/Controllers/Encadreurs");
+const EditprofileEncController = require ("./app/Controllers/EditprofileEncController");
 
 
 //const AddPVController = require("./app/Controllers/AddPVController");
@@ -73,6 +77,8 @@ app.get("/", (req, res) => {
 
 
 app.post("/EditDPGR/:useremail",EditprofiledpgrController);
+app.post("/EditDoc/:username",EditprofileDoctorantController);
+app.post("/EditEnc/:usernamee",EditprofileEncController);
 app.get("/Doctorant", DoctorantSearchController);
 //app.get("/Encadrant", EncadrantSearchController);
 app.get("/Update", DocotrantFilteredSearch);
@@ -88,9 +94,11 @@ app.get("/Dashboard", DashboardStatisticsController);
 //app.get("/PV/:search_term", PVSearchController);
 
 app.get("/DPGR", DPGRSearchController);
+app.get("/Encadreurs",Encadreurs);
 app.get("/PDPGR", ProfiledpgrController);
 
 app.get("/Doctorant/:username", ProfileDoctorantController);
+app.get("/Encadreurs/:usernamee", ProfileEncadrant)
 
 app.post("/ImportFile", ImportFileController);
 

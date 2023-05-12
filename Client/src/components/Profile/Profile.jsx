@@ -9,7 +9,6 @@ function Profile() {
   const ENDPOINT = "/Doctorant/";
 
   const [Doctorant, setDoctorant] = useState({});
-  const [formData, setFormData] = useState({});
   const [Editable, setEditable] = useState(false);
 
   const [nom, setnom] = useState('');
@@ -33,7 +32,10 @@ function Profile() {
   const [Nombre_inscriptions, setNombre_inscriptions] = useState('');
   const [intitule_sujet_bis, setintitule_sujet_bis] = useState('');
   const [intitule_sujet, setintitule_sujet] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
 
+  
   useEffect(() => {
     axios
       .get(RUNNING_URL + ENDPOINT + username)
@@ -128,12 +130,14 @@ setNombre_inscriptions(event.target.value);
   const handleSaveChanges = (event) => {
     event.preventDefault();
     setEditable(false);
-  
-    if (nom.trim() === '' || email.trim() === '' || prenom.trim() === '' || telephone.trim() === '' || sexe.trim() === '' || role.trim() === '' || email.trim() === '' || password.trim() === '') {
-      setErrorMessage('Name and email are required fields.');
+/*
+    const variablesToCheck = [nom, Specialite, prenom, telephone, sexe, Id_Doctorant, TypeDoctorat, Etablissement_origine_Magister, Etablissement_origine_Master, Etablissement_origine_ingeniorat, Nombre_inscriptions, date_soutenance, Date_naissance, Date_fichier_central, laboratoire, status, Premiere_inscription, Encadreur, CoEncadreur, intitule_sujet, intitule_sujet_bis];
+    if (variablesToCheck.some(variable => variable.trim().length === 0)) {
+      setErrorMessage('Vous êtes OBLIGÉ de remplir les cases vides!');
       return;
     }
-    axios.post(`http://localhost:5000/EditDPGR/${useremail}`, {
+    */
+    axios.post(`http://localhost:5000/EditDoc/${username}`, {
       nom : nom,
       prenom : prenom,
       telephone : telephone,
@@ -188,10 +192,11 @@ setNombre_inscriptions(event.target.value);
            id="nom"
            value={nom}
            onChange={handlenomChange}
+           required
          />
          :
           <input
-            class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent"
+            class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
             type="text"
             placeholder="/"
             name="nom"
@@ -212,6 +217,7 @@ setNombre_inscriptions(event.target.value);
            id="prenom"
            value={prenom}
            onChange={handleprenomChange}
+           required
          />
            :
           <input
@@ -236,6 +242,7 @@ setNombre_inscriptions(event.target.value);
           name="Matricule"
           value={Id_Doctorant}
           onChange={handleId_DoctorantChange}
+          required
         />
 :
           <input
@@ -254,6 +261,18 @@ setNombre_inscriptions(event.target.value);
           >
             Date de naissance:
           </label>
+          {Editable ?
+          <input
+            class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+            
+            name="Date_De_Naissance"
+            id="Date_De_Naissance"
+            value={Date_naissance}
+            type="date"
+            onChange={handleDate_naissanceChange}
+            required
+          />
+          :
           
           <input
             class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
@@ -266,6 +285,7 @@ setNombre_inscriptions(event.target.value);
             type="date"
             disabled
           />
+          }
           <label className="ml-5 mt-5 text-black font-bold" htmlFor="sexe">
             Sexe du doctorant:
           </label>
@@ -278,6 +298,7 @@ setNombre_inscriptions(event.target.value);
            id="sexe"
            value={sexe}
            onChange={handlesexChange}
+           required
          />
          :
           <input
@@ -303,6 +324,7 @@ setNombre_inscriptions(event.target.value);
           name="id_pv"
           value={Premiere_inscription}
           onChange={handlePremiere_inscriptionChange}
+          required
         />
         :
           <input
@@ -332,10 +354,14 @@ setNombre_inscriptions(event.target.value);
             Modifier
           </button>
 }
-          <button class="text-white bg-teal-500 p-5  rounded-lg" type="submit">
+          <button class="text-white bg-teal-500 p-5  rounded-lg">
             Séminaires
           </button>
+          <div className='float-left ml-20 font-bold text-red-500'>
+           {errorMessage && <p>{errorMessage}</p>}
+           </div>
         </div>
+       
 
         {/*
         
@@ -365,6 +391,7 @@ setNombre_inscriptions(event.target.value);
           id="Numero_telephone"
           value={telephone}
           onChange={handletelChange}
+          required
         />
         :
           <input
@@ -390,6 +417,7 @@ setNombre_inscriptions(event.target.value);
           id="Option"
           value={Specialite}
           onChange={handleSpecialiteChange}
+          required
         />
         :
           <input
@@ -418,6 +446,7 @@ setNombre_inscriptions(event.target.value);
           id="Type_Doctorat"
           value={TypeDoctorat}
           onChange={handleTypeDoctoratChange}
+          required
         />
         :
           <input
@@ -433,18 +462,6 @@ setNombre_inscriptions(event.target.value);
           <label className="ml-5 mt-5 text-black font-bold" htmlFor="statut">
             Statut du doctorant:
           </label>
-          {Editable ?
-           <input
-           class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
-           type="text"
-           placeholder={Doctorant.statut}
-           name="statut"
-           id="statut"
-           value={status}
-           onChange={handlestatusChange}
-           
-         />
-         :
           <input
             class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
             type="text"
@@ -454,7 +471,7 @@ setNombre_inscriptions(event.target.value);
             value={Doctorant.statut}
             disabled
           />
-}
+
           <label
             className="ml-5 mt-5 text-black font-bold"
             htmlFor="Laboratoire"
@@ -470,6 +487,7 @@ setNombre_inscriptions(event.target.value);
           id="Laboratoire"
           value={laboratoire}
           onChange={handlelaboratoireChange}
+          required
         />
         :
           <input
@@ -488,6 +506,18 @@ setNombre_inscriptions(event.target.value);
           >
             Date de soutenance:
           </label>
+          {Editable ?
+          <input
+          class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+          type="date"
+          id="Date_soutenance"
+          value={date_soutenance}
+          placeholder={Doctorant.date_soutenance}
+          name="date_soutenance"
+          onChange={handledate_soutenanceChange}
+          required
+        />
+        :
           <input
             class="mb-5 ml-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
             type="date"
@@ -499,6 +529,7 @@ setNombre_inscriptions(event.target.value);
             name="date_soutenance"
             disabled
           />
+            }
 
           <label className="ml-5 mt-5 text-black font-bold" htmlFor="Encadreur">
             Encadreur:
@@ -512,6 +543,7 @@ setNombre_inscriptions(event.target.value);
           id="Encadreur"
           value={Encadreur}
           onChange={handleencaderantChange}
+          required
         />
         :
           <input
@@ -539,6 +571,7 @@ setNombre_inscriptions(event.target.value);
            id="Co-encadreur"
            defaultValue={CoEncadreur}
            onChange={handlecoencadrantChange}
+           required
          />
          :
           <input
@@ -584,6 +617,7 @@ setNombre_inscriptions(event.target.value);
            id="etablissement_master"
            value={Etablissement_origine_Master}
            onChange={handleEtablissement_origine_MasterChange}
+           required
          />
          :
           <input
@@ -611,6 +645,7 @@ setNombre_inscriptions(event.target.value);
            id="etablissement_ingeniorat"
            value={Etablissement_origine_ingeniorat}
            onChange={handleEtablissement_origine_ingenioratChange}
+           required
            
          />
          :
@@ -639,6 +674,7 @@ setNombre_inscriptions(event.target.value);
           id="etablissement_magestere"
           value={Etablissement_origine_Magister}
           onChange={handleEtablissement_origine_MagisterChange}
+          required
         />
         :
           <input
@@ -666,6 +702,7 @@ setNombre_inscriptions(event.target.value);
            name="annee_inscription"
            value={Premiere_inscription}
            onChange={handlePremiere_inscriptionChange}
+           required
          />
          :
           <input
@@ -675,6 +712,7 @@ setNombre_inscriptions(event.target.value);
             placeholder="/"
             name="annee_inscription"
             value={Doctorant.Premiere_inscription}
+            disabled
           />
 }
           <label
@@ -683,6 +721,18 @@ setNombre_inscriptions(event.target.value);
           >
             Date du fichier centrale:
           </label>
+          {Editable ?
+           <input
+           class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
+           type="date"
+           id="date_fichier_cnetral"
+           
+           name="date_fichier_cnetral"
+           value={Date_fichier_central}
+           onChange={handleDate_fichier_centralChange}
+           required
+         />
+         :
           <input
             class="mb-5 mr-5 border-b-1 border-solid border-gray-300 outline-none bg-transparent text-black"
             type="date"
@@ -694,6 +744,7 @@ setNombre_inscriptions(event.target.value);
             )}
             disabled
           />
+            }
           <label
             className="mr-5 mt-5 text-black font-bold"
             htmlFor="nombre_inscriptions"
@@ -709,6 +760,7 @@ setNombre_inscriptions(event.target.value);
            id="nombre_inscriptions"
            value={Nombre_inscriptions}
            onChange={handleNombre_inscriptionsChange}
+           required
          />
          :
           <input
@@ -737,6 +789,7 @@ setNombre_inscriptions(event.target.value);
            id="Intitule_these"
            value={intitule_sujet}
            onChange={handleintitule_sujetChange}
+           required
          />
          :
           <input
@@ -764,6 +817,7 @@ setNombre_inscriptions(event.target.value);
            id="Intitule_sujet_bis"
            defaultValue={intitule_sujet_bis}
            onChange={handleintitule_sujet_bisChange}
+           required
          />
          :
           <input

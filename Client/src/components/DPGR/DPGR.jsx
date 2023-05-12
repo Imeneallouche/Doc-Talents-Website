@@ -25,8 +25,6 @@ function DPGR() {
   
   
 
-
-
   useEffect(() => {
     fetch(`/PDPGR/${useremail}`)
     .then(response => response.json())
@@ -75,10 +73,12 @@ const handleSaveChanges = (event) => {
   event.preventDefault();
   setEditable(false);
 
-  if (nom.trim() === '' || email.trim() === '' || prenom.trim() === '' || telephone.trim() === '' || sexe.trim() === '' || role.trim() === '' || email.trim() === '' || password.trim() === '') {
-    setErrorMessage('Name and email are required fields.');
+  const variablesToCheck = [nom, email, prenom, telephone, sexe, role, password];
+  if (variablesToCheck.some(variable => variable.trim().length === 0)) {
+    setErrorMessage('Vous êtes OBLIGÉ de remplir les cases vides!');
     return;
   }
+  
   axios.post(`http://localhost:5000/EditDPGR/${useremail}`, {
     nom : nom,
     prenom : prenom,
@@ -116,8 +116,9 @@ const handleSaveChanges = (event) => {
      <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
         Profile DPGR</div>
      <div>
+
         <form onSubmit={handleSaveChanges} className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 ">
-           {errorMessage && <p>{errorMessage}</p>}
+           
            <div className="m-4 mb-0 flex flex-col flex-1">
            <label htmlFor="Nom"
            className={`font-bold text-dark-purple focus:text-green mb-3`}>
@@ -179,7 +180,7 @@ const handleSaveChanges = (event) => {
              type="text"
              id="telephone"
              name="telephone"
-             placeholder={telephone}
+             placeholder={user.telephone}
              value={telephone}
           onChange={handletelChange}
           required
@@ -312,6 +313,9 @@ const handleSaveChanges = (event) => {
             Mettre à Jour
           </button>
         }
+         <div className='float-left ml-20 font-bold text-red-500'>
+           {errorMessage && <p>{errorMessage}</p>}
+           </div>
         </div>
        </div>
         </div>
