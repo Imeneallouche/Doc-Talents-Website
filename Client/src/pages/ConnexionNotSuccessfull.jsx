@@ -13,7 +13,7 @@ export default function ConnexionNotSuccessfull(){
             Nom Utilisateur
           </label>
           <input
-            className="input rounded-[7px] mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple text-dark-puple"
+            className="input mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple text-dark-puple"
             type="email"
             name="email"
             id="email"
@@ -28,7 +28,7 @@ export default function ConnexionNotSuccessfull(){
             Mot de passe
           </label>
           <input
-            className="input rounded-[7px] mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple text-dark-puple"           
+            className="input mb-12 p-4 opacity-75 w-[400px] border rounded-lg border-purple text-dark-puple"           
             type="password"
             name="password"
             id="password"

@@ -1,4 +1,5 @@
 {
+  
   "name": "doctalents",
   "version": "0.1.0",
   "private": true,
@@ -30,19 +31,16 @@
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-paginate": "^8.2.0",
-<<<<<<< HEAD
-    "react-router": "^5.3.4",
-=======
     "react-redux": "^8.0.5",
     "react-router": "^6.11.0",
->>>>>>> e0a9b2ca8c7ba2fa7706b2e43596b40d3436adba
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.2",
     "react-tailwindcss-datepicker": "^1.6.0",
     "redux": "^4.2.1",
     "source-map-loader": "^4.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -64,5 +62,9 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.2.7"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "tailwind.config.js",
+  "author": "",
+  "license": "ISC"
 }

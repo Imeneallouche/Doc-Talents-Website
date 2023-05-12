@@ -2,14 +2,15 @@ import React from "react";
 import "./Popup.css";
 import { useState } from "react";
 
-export default function Popup({ onSubmit, action }) {
+export default function Popup({ onSubmit }) {
   const [date, setDate] = useState("");
   const [text, setText] = useState("");
+  const [Link, setLink] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (date && text) {
-      onSubmit({ text, date });
+      onSubmit({ text, date, Link });
     }
   };
 
@@ -27,7 +28,7 @@ export default function Popup({ onSubmit, action }) {
             type="Text"
             required
             placeholder="Numéro du PV (ex: 20181112)"
-            className="rounded p-4 text-base text-purple focus:outline-dark-purple"
+            className="rounded p-4 my-2 text-base text-purple focus:outline-dark-purple"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
@@ -35,9 +36,18 @@ export default function Popup({ onSubmit, action }) {
             type="date"
             required
             placeholder="Date du PV (ex: 2018-11-12)"
-            className="rounded p-4 text-base text-purple focus:outline-dark-purple"
+            className="rounded p-4 my-2 text-base text-purple focus:outline-dark-purple"
             value={date}
             onChange={(e) => setDate(e.target.value)}
+          />
+
+          <input
+            type="Text"
+            required
+            placeholder="Lien du PV (ex: https://link-to-PV.com)"
+            className="rounded p-4 my-2 text-base text-purple focus:outline-dark-purple"
+            value={Link}
+            onChange={(e) => setLink(e.target.value)}
           />
         </div>
         <button

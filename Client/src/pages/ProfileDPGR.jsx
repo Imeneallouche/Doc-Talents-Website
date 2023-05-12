@@ -4,7 +4,8 @@ import SideBar from "../components/Menu/SideBar";
 import ProfileDPGR from "../components/DPGR/DPGR";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
 import DPGR from "../components/DPGR/DPGR";
-function dpgr({ nom }) {
+
+function Dpgr({ nom }) {
   return (
     <div className={`bg-white-bluish w-full flex `}>
       <SideBar />
@@ -19,4 +20,4 @@ function dpgr({ nom }) {
   );
 }
 
-export default dpgr;
+export default Dpgr;

@@ -1,91 +1,131 @@
 const connection = require("../../DB/db_config");
 
-const RegisterDiffereDoctorantController= (req, res) => {
-    const ids = req.body.ids;
-    const PV_Id = req.body.pv_id;
-    const PV_Date = req.body.date_pv;
+const RegisterDoctorantController = (req, res) => {
+  const doctorant = {
+    nom: req.body.Nom,
+    prenom: req.body.Prenom,
+    Id_Doctorant: req.body.Id_Doctorant,
+    telephone: req.body.Numero_tel,
+    mail: req.body.Email,
+    Date_naissance: req.body.Birthday,
+    sexe: req.body.Sex,
+    Encadreur: req.body.DirecteurThese,
+    CoEncadreur: req.body.CoDirecteurThese,
+    laboratoire: req.body.Laboratoire,
+    Specialite: req.body.Option,
+    TypeDoctorat: req.body.TypeDoctorant,
+    intitule_sujet: req.body.IntituleSujet,
+    Etablissement_origine_Master: req.body.EtablissementMaster,
+    Etablissement_origine_Magistere: req.body.EtablissementMagestere,
+    Etablissement_origine_ingeniorat: req.body.EtablissementIngeniorat,
+    Premiere_inscription: req.body.PremiereInscription,
+    Date_fichier_central: req.body.DateFichierCentral,
 
-  console.log("Received IDs:", ids, PV_Id);
+    intitule_sujet_bis: null,
+    PV_changement_these: null,
+    Nombre_inscriptions: 1,
+    soutenu: null,
+    Date_soutenance: null,
+    radie: null,
+    statut: "inscrit",
+  };
 
-  //1ST : update the selected doctorants statut to inscrit
-  connection.query(
-    "UPDATE Doctorant SET statut = ? WHERE Id_Doctorant IN (?) AND soutenu IS NULL AND radie IS NULL",
-    ["inscrit", ids],
-    (error, results, fields) => {
-      if (error) {
-        console.log("Error putting statut to inscrit:", error);
-        res.sendStatus(500);
-      } else {
-        console.log("statut updated to inscrit succesfully successfully");
-      }
-    }
-  );
+  const PV = {
+    Id_Doctorant: req.body.Id_Doctorant,
+    Id_PV: req.body.Id_PV,
+  };
 
-  //2ND : increment the number of registration years
-  connection.query(
-    "UPDATE Doctorant SET Nombre_inscriptions = Nombre_inscriptions + 1 WHERE Id_Doctorant IN (?)",
-    [ids],
-    (error, results, fields) => {
-      if (error) {
-        console.log("Error incrememnting number of inscription years:", error);
-        res.sendStatus(500);
-      } else {
-        console.log("registration years incremented successfully");
-      }
-    }
-  );
-
-  //3RD : add all doctorants registered with the ID to the table Inscription
-  let InscriptionValues = [];
-  ids.forEach((id) => {
-    InscriptionValues.push([PV_Id, id]);
-  });
-
-  console.log(InscriptionValues);
-  const query = "INSERT INTO Inscription (Id_PV, Id_Doctorant) VALUES ?";
-
-  connection.query(query, [InscriptionValues], (error, results, fields) => {
+  //1ST : REGISTER THE PV INSCRIPTION IN PV TABLE
+  connection.query("INSERT INTO Inscription SET ?", PV, (error, results) => {
     if (error) {
-      console.log("Error inserting all inscriptions:", error);
-      res.sendStatus(500);
+      console.log(`Error saving PV ${error}`);
+      res.status(500).send("Error saving PV to database");
     } else {
-      console.log("inscriptions registered successfully");
+      console.log("PV registered successfully");
     }
   });
 
-  //4TH : add the PV if it doesn't exist : the Id and the date for now and let the link empty
+  //2ND : REGISTER THE DOCTORANT
   connection.query(
-    "SELECT * FROM PV WHERE Id_PV = ?",
-    [PV_Id],
-    (error, results, fields) => {
+    "INSERT INTO Doctorant SET ?",
+    doctorant,
+    (error, results) => {
       if (error) {
-        console.log("Error fetching in PV table", error);
-        res.sendStatus(500);
+        console.log(`Error saving doctorant ${error}`);
+        res.status(500).send("Error saving doctorant to database");
       } else {
-        console.log("the fetch has been done successfully");
-
-        //IF THE PV DOESN'T EXIST (HASN'T BEEN INSERTED BEFORE), LET'S INSERT IT
-        if (results.length == 0) {
-          connection.query(
-            "INSERT INTO PV (Id_PV , Date_PV) VALUES (? , ?)",
-            [PV_Id, PV_Date],
-            (error, results, fields) => {
-              if (error) {
-                console.log("Error inserting the PV in PV table:", error);
-                res.sendStatus(500);
-              } else {
-                console.log("PV inserted successfully");
-                res.sendStatus(200);
-              }
-            }
-          );
-        } else {
-          console.log("PV already exists in the table");
-          res.sendStatus(200);
-        }
+        console.log("Doctorant registered successfully");
       }
     }
   );
+
+  //3RD : SEARCH FOR ENCADREUR AND CO ENCADREUR
+
+  const fullnameEncadreur = doctorant.Encadreur.toLowerCase().replace(" ", "");
+  const fullnameCoEncadreur = doctorant.CoEncadreur.toLowerCase().replace(
+    " ",
+    ""
+  );
+
+  const query1 = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))), " ", ""); = '${fullnameEncadreur}'`;
+  const query2 = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))), " ", ""); = '${fullnameCoEncadreur}'`;
+  
+
+  //state1 = 0 encadreur exist
+  //state1 = 1 encadreur doesn't exist
+  let state1;
+
+  //state2 = 0 co encadreur exist
+  //state2 = 1 co encadreur doesn't exist
+  let state2;
+
+  let result = {};
+
+  // Use Promise.all to wait for both queries to complete
+  Promise.all([
+    new Promise((resolve, reject) => {
+      connection.query(query1, (error, results1) => {
+        if (error) {
+          console.log(`error searching for encadreur ${error}`);
+          reject(error);
+        } else {
+          if (results1.length !== 0) {
+            state1 = 0;
+            result = { state1: 0, encadreur: results1[0] };
+          } else {
+            state1 = 1;
+            result = { state1: 1 };
+          }
+          resolve();
+        }
+      });
+    }),
+    new Promise((resolve, reject) => {
+      connection.query(query2, (error, results2) => {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          if (results2.length !== 0 || fullnameCoEncadreur == "") {
+            state2 = 0;
+            result = { ...result, state2: 0, coencadreur: results2[0] };
+          } else {
+            state2 = 1;
+            result = { ...result, state2: 1 };
+          }
+          resolve();
+        }
+      });
+    }),
+  ])
+    .then(() => {
+      // Send response after both queries complete
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log(`error while executing queries ${error}`);
+      res.status(500).send("Internal server error");
+    });
 };
 
-module.exports = RegisterDiffereDoctorantController;
+module.exports = RegisterDoctorantController;
