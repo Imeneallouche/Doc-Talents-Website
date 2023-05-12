@@ -18,14 +18,9 @@ Released by:
   - DERBAL Rayhane
   - LOUNI Imène
 
-Language used: 
-  - HTML
-  - CSS
-  - JavaScript
-  - MySQL
-
-Frameworks used:
+Technologies used:
   - React.js
+  - MySQL
   - Express.js
   - TailwindCSS
   

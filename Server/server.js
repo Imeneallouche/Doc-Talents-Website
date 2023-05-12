@@ -48,6 +48,10 @@ const EditprofileEncController = require ("./app/Controllers/EditprofileEncContr
 const DashboardStatisticsController = require("./app/Controllers/DashboardStatisticsController");
 
 const ImportFileController = require("./app/Controllers/ImportFileController");
+
+
+
+const StatisticsController = require("./app/Controllers/StatisticsController");
 /*
 
 
@@ -101,7 +105,7 @@ app.get("/Doctorant/:username", ProfileDoctorantController);
 app.get("/Encadreurs/:usernamee", ProfileEncadrant)
 
 app.post("/ImportFile", ImportFileController);
-
+app.get("/Statistics", StatisticsController);
 /*
 
 
