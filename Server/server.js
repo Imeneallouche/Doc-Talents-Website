@@ -153,13 +153,14 @@ app.get("/connexion" , (req,res)=>{
 app.post('/connexion', (req,res)=>{
   var email = req.body.email; 
   var password = req.body.password; 
-  connection.query("SELECT * FROM DPGR where email = ? and password = ?" ,[email,password],function(error,results,fields){
-    if(results.length>0){
-        res.send(results); 
-        console.log("There is a match"); 
-    } else{
-        res.status(401).send("Invalid email or password");
-        console.log("No match"); 
+  connection.query("SELECT * FROM DPGR where email = ? and password = ? ",[email,password],function(error,results,fields){
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (results.length === 0) {
+      res.status(404).send('User not found');
+    } else {
+      const userData = results[0];
+      res.send(userData);
     }
   })
 })

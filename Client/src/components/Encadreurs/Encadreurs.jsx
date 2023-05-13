@@ -28,6 +28,8 @@ const Encadreurs = () => {
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col`}>
+       <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 mb-5 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
+       LIST DES ENCADREURS</div>
       <ul
         className={`mx-2 grow overflow-y-auto`}
         style={{ height: "calc(100vh - 14rem)" }}
@@ -52,11 +54,11 @@ const Encadreurs = () => {
             <div className="flex justify-start w-1/12">
               <span>{Encadreur.grade}</span>
             </div>
-            <div className="flex justify-start w-1/12">
-              <span>{Encadreur.mail}</span>
-            </div>
-            <div className="mr-2 flex justify-start w-1/6">
+            <div className="flex justify-start w-1/8">
               <span>{Encadreur.specialite}</span>
+            </div>
+            <div className="mr-2 flex justify-start w-1/12">
+              <span>{Encadreur.mail}</span>
             </div>
             <div className="flex justify-start w-1/12">
               <span>{Encadreur.telephone}</span>

@@ -30,7 +30,8 @@ function DPGR() {
     .then(response => response.json())
     .then(userData => {
       setUser(userData);
-      
+      //localStorage.setItem('nom', userData.nom);
+      //localStorage.setItem('prenom', userData.prenom);
     })
     .catch(error => {
       console.error(error);
@@ -72,12 +73,14 @@ const handlepassChange = (event) => {
 const handleSaveChanges = (event) => {
   event.preventDefault();
   setEditable(false);
-
+  
   const variablesToCheck = [nom, email, prenom, telephone, sexe, role, password];
   if (variablesToCheck.some(variable => variable.trim().length === 0)) {
     setErrorMessage('Vous êtes OBLIGÉ de remplir les cases vides!');
     return;
   }
+
+  
   
   axios.post(`http://localhost:5000/EditDPGR/${useremail}`, {
     nom : nom,

@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import SideBarConnexion from "../components/sideBarConnexion/sideBarConnexion";
 
 
 export default function Connexion() {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
   var mail =  localStorage.getItem("Email");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ export default function Connexion() {
         
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem('Email' , email);
+
         history.push("/Doctorant");
     }catch{
       localStorage.setItem('isLoggedIn', false); 

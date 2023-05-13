@@ -7,34 +7,26 @@ let usernamee = req.params.usernamee;
   
   
   const nom = req.body.nom;
-  console.log(nom);
+  
   const prenom = req.body.prenom;
-  console.log(prenom);
   
   const telephone = req.body.telephone;
-  console.log(telephone);
+ 
    const laboratoire = req.body.laboratoire;
-   console.log(laboratoire);
+   
    const Id_Encadreur = req.body.Id_Encadreur;
-   console.log(Id_Encadreur);
+   
    const grade = req.body.grade;
-   console.log(grade);
+   
    const specialite = req.body.specialite;
-   console.log(specialite);
-    /*
-   const mail = req.body.mail;
-   const diplome = req.body.diplome;
-//Id_Encadreur ,nom prenom grade Etablissement specialite diplome mail telephone laboratoire Sujets_interet
-
-   const  Etablissement = req.body.Etablissement;
    
    const Sujets_interet =req.body.Sujets_interet;
-   , mail=?, diplome=?,  Etablissement=?, Sujets_interet=?
-    diplome,  Etablissement, Sujets_interet
-   */
+   const mail = req.body.mail;
+   const diplome = req.body.diplome;
+   const  Etablissement = req.body.Etablissement;
 
-  const query = `UPDATE Encadrant SET nom=? , prenom=?, telephone=?,  laboratoire=? WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))) , ' ','') = '${usernamee}'`;
-  connection.query(query, [nom, prenom, , telephone, laboratoire], (error, results) => {
+  const query = `UPDATE Encadrant SET nom=? , prenom=?, mail=? , Sujets_interet=?, grade=?, specialite=?, Id_Encadreur=?, telephone=?, laboratoire=?, diplome=?, Etablissement=? WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))) , ' ','') = '${usernamee}'`;
+  connection.query(query, [nom, prenom, mail,Sujets_interet,grade, specialite, Id_Encadreur, telephone, laboratoire, diplome, Etablissement], (error, results) => {
     if (error) {
       console.log('mnich nkhdem');
       res.status(500).send(error.message);
