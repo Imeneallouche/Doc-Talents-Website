@@ -67,9 +67,8 @@ const RegisterDoctorantController = (req, res) => {
     ""
   );
 
-  const query1 = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))), " ", ""); = '${fullnameEncadreur}'`;
-  const query2 = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))), " ", ""); = '${fullnameCoEncadreur}'`;
-  
+  const query1 = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))), " ", "") = '${fullnameEncadreur}'`;
+  const query2 = `SELECT * FROM Encadrant WHERE REPLACE(TRIM(LOWER(CONCAT(nom, prenom))), " ", "") = '${fullnameCoEncadreur}'`;
 
   //state1 = 0 encadreur exist
   //state1 = 1 encadreur doesn't exist

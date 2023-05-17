@@ -179,7 +179,7 @@ const ImportFileController = (req, res) => {
             console.log(error);
             res.status(500).send("Error saving Coencadrant to database");
           } else {
-            res.status(200).send("CoEncadrant saved successfully");
+            console.log("CoEncadrant saved successfully");
           }
         }
       );

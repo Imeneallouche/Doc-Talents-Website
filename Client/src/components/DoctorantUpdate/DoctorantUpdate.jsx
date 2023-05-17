@@ -225,8 +225,8 @@ const DoctorantUpdate = () => {
       </div>
 
       <ul
-        className="mx-8 overflow-y-scroll"
-        style={{ height: "calc(100vh - 15rem)" }}
+        className="mx-2 my-5 overflow-y-scroll"
+        style={{ height: "calc(100vh - 13rem)" }}
       >
         {searchResults.map((Doctorant, index) => (
           <li

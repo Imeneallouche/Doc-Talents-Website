@@ -113,8 +113,8 @@ const DoctorantSearch = () => {
 
   const filterDoctorants = (doctorant) => {
     if (
-      (!selectedGender || doctorant.sexe === selectedGender.value) &&
-      (!selectedStatues || doctorant.statut === selectedStatues.value) &&
+      (!selectedGender || doctorant.sexe == selectedGender.value) &&
+      (!selectedStatues || doctorant.statut == selectedStatues.value) &&
       (!selectedMinYear ||
         doctorant.Premiere_inscription >= selectedMinYear.value) &&
       (!selectedMaxYear ||
@@ -132,7 +132,7 @@ const DoctorantSearch = () => {
 
   const statuesOptions = [
     { value: "inscrit", label: "inscrit" },
-    { value: "radié", label: "radié" },
+    { value: "abandon", label: "radié" },
     { value: "soutenu", label: "soutenu" },
     { value: "différé", label: "différé" },
   ];

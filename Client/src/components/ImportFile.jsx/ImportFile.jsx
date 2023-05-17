@@ -20,13 +20,12 @@ function ImportFile() {
     "Directeur de thèse",
     //"Etablissement directeur de thèse",
     "Co-directeur de thèse",
-    "Etablissement co-directeur de thèse",
+    //"Etablissement co-directeur de thèse",
     //"PV CS inscription en 1ière année",
     //"PV CS réinscription",
     "Situation",
     "Soutenance ou Abandon",
   ]);
-  const [data, setData] = useState({});
 
   const onFileChange = (event) => {
     // Read the Excel file and extract data
@@ -44,10 +43,18 @@ function ImportFile() {
       });
 
       // Check if the required headers exist
-      const headers = sheetData[0].map((header) => header.trim().toLowerCase());
-      /*
+      const headers = sheetData[0].map((header) =>
+        header
+          .trim()
+          .toLowerCase()
+          .replace(/[\r\n]+/g, "")
+      );
+
       const requiredHeadersLowerCase = requiredHeaders.map((header) =>
-        header.trim().toLowerCase()
+        header
+          .trim()
+          .toLowerCase()
+          .replace(/[\r\n]+/g, "")
       );
       const missingHeaders = requiredHeadersLowerCase.filter(
         (header) => !headers.includes(header)
@@ -55,16 +62,21 @@ function ImportFile() {
       if (missingHeaders.length > 0) {
         setNecessaryHeadersMissing(true);
         console.log(`Missing headers: ${missingHeaders}`);
-      }*/
+      } else {
+        axios
+          .post(RUNNING_URL + ENDPOINT, rows.slice(1))
+          .then((response) => {
+            console.log("Data sent successfully", rows.slice(1));
+          })
+          .catch((error) => {
+            console.error("Error sending data", error);
+          });
+      }
 
-      axios
-        .post(RUNNING_URL + ENDPOINT, rows.slice(1))
-        .then((response) => {
-          console.log("Data sent successfully", rows.slice(1));
-        })
-        .catch((error) => {
-          console.error("Error sending data", error);
-        });
+      /*
+
+
+        */
     };
     reader.readAsArrayBuffer(file);
   };

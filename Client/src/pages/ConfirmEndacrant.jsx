@@ -14,6 +14,11 @@ function ConfirmEndacrant() {
 
   const handlePrevious = (event) => {
     event.preventDefault();
+    history.goBack();
+  };
+
+  const handleConfirm = (event) => {
+    event.preventDefault();
     history.push("/Inscription/Step1");
   };
 
@@ -54,6 +59,7 @@ function ConfirmEndacrant() {
           <button
             className="submit-form suivant m-5 px-8 py-4 w-fit bg-dark-purple rounded-md text-white"
             type="button"
+            onClick={handleConfirm}
           >
             Confirmer
           </button>

@@ -30,7 +30,7 @@ function ShowCaseCard() {
         <h2 className="mt-5 font-thin">Gestion des doctorants</h2>
         <h2 className="font-thin">Gestion des PVs</h2>
         <h2 className="font-thin">statistiques</h2>
-        <div className="flex flex-1">
+        <div className="mt-5 flex flex-1">
           <button className=" bg-black text-white px-5 py-2 rounded-2xl mx-5 mt-5">
             <Link to={"/Statistics"}>Statistics</Link>
           </button>

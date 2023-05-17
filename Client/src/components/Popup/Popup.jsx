@@ -43,7 +43,6 @@ export default function Popup({ onSubmit }) {
 
           <input
             type="Text"
-            required
             placeholder="Lien du PV (ex: https://link-to-PV.com)"
             className="rounded p-4 my-2 text-base text-purple focus:outline-dark-purple"
             value={Link}
