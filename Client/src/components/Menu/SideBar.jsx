@@ -6,7 +6,7 @@ const SideBar = () => {
 
   const Menus = [
     { title: "Dashboard", src: "Chart_fill", Path: "/Dashboard" },
-    { title: "Encadrants", src: "Encadrant", Path: "/Encadrant" },
+    { title: "Encadrants", src: "Encadrant", Path: "/Encadreurs" },
 
     { title: "Doctorants", src: "Search", Path: "/Doctorant", gap: true },
     { title: "Inscription", src: "Chat", Path: "/Inscription/Step1" },

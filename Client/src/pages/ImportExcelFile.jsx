@@ -1,7 +1,7 @@
 import React from "react";
 import SideBar from "../components/Menu/SideBar";
 import ProfileIcon from "../components/ProfileIcon/ProfileIcon";
-import ImportFile from "../components/ImportFile.jsx/ImportFile";
+import ImportFile from "../components/ImportFile/ImportFile";
 
 function ImportExcelFile() {
   return (

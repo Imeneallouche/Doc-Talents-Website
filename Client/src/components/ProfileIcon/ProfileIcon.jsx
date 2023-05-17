@@ -4,6 +4,7 @@ import { Link,  useParams } from 'react-router-dom';
 
 //src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
 const ProfileIcon = () => {
+  
   return (
     <a href="#" className="flex items-center justify-center m-5 p-2 rounded-xl ">
 
@@ -13,8 +14,9 @@ const ProfileIcon = () => {
         alt="Profile"
       />
       <span className="text-purple font-medium">
-        <Link to="/ProfileDPGR">
-        DPGR member</Link>
+        <Link to="/PDPGR">
+       My Profile
+        </Link>
         </span>
     </a>
   );

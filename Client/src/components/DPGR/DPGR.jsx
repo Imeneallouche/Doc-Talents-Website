@@ -1,207 +1,332 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Select from "react-select";
-import { Link,  useParams } from 'react-router-dom';
-import Image from "../ProfileIcon/ProfileIcon"
+
 
 function DPGR() {
-    const [userName, setUserName] = useState('');
-    const [userData, setUserData] = useState(null);
+    
    
 
   const RUNNING_URL = "http://localhost:5000";
   const ENDPOINT = "/PDPGR";
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`/PDPGR/user?name=${userName}`);
-        setUserData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const [user, setUser] = useState(null);
+  const useremail = localStorage.getItem('Email');
+  const [Editable, setEditable] = useState(false);
+  const [nom, setnom] = useState('');
+  const [prenom, setprenom] = useState('');
+  const [telephone, settelephone] = useState('');
+  const [email, setemail] = useState('');
+  const [sexe, setsexe] = useState('');
+  const [role, setrole] = useState('');
+  const [password, setpass] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-    if (userName) {
-      fetchUserData();
-    }
-  }, [userName]);
   
-  const handleInputChange = (event) => {
-    setUserName(event.target.value);
-  };
-    const [Sex, setSex] = useState([]);
-    const genderOptions = [
-      { value: "M", label: "Male" },
-      { value: "F", label: "Female" },
-    ];
-    const customStyles = {
-        control: (provided, state) => ({
-          ...provided,
-          backgroundColor: "white",
-          borderColor: "#19202E",
-          color: "#1E2959",
-          placeholderColor: "#35468E",
-          fontSize: "1rem",
-          borderRadius: "0.375rem",
-          padding: "0.5rem",
+  
+
+  useEffect(() => {
+    fetch(`/PDPGR/${useremail}`)
+    .then(response => response.json())
+    .then(userData => {
+      setUser(userData);
+      //localStorage.setItem('nom', userData.nom);
+      //localStorage.setItem('prenom', userData.prenom);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}, [useremail]);  
+
+const handleEdit = () => {
+  setEditable(true);
+};
+
+const handlenomChange = (event) => {
+
+      setnom(event.target.value); 
+};
+const handleprenomChange = (event) => {
+
+  setprenom(event.target.value);
+  
+};
+const handletelChange = (event) => {
+
+      settelephone(event.target.value); // set the name to the new value
     
-          "&:focus": {
-            outline: "none",
-            boxShadow: "none",
-            borderColor: "#51BCA2",
-            placeholderColor: "#51BCA2",
-          },
-        }),
-        placeholder: (provided, state) => ({
-          ...provided,
-          color: "#35468E",
-        }),
-      };
+};
+const handlesexChange = (event) => {
+  setsexe(event.target.value);
+};
+const handlerolChange = (event) => {
+  setrole(event.target.value);
+};
+const handleemailChange = (event) => {
+  setemail(event.target.value);
+};
+const handlepassChange = (event) => {
+  setpass(event.target.value);
+};
+
+
+const handleSaveChanges = (event) => {
+  event.preventDefault();
+  setEditable(false);
+  
+  const variablesToCheck = [nom, email, prenom, telephone, sexe, role, password];
+  if (variablesToCheck.some(variable => variable.trim().length === 0)) {
+    setErrorMessage('Vous êtes OBLIGÉ de remplir les cases vides!');
+    return;
+  }
+
+  
+  
+  axios.post(`http://localhost:5000/EditDPGR/${useremail}`, {
+    nom : nom,
+    prenom : prenom,
+    telephone : telephone,
+    role : role,
+    sexe : sexe,
+    email : email,
+    password : password,
+    
+  })
+    .then((response) => {
+      console.log(response.data);
+      alert('Les modifications ont été enregistrées avec succès!');
+    })
+    .catch((error) => {
+      console.error(error);
+      alert('Erreur lors de l\'enregistrement des modifications.');
+    });
+};
+
+
+  
+
+
+  
+
+
+
+      if (!user) {
+        return <div>Loading...</div>;
+      }
     
       return (
-        <div>
-      <label>
-        Name:
-        <input type="text" value={userName} onChange={handleInputChange} />
-      </label>
-      {userData && (
-        <div>
-          <p>Name: {userData.name}</p>
-          <p>Email: {userData.email}</p>
-        </div>
-      )}
-    </div>
-     /*
-     <div>
-     <div style={{
-        background: "linear-gradient(to left, #19202E, #35468E)",
-        width: "350px",
-        height: "55px",
-        borderRadius: "10px",
-        display: "flex",
-        justifyContent: "flex-start", // align text to the center left
-        alignItems: "center",
-        color: "#ffffff",
-        fontSize: "20px",
-        marginTop: '10px', 
-        marginLeft: "60px",
-        fontWeight: "bold",
-        fontFamily: "sans-serif",
-        boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)", // Add box shadow CSS property
-        paddingLeft: "30px", // Add left padding to align text with left edge of button
-      }}>
+        <div className="mb-20">
+     <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
         Profile DPGR</div>
      <div>
-        <form className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 ">
-           <div className="m-4 flex flex-col flex-1">
+
+        <form onSubmit={handleSaveChanges} className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 ">
+           
+           <div className="m-4 mb-0 flex flex-col flex-1">
            <label htmlFor="Nom"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
-             Nom :
+           className={`font-bold text-dark-purple focus:text-green mb-3`}>
+             Nom : 
             </label>
+            {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="text"
+             id="nom"
+             name="nom"
+             placeholder={user.nom}
+             value={nom}
+             onChange={handlenomChange}
+             required
+             
+           />
+           :
             <input className={`bg-white border border-dark-purple mb-5 text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="Nom"
                 name="Nom"
-                placeholder="ex : DERBAL" 
+                placeholder={user.nom} 
                 disabled
                 
             />
+          }
                 <label htmlFor="Role"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
-             Role :
+           className={`font-bold text-dark-purple focus:text-green mb-3`}>
+             Role : 
             </label>
+            {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="text"
+             id="role"
+             name="role"
+             placeholder={user.Role}
+             value={role}
+          onChange={handlerolChange}
+          required
+         
+           />
+           :
             <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="Role"
                 name="Role"
-                placeholder="ex : ADMIN"
+                placeholder={user.Role}
                 disabled />
-            
+}
                 <label htmlFor="telephone"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+           className={`font-bold text-dark-purple focus:text-green mb-3`}>
              Numero de telephone :
             </label>
+            {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="text"
+             id="telephone"
+             name="telephone"
+             placeholder={user.telephone}
+             value={telephone}
+          onChange={handletelChange}
+          required
+         
+           />
+           :
             <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="teL"
                 id="telephone"
                 name="telephone"
-                placeholder="ex : 0798502217" 
-                disabled/>
-                 <label htmlFor="password"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
-             Password :
-            </label>
-            <input className={`bg-white border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-                type="password"
-                id="password"
-                name="password"
-                placeholder="ex : ******** " 
-                disabled/>
+                placeholder={user.telephone}
+                disabled
+                />
+            }
            </div>
-           <div className="m-4 flex flex-col flex-1">
+           <div className="m-4 mb-0 flex flex-col flex-1">
            <label htmlFor="Prenom"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+           className={`font-bold text-dark-purple focus:text-green mb-3`}>
              Prenom : 
             </label>
+            {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="text"
+             id="prenom"
+             name="prenom"
+             placeholder={user.prenom}
+             value={prenom}
+          onChange={handleprenomChange}
+          required
+           />
+           :
             <input className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="Prenom"
                 name="Prenom"
-                placeholder="ex : RAYHANE" 
+                placeholder={user.prenom}
                 disabled/>
-                <label htmlFor="Sexe" className={`font-bold text-dark-purple mb-5`}>
+            }
+                <label htmlFor="Sexe" className={`font-bold text-dark-purple mb-3`}>
                 Sexe :
               </label>
-              <Select
-                placeholder="Male"
-                id="Sexe"
-                className="mb-5 placeholder-black"
-                styles={customStyles}
-                options={genderOptions}
-                value={Sex}
-                onChange={(event) => setSex(event)}
-                isClearable
-                required
-                />
+              {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="text"
+             id="sexe"
+             name="sexe"
+             placeholder={user.sexe}
+             value={sexe}
+          onChange={handlesexChange}
+          required
+          
+           />
+           :
+              <input className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="sexe"
+                name="sexe"
+                placeholder={user.sexe}
+                disabled/>
+              }
                 <label htmlFor="Email"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
+           className={`font-bold text-dark-purple focus:text-green mb-3`}>
              Email :  
             </label>
+            {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="text"
+             id="Email"
+             name="Email"
+             placeholder={user.email}
+             value={email}
+          onChange={handleemailChange}
+          required
+         
+           />
+           :
             <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="email"
                 id="Email"
                 name="Email"
-                placeholder="ex : DPGR@esi.dz"
+                placeholder={user.email}
                 disabled />
-                 <label htmlFor="confirmepassword"
-           className={`font-bold text-dark-purple focus:text-green mb-5`}>
-             Password confirmation :
-            </label>
-            <input className={`bg-white border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-                type="password"
-                id="confirmepassword"
-                name="confirmepassword"
-                placeholder="ex : ********" 
-                disabled/>
+            }
            
            </div>
         </form>
-        <div>
-            <button className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-5"
-              type="submit">
-                <Link to="/EditprofileDPGR">
-              Mettre à Jour
-              </Link></button>
+        <div className=" ml-12 mr-12 flex flex-col flex-1">
+        <label htmlFor="password"
+           className={`font-bold text-dark-purple focus:text-green mt-0 mb-3`}>
+             Password :  
+            </label>
+            {Editable ?
+             <input
+             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+             type="password"
+                id="password"
+                name="password"
+                placeholder={user.password}
+             value={password}
+          onChange={handlepassChange}
+          required
+         
+           />
+           :
+            <input className={`bg-white border mb-4 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="password"
+                id="password"
+                name="password"
+                placeholder={user.password}
+                disabled />
+            }
+          </div>
+          <div>
+        {Editable ?
+            <button className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-0"
+            onClick={handleSaveChanges}
+              type="button">
+                
+              Enregister
+              </button>
+          :
+          <button
+            className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-0 "
+            onClick={handleEdit}
+            type="button"
+          >
+            Mettre à Jour
+          </button>
+        }
+         <div className='float-left ml-20 font-bold text-red-500'>
+           {errorMessage && <p>{errorMessage}</p>}
+           </div>
         </div>
        </div>
         </div>
+      );
+     /*
+     
         */
        
-      
-       
-        
-      );
 }
 
 export default DPGR;

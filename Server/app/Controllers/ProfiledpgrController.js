@@ -1,8 +1,30 @@
 const connection = require("../../DB/db_config");
 
 const ProfiledpgrController = (req, res) => {
-const userName = 'LOUNI'; // replace with the name you want to search for
-const sqlQuery = `SELECT * FROM DPGR WHERE nom='${userName}'`;
+
+const useremail = req.params.useremail;
+
+
+
+
+  const query = 'SELECT * FROM DPGR WHERE email = ?';
+  connection.query(query, [useremail], (error, results) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (results.length === 0) {
+      res.status(404).send('User not found');
+    } else {
+      const userData = results[0];
+      res.send(userData);
+    }
+  })};
+  module.exports = ProfiledpgrController;
+
+/*
+
+const ProfiledpgrController = (req, res) => {
+const userName = localStorage.getItem("Email"); // replace with the name you want to search for
+const sqlQuery = `SELECT * FROM DPGR WHERE email='${userName}'`;
 
 connection.query(sqlQuery, (error, results, fields) => {
   if (error) {
@@ -11,30 +33,5 @@ connection.query(sqlQuery, (error, results, fields) => {
     res.send(results[0]);
   }
 })};
-module.exports = ProfiledpgrController;
-/*
 
- function ProfiledpgrController(nom) {
-    return new Promise((resolve, reject) => {
-      // Construct the SQL query to retrieve user information
-      const sql = `SELECT * FROM DPGR WHERE nom = ?`;
-  
-      // Execute the query
-      connection.query(sql, [nom], (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          // If the query is successful, return the user information
-          resolve(results[0]);
-        }
-      });
-    });
-  }
-  ProfiledpgrController('LOUNI')
-  .then((user) => {
-    console.log(user);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-  */
+*/

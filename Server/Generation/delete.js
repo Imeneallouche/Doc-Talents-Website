@@ -1,6 +1,7 @@
 const connection = require("../DB/db_config");
 
 const deleteQuery = "DELETE FROM Inscription";
+//const deleteQuery = "DELETE FROM Encadrant WHERE nom='Rayhane'";
 
 /*
 const deleteQuery = "DELETE FROM PV WHERE Link_PV IS NULL";
