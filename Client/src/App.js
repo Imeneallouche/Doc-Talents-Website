@@ -13,6 +13,7 @@ import ConnexionNotSuccessfull from "./pages/ConnexionNotSuccessfull";
 import Dashboard from "./pages/Dashboard";
 import Doctorant from "./pages/Doctorant";
 import Update from "./pages/Update";
+import Statistics from "./pages/Statistics";
 
 import Users from "./pages/Users";
 import ImportExcelFile from "./pages/ImportExcelFile";
@@ -51,7 +52,6 @@ export default function App() {
           <Route path="/Doctorant" component={Doctorant} exact />
           <Route path="/Dashboard" component={Dashboard} exact />
           <Route path="/Statistics" component={Statistics} exact />
-
           <Route path="/PVs" component={PVs} exact />
           <Route path="/Users" component={Users} exact />
           <Route path="/Doctorant/:username" component={Profile} exact />
