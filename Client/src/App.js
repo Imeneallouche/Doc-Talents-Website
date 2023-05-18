@@ -1,4 +1,9 @@
-import { Route, BrowserRouter as Router, Switch , Redirect} from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 
 import { FormDataProvider } from "./components/Store";
@@ -22,7 +27,7 @@ import Profile from "./pages/Profile";
 import Encadreurs from "./pages/Encadreurs";
 import Dpgr from "./pages/ProfileDPGR";
 
-
+import Statistics from "./pages/Statistics";
 
 import PVs from "./pages/PVs";
 import PVformulaire from "./pages/PVformulaire";
@@ -45,17 +50,16 @@ export default function App() {
           <Route path="/Update" component={Update} exact />
           <Route path="/Doctorant" component={Doctorant} exact />
           <Route path="/Dashboard" component={Dashboard} exact />
-          
+          <Route path="/Statistics" component={Statistics} exact />
+
           <Route path="/PVs" component={PVs} exact />
           <Route path="/Users" component={Users} exact />
           <Route path="/Doctorant/:username" component={Profile} exact />
-         
-        
+
           <Route path="/PDPGR" component={Dpgr} exact />
           <Route path="/Encadreurs" component={Encadreurs} exact />
           <Route path="/Encadreurs/:usernamee" component={profileenc} exact />
-          
-        
+
           <Route path="/PV/ajouter" component={PVformulaire} exact />
           <Route path="/ImportFile" component={ImportExcelFile} exact />
 
