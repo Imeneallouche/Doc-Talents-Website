@@ -82,7 +82,6 @@ const ProgressBarChart = ({critere, count}) => {
   </div>
   </div>
     <div className="flex justify-between mt-1 text-xs text-gray-500">
-      <span>0%</span>
       <span style={{ fontSize: "16px", color: "#51bca2", fontWeight: 900 }}
       >{parseInt(widthPercentage)}%</span>
       </div>
