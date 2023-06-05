@@ -14,10 +14,8 @@ function ProfileDPGR() {
         </div>
         <DPGR />
       </div>
-     
     </div>
   );
 }
 
 export default ProfileDPGR;
-

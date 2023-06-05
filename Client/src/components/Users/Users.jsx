@@ -6,7 +6,6 @@ const Users = () => {
   const RUNNING_URL = "http://localhost:5000";
   const ENDPOINT = "/DPGR";
 
-
   useEffect(() => {
     const fetchDPGR = async () => {
       const response = await axios.get(RUNNING_URL + ENDPOINT);
@@ -19,8 +18,9 @@ const Users = () => {
 
   return (
     <div className={`bg-white-bluish w-full flex flex-col`}>
-       <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 mb-5 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
-       LIST DES UTILISATEURS</div>
+      <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 mb-5 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
+        LIST DES UTILISATEURS
+      </div>
       <ul
         className={`mx-2 grow overflow-y-auto`}
         style={{ height: "calc(100vh - 14rem)" }}
@@ -29,9 +29,7 @@ const Users = () => {
           <li
             key={DPGRm.email}
             className="bg-white text-purple rounded-lg p-4 m-2 flex justify-between items-center content-center hover:cursor-pointer hover:bg-white-bluish"
-            onClick={() =>
-              handleOnClickUser(DPGRm.nom + DPGRm.prenom)
-            }
+            onClick={() => handleOnClickUser(DPGRm.nom + DPGRm.prenom)}
             role="button"
           >
             <img
@@ -49,7 +47,7 @@ const Users = () => {
                 {DPGRm.nom} {DPGRm.prenom}
               </span>
             </div>
-            
+
             <div className="flex justify-start w-1/12">
               <span>{DPGRm.sexe}</span>
             </div>

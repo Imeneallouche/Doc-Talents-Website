@@ -1,333 +1,335 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function DPGR() {
-    
-   
-
   const RUNNING_URL = "http://localhost:5000";
   const ENDPOINT = "/PDPGR";
 
   const [user, setUser] = useState(null);
-  const useremail = localStorage.getItem('Email');
+  const useremail = localStorage.getItem("Email");
   const [Editable, setEditable] = useState(false);
-  const [nom, setnom] = useState('');
-  const [prenom, setprenom] = useState('');
-  const [telephone, settelephone] = useState('');
-  const [email, setemail] = useState('');
-  const [sexe, setsexe] = useState('');
-  const [role, setrole] = useState('');
-  const [password, setpass] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-
-  
-  
+  const [nom, setnom] = useState("");
+  const [prenom, setprenom] = useState("");
+  const [telephone, settelephone] = useState("");
+  const [email, setemail] = useState("");
+  const [sexe, setsexe] = useState("");
+  const [role, setrole] = useState("");
+  const [password, setpass] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     fetch(`/PDPGR/${useremail}`)
-    .then(response => response.json())
-    .then(userData => {
-      setUser(userData);
-      //localStorage.setItem('nom', userData.nom);
-      //localStorage.setItem('prenom', userData.prenom);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-}, [useremail]);  
+      .then((response) => response.json())
+      .then((userData) => {
+        setUser(userData);
+        //localStorage.setItem('nom', userData.nom);
+        //localStorage.setItem('prenom', userData.prenom);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [useremail]);
 
-const handleEdit = () => {
-  setEditable(true);
-};
+  const handleEdit = () => {
+    setEditable(true);
+  };
 
-const handlenomChange = (event) => {
+  const handlenomChange = (event) => {
+    setnom(event.target.value);
+  };
+  const handleprenomChange = (event) => {
+    setprenom(event.target.value);
+  };
+  const handletelChange = (event) => {
+    settelephone(event.target.value); // set the name to the new value
+  };
+  const handlesexChange = (event) => {
+    setsexe(event.target.value);
+  };
+  const handlerolChange = (event) => {
+    setrole(event.target.value);
+  };
+  const handleemailChange = (event) => {
+    setemail(event.target.value);
+  };
+  const handlepassChange = (event) => {
+    setpass(event.target.value);
+  };
 
-      setnom(event.target.value); 
-};
-const handleprenomChange = (event) => {
+  const handleSaveChanges = (event) => {
+    event.preventDefault();
+    setEditable(false);
 
-  setprenom(event.target.value);
-  
-};
-const handletelChange = (event) => {
+    const variablesToCheck = [
+      nom,
+      email,
+      prenom,
+      telephone,
+      sexe,
+      role,
+      password,
+    ];
+    if (variablesToCheck.some((variable) => variable.trim().length === 0)) {
+      setErrorMessage("Vous êtes OBLIGÉ de remplir les cases vides!");
+      return;
+    }
 
-      settelephone(event.target.value); // set the name to the new value
-    
-};
-const handlesexChange = (event) => {
-  setsexe(event.target.value);
-};
-const handlerolChange = (event) => {
-  setrole(event.target.value);
-};
-const handleemailChange = (event) => {
-  setemail(event.target.value);
-};
-const handlepassChange = (event) => {
-  setpass(event.target.value);
-};
+    axios
+      .post(`http://localhost:5000/EditDPGR/${useremail}`, {
+        nom: nom,
+        prenom: prenom,
+        telephone: telephone,
+        role: role,
+        sexe: sexe,
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        alert("Les modifications ont été enregistrées avec succès!");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Erreur lors de l'enregistrement des modifications.");
+      });
+  };
 
-
-const handleSaveChanges = (event) => {
-  event.preventDefault();
-  setEditable(false);
-  
-  const variablesToCheck = [nom, email, prenom, telephone, sexe, role, password];
-  if (variablesToCheck.some(variable => variable.trim().length === 0)) {
-    setErrorMessage('Vous êtes OBLIGÉ de remplir les cases vides!');
-    return;
+  if (!user) {
+    return <div>Loading...</div>;
   }
 
-  
-  
-  axios.post(`http://localhost:5000/EditDPGR/${useremail}`, {
-    nom : nom,
-    prenom : prenom,
-    telephone : telephone,
-    role : role,
-    sexe : sexe,
-    email : email,
-    password : password,
-    
-  })
-    .then((response) => {
-      console.log(response.data);
-      alert('Les modifications ont été enregistrées avec succès!');
-    })
-    .catch((error) => {
-      console.error(error);
-      alert('Erreur lors de l\'enregistrement des modifications.');
-    });
-};
-
-
-  
-
-
-  
-
-
-
-      if (!user) {
-        return <div>Loading...</div>;
-      }
-    
-      return (
-        <div className="mb-20">
-     <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
-        Profile DPGR</div>
-     <div>
-
-        <form onSubmit={handleSaveChanges} className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 ">
-           
-           <div className="m-4 mb-0 flex flex-col flex-1">
-           <label htmlFor="Nom"
-           className={`font-bold text-dark-purple focus:text-green mb-3`}>
-             Nom : 
+  return (
+    <div className="mb-20">
+      <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
+        Profile DPGR
+      </div>
+      <div>
+        <form
+          onSubmit={handleSaveChanges}
+          className="m-10 mt-0 mb-0 grow flex flex-col justify-center items-center grid grid-cols-2 gap-50 p-55 "
+        >
+          <div className="m-4 mb-0 flex flex-col flex-1">
+            <label
+              htmlFor="Nom"
+              className={`font-bold text-dark-purple focus:text-green mb-3`}
+            >
+              Nom :
             </label>
-            {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="text"
-             id="nom"
-             name="nom"
-             placeholder={user.nom}
-             value={nom}
-             onChange={handlenomChange}
-             required
-             
-           />
-           :
-            <input className={`bg-white border border-dark-purple mb-5 text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+            {Editable ? (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="nom"
+                name="nom"
+                placeholder={user.nom}
+                value={nom}
+                onChange={handlenomChange}
+                required
+              />
+            ) : (
+              <input
+                className={`bg-white border border-dark-purple mb-5 text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="Nom"
                 name="Nom"
-                placeholder={user.nom} 
+                placeholder={user.nom}
                 disabled
-                
-            />
-          }
-                <label htmlFor="Role"
-           className={`font-bold text-dark-purple focus:text-green mb-3`}>
-             Role : 
+              />
+            )}
+            <label
+              htmlFor="Role"
+              className={`font-bold text-dark-purple focus:text-green mb-3`}
+            >
+              Role :
             </label>
-            {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="text"
-             id="role"
-             name="role"
-             placeholder={user.Role}
-             value={role}
-          onChange={handlerolChange}
-          required
-         
-           />
-           :
-            <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+            {Editable ? (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="role"
+                name="role"
+                placeholder={user.Role}
+                value={role}
+                onChange={handlerolChange}
+                required
+              />
+            ) : (
+              <input
+                className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="Role"
                 name="Role"
                 placeholder={user.Role}
-                disabled />
-}
-                <label htmlFor="telephone"
-           className={`font-bold text-dark-purple focus:text-green mb-3`}>
-             Numero de telephone :
+                disabled
+              />
+            )}
+            <label
+              htmlFor="telephone"
+              className={`font-bold text-dark-purple focus:text-green mb-3`}
+            >
+              Numero de telephone :
             </label>
-            {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="text"
-             id="telephone"
-             name="telephone"
-             placeholder={user.telephone}
-             value={telephone}
-          onChange={handletelChange}
-          required
-         
-           />
-           :
-            <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+            {Editable ? (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="telephone"
+                name="telephone"
+                placeholder={user.telephone}
+                value={telephone}
+                onChange={handletelChange}
+                required
+              />
+            ) : (
+              <input
+                className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="teL"
                 id="telephone"
                 name="telephone"
                 placeholder={user.telephone}
                 disabled
-                />
-            }
-           </div>
-           <div className="m-4 mb-0 flex flex-col flex-1">
-           <label htmlFor="Prenom"
-           className={`font-bold text-dark-purple focus:text-green mb-3`}>
-             Prenom : 
+              />
+            )}
+          </div>
+          <div className="m-4 mb-0 flex flex-col flex-1">
+            <label
+              htmlFor="Prenom"
+              className={`font-bold text-dark-purple focus:text-green mb-3`}
+            >
+              Prenom :
             </label>
-            {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="text"
-             id="prenom"
-             name="prenom"
-             placeholder={user.prenom}
-             value={prenom}
-          onChange={handleprenomChange}
-          required
-           />
-           :
-            <input className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+            {Editable ? (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="prenom"
+                name="prenom"
+                placeholder={user.prenom}
+                value={prenom}
+                onChange={handleprenomChange}
+                required
+              />
+            ) : (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="Prenom"
                 name="Prenom"
                 placeholder={user.prenom}
-                disabled/>
-            }
-                <label htmlFor="Sexe" className={`font-bold text-dark-purple mb-3`}>
-                Sexe :
-              </label>
-              {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="text"
-             id="sexe"
-             name="sexe"
-             placeholder={user.sexe}
-             value={sexe}
-          onChange={handlesexChange}
-          required
-          
-           />
-           :
-              <input className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                disabled
+              />
+            )}
+            <label htmlFor="Sexe" className={`font-bold text-dark-purple mb-3`}>
+              Sexe :
+            </label>
+            {Editable ? (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="text"
                 id="sexe"
                 name="sexe"
                 placeholder={user.sexe}
-                disabled/>
-              }
-                <label htmlFor="Email"
-           className={`font-bold text-dark-purple focus:text-green mb-3`}>
-             Email :  
+                value={sexe}
+                onChange={handlesexChange}
+                required
+              />
+            ) : (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="sexe"
+                name="sexe"
+                placeholder={user.sexe}
+                disabled
+              />
+            )}
+            <label
+              htmlFor="Email"
+              className={`font-bold text-dark-purple focus:text-green mb-3`}
+            >
+              Email :
             </label>
-            {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="text"
-             id="Email"
-             name="Email"
-             placeholder={user.email}
-             value={email}
-          onChange={handleemailChange}
-          required
-         
-           />
-           :
-            <input className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+            {Editable ? (
+              <input
+                className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+                type="text"
+                id="Email"
+                name="Email"
+                placeholder={user.email}
+                value={email}
+                onChange={handleemailChange}
+                required
+              />
+            ) : (
+              <input
+                className={`bg-white border mb-5 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
                 type="email"
                 id="Email"
                 name="Email"
                 placeholder={user.email}
-                disabled />
-            }
-           
-           </div>
+                disabled
+              />
+            )}
+          </div>
         </form>
         <div className=" ml-12 mr-12 flex flex-col flex-1">
-        <label htmlFor="password"
-           className={`font-bold text-dark-purple focus:text-green mt-0 mb-3`}>
-             Password :  
-            </label>
-            {Editable ?
-             <input
-             className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-             type="password"
-                id="password"
-                name="password"
-                placeholder={user.password}
-             value={password}
-          onChange={handlepassChange}
-          required
-         
-           />
-           :
-            <input className={`bg-white border mb-4 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
-                type="password"
-                id="password"
-                name="password"
-                placeholder={user.password}
-                disabled />
-            }
-          </div>
-          <div>
-        {Editable ?
-            <button className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-0"
-            onClick={handleSaveChanges}
-              type="button">
-                
-              Enregister
-              </button>
-          :
-          <button
-            className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-0 "
-            onClick={handleEdit}
-            type="button"
+          <label
+            htmlFor="password"
+            className={`font-bold text-dark-purple focus:text-green mt-0 mb-3`}
           >
-            Mettre à Jour
-          </button>
-        }
-         <div className='float-left ml-20 font-bold text-red-500'>
-           {errorMessage && <p>{errorMessage}</p>}
-           </div>
+            Password :
+          </label>
+          {Editable ? (
+            <input
+              className={`bg-white mb-4 border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+              type="password"
+              id="password"
+              name="password"
+              placeholder={user.password}
+              value={password}
+              onChange={handlepassChange}
+              required
+            />
+          ) : (
+            <input
+              className={`bg-white border mb-4 border-dark-purple text-purple placeholder-black text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
+              type="password"
+              id="password"
+              name="password"
+              placeholder={user.password}
+              disabled
+            />
+          )}
         </div>
-       </div>
+        <div>
+          {Editable ? (
+            <button
+              className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-0"
+              onClick={handleSaveChanges}
+              type="button"
+            >
+              Enregister
+            </button>
+          ) : (
+            <button
+              className="bg-green text-white py-4 px-6 rounded float-right mr-20 mt-0 mb-0 "
+              onClick={handleEdit}
+              type="button"
+            >
+              Mettre à Jour
+            </button>
+          )}
+          <div className="float-left ml-20 font-bold text-red-500">
+            {errorMessage && <p>{errorMessage}</p>}
+          </div>
         </div>
-      );
-     /*
+      </div>
+    </div>
+  );
+  /*
      
         */
-       
 }
 
 export default DPGR;
-    

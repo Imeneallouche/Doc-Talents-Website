@@ -26,7 +26,7 @@ function ShowCaseCard() {
         className="relative bottom-48"
       />
       <div className="relative bottom-48 flex flex-col justify-evenly items-center h-full">
-        <h1 className="text-5xl font-bold">{DPGRnumber} Users</h1>
+        <h1 className="text-4xl font-bold">{DPGRnumber} Utilisateurs</h1>
         <h2 className="mt-5 font-thin">Gestion des doctorants</h2>
         <h2 className="font-thin">Gestion des PVs</h2>
         <h2 className="font-thin">statistiques</h2>

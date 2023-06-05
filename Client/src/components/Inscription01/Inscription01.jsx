@@ -194,7 +194,7 @@ function Inscription01() {
               )}
             />
             <p className="mt-2 invisible peer-required:visible text-orange text-sm">
-              Please fill in the datepicker
+              Veuillez fournir une date de naissance
             </p>
           </LocalizationProvider>
         </div>
@@ -270,7 +270,7 @@ function Inscription01() {
             required
           />
           <p className="mt-2 invisible peer-invalid:visible text-orange text-sm">
-            Please provide a valid email address.
+            Veuillez fournir une adresse e-mail valide.
           </p>
         </div>
       </section>

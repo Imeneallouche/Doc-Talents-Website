@@ -46,7 +46,7 @@ function CompactCard({ param, setExpanded }) {
       <div className="flex flex-1 flex-col items-end justify-between">
         <Png className="fill-white" />
         <span className="text-white">{param.value} inscrits</span>
-        <span className="text-white">Alwayws Updated</span>
+        <span className="text-white">statistiques mises à jour</span>
       </div>
     </motion.div>
   );

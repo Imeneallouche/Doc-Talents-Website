@@ -1,6 +1,6 @@
 const connection = require("../DB/db_config");
 
-const deleteQuery = "DELETE FROM Inscription";
+const deleteQuery = "DELETE FROM DPGR";
 //const deleteQuery = "DELETE FROM Encadrant WHERE nom='Rayhane'";
 
 /*

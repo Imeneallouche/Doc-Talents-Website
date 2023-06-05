@@ -28,8 +28,6 @@ import Profile from "./pages/Profile";
 import Encadreurs from "./pages/Encadreurs";
 import Dpgr from "./pages/ProfileDPGR";
 
-import Statistics from "./pages/Statistics";
-
 import PVs from "./pages/PVs";
 import PVformulaire from "./pages/PVformulaire";
 

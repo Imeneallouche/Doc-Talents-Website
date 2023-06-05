@@ -1,5 +1,6 @@
 const connection = require("../DB/db_config");
 //Champs inserted successfully
+/*
 var sqlQuery = `INSERT INTO Encadrant ( 
   Id_Encadreur,
   nom,
@@ -92,6 +93,22 @@ var values = [
     "Architecture des ordinateurs",
     
   ],
+];
+*/
+
+var sqlQuery = `INSERT INTO DPGR (
+    Role, 
+    nom,
+    prenom, 
+    telephone,
+    sexe,
+    email,
+    password
+  )
+    VALUES ?`;
+
+var values = [
+  ["admin", "Khelifati", "Larabi", "0699240858", "M", "admin@esi.dz", "admin"],
 ];
 
 connection.query(sqlQuery, [values]);

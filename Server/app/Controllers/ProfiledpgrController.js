@@ -1,24 +1,21 @@
 const connection = require("../../DB/db_config");
 
 const ProfiledpgrController = (req, res) => {
+  const useremail = req.params.useremail;
 
-const useremail = req.params.useremail;
-
-
-
-
-  const query = 'SELECT * FROM DPGR WHERE email = ?';
+  const query = "SELECT * FROM DPGR WHERE email = ?";
   connection.query(query, [useremail], (error, results) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (results.length === 0) {
-      res.status(404).send('User not found');
+      res.status(404).send("User not found");
     } else {
       const userData = results[0];
       res.send(userData);
     }
-  })};
-  module.exports = ProfiledpgrController;
+  });
+};
+module.exports = ProfiledpgrController;
 
 /*
 

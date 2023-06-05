@@ -17,7 +17,7 @@ function InscriptionStep2() {
           <TimelineStepper currentStep={2} />
           <div className="flex flex-col flex-1 justify-center">
             <h1 className=" text-purple font-semibold text-2xl text-center">
-              Step 02 : Les informations de la thèse
+              Etape 02 : Les informations sur la thèse
             </h1>
             <Inscription02 className="grow h-full" />
           </div>

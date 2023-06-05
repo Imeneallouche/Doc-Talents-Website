@@ -223,7 +223,7 @@ const DoctorantSearch = () => {
             htmlFor="minYear"
             className="font-normal text-sm text-dark-purple"
           >
-            1st year register min
+            année d'inscription minimale
           </label>
           <Select
             className="mt-1"
@@ -242,7 +242,7 @@ const DoctorantSearch = () => {
             htmlFor="maxYear"
             className="font-normal text-sm text-dark-purple"
           >
-            1st year register max
+            année d'inscription maximale
           </label>
           <Select
             className="mt-1"
