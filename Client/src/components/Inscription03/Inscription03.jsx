@@ -107,7 +107,7 @@ function Inscription03() {
             htmlFor="Nom"
             className={`font-medium text-dark-purple focus:text-green`}
           >
-            Nom d'encadreur
+            Nom de l'encadreur
           </label>
           <input
             className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
@@ -123,14 +123,14 @@ function Inscription03() {
         <div className="m-4 flex flex-col flex-1">
           {" "}
           <label htmlFor="Prenom" className={`font-medium text-dark-purple`}>
-            Prénom d'encadreur
+            Prénom de l'encadreur
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="text"
             id="Prenom"
             name="Prenom"
-            placeholder="ex : Fatima"
+            placeholder="exemple : Fatima"
             value={Prenom}
             onChange={(event) => setPrenom(event.target.value)}
             required
@@ -143,7 +143,7 @@ function Inscription03() {
             htmlFor="Etablissement"
             className={`font-medium text-dark-purple`}
           >
-            Etablissement d'encadreur
+            Etablissement de l'encadreur
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
@@ -151,7 +151,7 @@ function Inscription03() {
             id="Etablissement"
             name="Etablissement"
             value={Etablissement}
-            placeholder="ex : FabLab"
+            placeholder="exemple : FabLab"
             onChange={(event) => setEtablissement(event.target.value)}
             required
           />
@@ -164,7 +164,7 @@ function Inscription03() {
             htmlFor="Diplome"
             className={`font-medium text-dark-purple focus:text-green`}
           >
-            Diplome
+            Diplôme
           </label>
           <input
             className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
@@ -172,7 +172,7 @@ function Inscription03() {
             id="Diplome"
             name="Diplome"
             value={Diplome}
-            placeholder="ex : Doctorat en génie mécanique"
+            placeholder="exemple : Doctorat en génie mécanique"
             onChange={(event) => setDiplome(event.target.value)}
             required
           />
@@ -187,7 +187,7 @@ function Inscription03() {
             type="text"
             id="Grade"
             name="Grade"
-            placeholder="ex : Proffesseur"
+            placeholder="exemple : Proffesseur"
             value={Grade}
             onChange={(event) => setGrade(event.target.value)}
             required
@@ -197,7 +197,7 @@ function Inscription03() {
         <div className="m-4 flex flex-col flex-1">
           {" "}
           <label htmlFor="Tel" className={`font-medium text-dark-purple`}>
-            Numéro du téléphone
+            Numéro de téléphone
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
@@ -205,7 +205,7 @@ function Inscription03() {
             id="Tel"
             name="Tel"
             value={Telephone}
-            placeholder="ex : 0699240858"
+            placeholder="exemple : 0699240858"
             onChange={(event) => setTelephone(event.target.value)}
             required
           />
@@ -218,7 +218,7 @@ function Inscription03() {
             htmlFor="Email"
             className={`font-medium text-dark-purple focus:text-green`}
           >
-            Email
+            E-mail
           </label>
           <input
             className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
@@ -226,7 +226,7 @@ function Inscription03() {
             id="Email"
             name="Email"
             value={Email}
-            placeholder="ex : youremail@gmail.com"
+            placeholder="exemple : youremail@gmail.com"
             onChange={(event) => setEmail(event.target.value)}
             required
           />
@@ -244,7 +244,7 @@ function Inscription03() {
             type="text"
             id="Specialite"
             name="Specialite"
-            placeholder="ex : Génie mécanique"
+            placeholder="exemple : Génie mécanique"
             value={Specialite}
             onChange={(event) => setSpecialite(event.target.value)}
             required
@@ -257,7 +257,7 @@ function Inscription03() {
             htmlFor="SujetsInteret"
             className={`font-medium text-dark-purple`}
           >
-            Sujets d'interet
+            Sujets d'intérêt
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
@@ -265,7 +265,7 @@ function Inscription03() {
             id="SujetsInteret"
             name="SujetsInteret"
             value={SujetInteret}
-            placeholder="ex : Machine learning, Cybersecurity, ..."
+            placeholder="exemple : Machine learning, Cybersecurity, ..."
             onChange={(event) => setSujetInteret(event.target.value)}
             required
           />

@@ -19,7 +19,12 @@ export default function Acceuil() {
             </a>
           </li>
           <li className="text-white font-semibold ">
-            <Link to="/a-propos">À propos</Link>
+            <a
+              target="_blank"
+              href="https://drive.google.com/file/d/1rXWqQ_b8jzfAmYd156xxbqRvOb-PCjef/view?usp=sharing"
+            >
+              À propos
+            </a>
           </li>
         </ul>
       </nav>

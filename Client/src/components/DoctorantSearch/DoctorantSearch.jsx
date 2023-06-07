@@ -131,10 +131,10 @@ const DoctorantSearch = () => {
   ];
 
   const statuesOptions = [
-    { value: "inscrit", label: "inscrit" },
-    { value: "abandon", label: "radié" },
-    { value: "soutenu", label: "soutenu" },
-    { value: "différé", label: "différé" },
+    { value: "inscrit", label: "inscrit(e)" },
+    { value: "abandon", label: "radié(e)" },
+    { value: "soutenu", label: "soutenu(e)" },
+    { value: "différé", label: "différé(e)" },
   ];
 
   const yearsOption = [];
@@ -209,7 +209,7 @@ const DoctorantSearch = () => {
           </label>
           <Select
             className="mt-1"
-            placeholder="Inscrit"
+            placeholder="Inscrit(e)"
             id="Statue"
             options={statuesOptions}
             value={selectedStatues}
@@ -218,7 +218,7 @@ const DoctorantSearch = () => {
             styles={customStyles}
           />
         </div>
-        <div className="m-2 flex-1">
+        <div className="m-2 flex-1 text-dark-purple">
           <label
             htmlFor="minYear"
             className="font-normal text-sm text-dark-purple"
@@ -262,7 +262,7 @@ const DoctorantSearch = () => {
             className="font-normal text-sm text-dark-purple"
           >
             {" "}
-            Recherche par nom et prnom
+            Recherche par nom et prénom
           </label>
           <input
             className="text-purple font-normal drop-shadow-[2px_2px_2px_#00000043] rounded p-4 mt-1 w-96 border border-purple focus:border focus:border-green focus:outline-none"

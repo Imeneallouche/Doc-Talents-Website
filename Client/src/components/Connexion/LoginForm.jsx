@@ -25,7 +25,7 @@ export default function LoginForm() {
 
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("Email", email);
-      history.push("/Doctorant");
+      history.push("/Dashboard");
     } catch {
       localStorage.setItem("isLoggedIn", false);
       setErrorMessage("Email ou mot de passe invalide");

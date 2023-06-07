@@ -239,7 +239,7 @@ function Inscription02() {
             htmlFor="PremiereInscription"
             className={`font-medium text-dark-purple m-2`}
           >
-            Date de première inscription
+            Date de la première inscription
           </label>
           <Select
             className="mt-1"
@@ -279,7 +279,7 @@ function Inscription02() {
             htmlFor="CoDirecteurThese"
             className={`font-medium text-dark-purple`}
           >
-            Co directeur de thèse
+            Co-directeur de thèse
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
@@ -318,7 +318,7 @@ function Inscription02() {
             htmlFor="Option"
             className={`font-medium text-dark-purple focus:text-green`}
           >
-            Option
+            Spécialité (Option)
           </label>
           <input
             className={`bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0`}
@@ -337,7 +337,7 @@ function Inscription02() {
             htmlFor="TypeDoctorant"
             className={`font-medium text-dark-purple`}
           >
-            Type Doctorant
+            Type du Doctorant
           </label>
           <Select
             placeholder="LMD"
@@ -357,7 +357,7 @@ function Inscription02() {
             htmlFor="IntituleSujet"
             className={`font-medium text-dark-purple`}
           >
-            Intitulé sujet
+            Intitulé du sujet
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
@@ -396,7 +396,7 @@ function Inscription02() {
             htmlFor="EtablissementMagestere"
             className={`font-medium text-dark-purple`}
           >
-            Etablissement d'origine Magestere
+            Etablissement d'origine Magistère
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"

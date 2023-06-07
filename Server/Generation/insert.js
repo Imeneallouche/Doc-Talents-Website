@@ -96,7 +96,7 @@ var values = [
 ];
 */
 
-var sqlQuery = `INSERT INTO DPGR (
+var sqlQuery = `INSERT INTO PV (
     Role, 
     nom,
     prenom, 

@@ -172,7 +172,7 @@ const DoctorantUpdate = () => {
             }
           }}
         >
-          Reinscription
+          Réinscription
         </button>
 
         <button
@@ -184,7 +184,7 @@ const DoctorantUpdate = () => {
             }
           }}
         >
-          Reinscription Différé
+          Réinscription Différée
         </button>
 
         <button

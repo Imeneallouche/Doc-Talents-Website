@@ -104,8 +104,14 @@ function Statistics() {
               <Cards title="Moyenne" count={data.moyenne} />
             </div>
             <div className="flex gap-12 mt-12">
-              <Cards title="Max" count={data.max} />
-              <Cards title="Min" count={data.max} />
+              <Cards
+                title="Année du plus d'inscription de doctorants"
+                count={data.max}
+              />
+              <Cards
+                title="Année du moin d'inscription de doctorants"
+                count={data.max}
+              />
             </div>
           </div>
           <div className="flex justify-center mt-10">

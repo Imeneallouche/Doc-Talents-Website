@@ -46,7 +46,7 @@ function Inscription01() {
       placeholderColor: "#35468E",
       fontSize: "1rem",
       borderRadius: "0.375rem",
-      padding: "0.75rem",
+      padding: "0.4rem",
 
       "&:focus": {
         outline: "none",
@@ -60,7 +60,6 @@ function Inscription01() {
       color: "#35468E",
     }),
   };
-
   /*
 
 
@@ -127,7 +126,7 @@ function Inscription01() {
             id="Nom"
             name="Nom"
             value={Nom}
-            placeholder="ex : ALLOUCHE"
+            placeholder="exemple : ALLOUCHE"
             onChange={(event) => setNom(event.target.value)}
             required
           />
@@ -142,7 +141,7 @@ function Inscription01() {
             type="text"
             id="Prenom"
             name="Prenom"
-            placeholder="ex : Imène"
+            placeholder="exemple : Imène"
             value={Prenom}
             onChange={(event) => setPrenom(event.target.value)}
             required
@@ -155,7 +154,7 @@ function Inscription01() {
             htmlFor="Id_Doctorant"
             className={`font-medium text-dark-purple`}
           >
-            ID du doctorant
+            Identifiant du doctorant
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
@@ -163,7 +162,7 @@ function Inscription01() {
             id="Id_Doctorant"
             name="Id_Doctorant"
             value={Id_Doctorant}
-            placeholder="ex : 21/0022"
+            placeholder="exemple : 21/0022"
             onChange={(event) => setIdDoctorant(event.target.value)}
             required
           />
@@ -194,7 +193,7 @@ function Inscription01() {
               )}
             />
             <p className="mt-2 invisible peer-required:visible text-orange text-sm">
-              Veuillez fournir une date de naissance
+              Veuillez insérer une date de naissance.
             </p>
           </LocalizationProvider>
         </div>
@@ -204,7 +203,7 @@ function Inscription01() {
             Sexe
           </label>
           <Select
-            placeholder="Male"
+            placeholder="Homme"
             styles={customStyles}
             id="Sexe"
             options={genderOptions}
@@ -220,14 +219,14 @@ function Inscription01() {
         <div className="m-4 flex flex-col flex-1">
           {" "}
           <label htmlFor="Id_PV" className={`font-medium text-dark-purple`}>
-            ID du PV
+            Identifiant du PV
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="text"
             id="Id_PV"
             name="Id_PV"
-            placeholder="ex : 23/0001"
+            placeholder="exemple : 23/0001"
             value={Id_PV}
             onChange={(event) => setIdPV(event.target.value)}
             required
@@ -240,14 +239,14 @@ function Inscription01() {
             htmlFor="Numero_telephone"
             className={`font-medium text-dark-purple`}
           >
-            Numero du telephone
+            Numéro de téléphone
           </label>
           <input
             className="bg-white border border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="tel"
             id="Numero_telephone"
             name="Numero_telephone"
-            placeholder="ex : 0699240858"
+            placeholder="exemple : 0699240858"
             value={Numero_tel}
             onChange={(event) => setNumeroTel(event.target.value)}
             required
@@ -257,20 +256,20 @@ function Inscription01() {
         <div className="m-4 flex flex-col flex-1">
           {" "}
           <label htmlFor="Email" className={`font-medium text-dark-purple`}>
-            Email du doctorant
+            E-mail du doctorant
           </label>
           <input
             className="bg-white border peer border-dark-purple text-purple placeholder-light-purple text-sm rounded-lg p-5 focus:placeholder-green focus:border-green focus:outline-none focus:ring-0"
             type="email"
             id="Email"
             name="Email"
-            placeholder="ex : doctalents@gmail.com"
+            placeholder="exemple : doctalents@gmail.com"
             value={Email}
             onChange={(event) => setEmail(event.target.value)}
             required
           />
           <p className="mt-2 invisible peer-invalid:visible text-orange text-sm">
-            Veuillez fournir une adresse e-mail valide.
+            Veuillez insérer une adresse e-mail valide.
           </p>
         </div>
       </section>

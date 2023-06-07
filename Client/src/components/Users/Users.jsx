@@ -19,7 +19,7 @@ const Users = () => {
   return (
     <div className={`bg-white-bluish w-full flex flex-col`}>
       <div className="bg-gradient-to-l from-blue-900 to-indigo-700 w-50 mr-20 mb-5 h-20 rounded-3xl flex justify-start items-center text-white text-lg ml-20 font-bold poppins shadow-md pl-10">
-        LIST DES UTILISATEURS
+        LISTE DES UTILISATEURS
       </div>
       <ul
         className={`mx-2 grow overflow-y-auto`}
